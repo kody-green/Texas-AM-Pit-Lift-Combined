@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="SelectSpike" Id="{3400e5d8-f531-4690-b110-580b0ceb5e1c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM SelectSpike
+VAR
+	current_pos: ARRAY [1..5] OF WORD :=[16#4355, 16#5252, 16#454E, 16#5420, 16#504F];
+	pos: ARRAY [1..5] OF WORD := [16#5320, 16#2020, 16#2020, 16#2020, 16#2020];
+
+	row: ARRAY [1..10] OF WORD;
+	indexs: ARRAY [1..GV_HMI.iMaxTargets] OF INT;
+	found: BOOL := FALSE;
+	
+	indexesIndex: INT := 1;
+	firstSpikeIndex: INT := 0;
+	secondSpikeIndex: INT := 0;
+	thirdSpikeIndex: INT := 0;	
+	
+	selectedCursorIndex: INT := 0;	
+	cursorIndex: INT := 1;
+	lastPos : REAL := GV_HMI.CurrentPos;
+	noneSelectedTargetPosValue : REAL := 0;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF GV_MODBUS.btnData = GV_MODBUS.btnUp THEN
+	cursorIndex:= cursorIndex - 1;
+	selectedCursorIndex := 0;
+	GV_HMI.TargetPos := noneSelectedTargetPosValue;
+	Execute_Write_Screen();
+END_IF
+
+IF GV_MODBUS.btnData = GV_MODBUS.btnDwn THEN
+	cursorIndex:= cursorIndex + 1;	
+	selectedCursorIndex := 0;
+	GV_HMI.TargetPos := noneSelectedTargetPosValue;
+	Execute_Write_Screen();	
+END_IF
+
+IF NOT GV_MODBUS.wasMTS THEN
+	selectedCursorIndex := 0;
+	GV_HMI.TargetPos := noneSelectedTargetPosValue;
+END_IF
+
+IF GV_MODBUS.btnData = GV_MODBUS.btnEnter THEN
+	selectedCursorIndex := cursorIndex;
+	
+	IF cursorIndex = 1 THEN
+		GV_HMI.TargetPos := XML.savedvalues.savedpos[firstSpikeIndex].target;
+	ELSIF cursorIndex = 2 THEN
+		GV_HMI.TargetPos := XML.savedvalues.savedpos[secondSpikeIndex].target;
+	ELSIF cursorIndex = 3 THEN
+		GV_HMI.TargetPos := XML.savedvalues.savedpos[thirdSpikeIndex].target;
+	END_IF
+	
+	Execute_Write_Screen();
+END_IF
+
+indexs := Get_Valid_Indexs();
+
+IF firstSpikeIndex = 0 THEN
+	firstSpikeIndex := indexs[1];
+	secondSpikeIndex := indexs[2];
+	thirdSpikeIndex := indexs[3];
+END_IF
+
+IF cursorIndex < 1 THEN
+	indexesIndex := indexesIndex - 1;
+	
+	IF indexesIndex < 1 THEN
+		indexesIndex := 1;
+	END_IF
+	
+	firstSpikeIndex := indexs[indexesIndex];
+	secondSpikeIndex := indexs[indexesIndex + 1];
+	thirdSpikeIndex := indexs[indexesIndex + 2];
+	
+	cursorIndex := 1;
+END_IF
+
+IF cursorIndex > 3 THEN	
+	indexesIndex := indexesIndex + 1;
+	
+	IF indexesIndex > (GV_HMI.iMaxTargets - 2) THEN
+		indexesIndex := GV_HMI.iMaxTargets - 2;
+	END_IF
+	
+	IF indexs[indexesIndex + 2] = 0 THEN
+		indexesIndex := indexesIndex - 1;
+	END_IF
+	
+	IF indexesIndex < 1 THEN
+		indexesIndex := 1;
+	END_IF
+		
+	firstSpikeIndex := indexs[indexesIndex];
+	secondSpikeIndex := indexs[indexesIndex + 1];
+	thirdSpikeIndex := indexs[indexesIndex + 2];
+	
+	cursorIndex := 3;
+END_IF
+
+GV_MODBUS.oneLeft:= current_pos;         
+GV_MODBUS.oneRight:= GV_MODBUS.blank;
+GV_MODBUS.twoLeft:= GV_MODBUS.blank;
+GV_MODBUS.twoRight:= GV_MODBUS.blank;
+GV_MODBUS.threeLeft:= GV_MODBUS.blank;
+GV_MODBUS.threeRight:= GV_MODBUS.blank;	
+GV_MODBUS.fourLeft:= GV_MODBUS.blank; 
+GV_MODBUS.fourRight:= GV_MODBUS.blank;
+
+GV_MODBUS.oneRight:= Position_To_Row_Array(pos, GV_HMI.CurrentPos);     
+	
+IF firstSpikeIndex > 0 THEN		
+	IF XML.savedvalues.savedpos[firstSpikeIndex].target < GV_MODBUS.filterTarget THEN
+		
+		
+		IF cursorIndex = 1 AND NOT (selectedCursorIndex = 1) THEN
+			row := Spike_To_Row_Array(GV_MODBUS.selectedASCII, XML.savedvalues.savedpos[firstSpikeIndex]);
+		ELSIF selectedCursorIndex = 1 THEN
+			row := Spike_To_Row_Array(GV_MODBUS.loadedASCII, XML.savedvalues.savedpos[firstSpikeIndex]);
+		ELSE
+			row := Spike_To_Row_Array(GV_MODBUS.spaceASCII, XML.savedvalues.savedpos[firstSpikeIndex]);
+		END_IF
+		
+		Fill_Row_Two(row);
+	END_IF
+END_IF
+	
+IF secondSpikeIndex > 0 THEN					   
+	IF XML.savedvalues.savedpos[secondSpikeIndex].target < GV_MODBUS.filterTarget THEN
+		
+		
+		IF cursorIndex = 2 AND NOT (selectedCursorIndex = 2) THEN
+			row := Spike_To_Row_Array(GV_MODBUS.selectedASCII, XML.savedvalues.savedpos[secondSpikeIndex]);		
+		ELSIF selectedCursorIndex = 2 THEN
+			row := Spike_To_Row_Array(GV_MODBUS.loadedASCII, XML.savedvalues.savedpos[secondSpikeIndex]);	
+		ELSE
+			row := Spike_To_Row_Array(GV_MODBUS.spaceASCII, XML.savedvalues.savedpos[secondSpikeIndex]);
+		END_IF
+		 
+		Fill_Row_Three(row);
+	END_IF	
+END_IF
+
+IF thirdSpikeIndex > 0 THEN
+	IF XML.savedvalues.savedpos[thirdSpikeIndex].target < GV_MODBUS.filterTarget THEN
+		IF cursorIndex = 3 AND NOT (selectedCursorIndex = 3) THEN
+			row := Spike_To_Row_Array(GV_MODBUS.selectedASCII, XML.savedvalues.savedpos[thirdSpikeIndex]); 				
+		ELSIF selectedCursorIndex = 3 THEN
+			row := Spike_To_Row_Array(GV_MODBUS.loadedASCII, XML.savedvalues.savedpos[thirdSpikeIndex]);
+		ELSE
+			row := Spike_To_Row_Array(GV_MODBUS.spaceASCII, XML.savedvalues.savedpos[thirdSpikeIndex]); 
+		END_IF
+		
+		Fill_Row_Four(row);				
+	END_IF
+END_IF
+
+IF NOT GV_MODBUS.readExecute AND GV_MODBUS.addr = GV_MODBUS.oneLeftAddr THEN
+	GV_MODBUS.data:= GV_MODBUS.oneLeft;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="SelectSpike">
+      <LineId Id="355" Count="0" />
+      <LineId Id="625" Count="0" />
+      <LineId Id="900" Count="0" />
+      <LineId Id="1051" Count="0" />
+      <LineId Id="978" Count="0" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="622" Count="0" />
+      <LineId Id="954" Count="0" />
+      <LineId Id="1050" Count="0" />
+      <LineId Id="979" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="1046" Count="0" />
+      <LineId Id="1045" Count="0" />
+      <LineId Id="1047" Count="0" />
+      <LineId Id="1049" Count="0" />
+      <LineId Id="1048" Count="0" />
+      <LineId Id="921" Count="0" />
+      <LineId Id="920" Count="0" />
+      <LineId Id="924" Count="0" />
+      <LineId Id="1016" Count="0" />
+      <LineId Id="1018" Count="1" />
+      <LineId Id="1021" Count="3" />
+      <LineId Id="1020" Count="0" />
+      <LineId Id="1017" Count="0" />
+      <LineId Id="980" Count="0" />
+      <LineId Id="923" Count="0" />
+      <LineId Id="838" Count="0" />
+      <LineId Id="837" Count="0" />
+      <LineId Id="886" Count="0" />
+      <LineId Id="885" Count="0" />
+      <LineId Id="887" Count="0" />
+      <LineId Id="889" Count="1" />
+      <LineId Id="888" Count="0" />
+      <LineId Id="627" Count="0" />
+      <LineId Id="633" Count="0" />
+      <LineId Id="877" Count="3" />
+      <LineId Id="876" Count="0" />
+      <LineId Id="881" Count="2" />
+      <LineId Id="845" Count="0" />
+      <LineId Id="884" Count="0" />
+      <LineId Id="643" Count="0" />
+      <LineId Id="635" Count="0" />
+      <LineId Id="678" Count="0" />
+      <LineId Id="783" Count="0" />
+      <LineId Id="853" Count="0" />
+      <LineId Id="855" Count="0" />
+      <LineId Id="863" Count="7" />
+      <LineId Id="873" Count="2" />
+      <LineId Id="872" Count="0" />
+      <LineId Id="854" Count="0" />
+      <LineId Id="856" Count="0" />
+      <LineId Id="861" Count="0" />
+      <LineId Id="824" Count="0" />
+      <LineId Id="645" Count="0" />
+      <LineId Id="1000" Count="0" />
+      <LineId Id="22" Count="1" />
+      <LineId Id="672" Count="5" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="998" Count="0" />
+      <LineId Id="110" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="895" Count="0" />
+      <LineId Id="553" Count="0" />
+      <LineId Id="938" Count="0" />
+      <LineId Id="935" Count="0" />
+      <LineId Id="955" Count="1" />
+      <LineId Id="927" Count="0" />
+      <LineId Id="957" Count="0" />
+      <LineId Id="649" Count="1" />
+      <LineId Id="648" Count="0" />
+      <LineId Id="295" Count="0" />
+      <LineId Id="307" Count="0" />
+      <LineId Id="554" Count="0" />
+      <LineId Id="896" Count="0" />
+      <LineId Id="442" Count="0" />
+      <LineId Id="893" Count="0" />
+      <LineId Id="546" Count="0" />
+      <LineId Id="944" Count="0" />
+      <LineId Id="940" Count="0" />
+      <LineId Id="958" Count="1" />
+      <LineId Id="653" Count="0" />
+      <LineId Id="960" Count="0" />
+      <LineId Id="655" Count="1" />
+      <LineId Id="654" Count="0" />
+      <LineId Id="548" Count="0" />
+      <LineId Id="550" Count="0" />
+      <LineId Id="549" Count="0" />
+      <LineId Id="894" Count="0" />
+      <LineId Id="443" Count="0" />
+      <LineId Id="551" Count="0" />
+      <LineId Id="891" Count="0" />
+      <LineId Id="946" Count="0" />
+      <LineId Id="950" Count="2" />
+      <LineId Id="660" Count="1" />
+      <LineId Id="659" Count="0" />
+      <LineId Id="324" Count="0" />
+      <LineId Id="322" Count="0" />
+      <LineId Id="892" Count="0" />
+      <LineId Id="552" Count="0" />
+      <LineId Id="73" Count="2" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

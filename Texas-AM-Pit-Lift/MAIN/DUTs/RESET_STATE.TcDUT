@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <DUT Name="RESET_STATE" Id="{1d584288-8313-4925-b5af-cea35283fb22}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE RESET_STATE :
+(
+	IDLE,
+	ERRACK_ON,
+	ERRACK_OFF,
+	IDLE2,
+	ESTOP_RESET_ON
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

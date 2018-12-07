@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="MoveToPosition" Id="{efd4679e-145a-438d-adfc-14fbfe25739e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MoveToPosition
+VAR
+	mtpOneLeft : ARRAY[1..5] OF WORD := [16#2A2A, 16#4D4F, 16#5645, 16#2054, 16#4F20];
+	mtpOneRight : ARRAY[1..5] OF WORD := [16#504F, 16#5349, 16#5449, 16#4F4E, 16#2A2A];
+	
+	current : ARRAY[1..5] OF WORD := [16#4375, 16#7272, 16#656E, 16#7420, 16#506F];
+	target : ARRAY[1..5] OF WORD := [16#5461, 16#7267, 16#6574, 16#2020, 16#506F];
+	pos : ARRAY[1..5] OF WORD := [16#7320, 16#2020, 16#2020, 16#2020, 16#2020];
+	
+	tick : INT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GV_MODBUS.oneLeft:= mtpOneLeft;         
+GV_MODBUS.oneRight:= mtpOneRight;
+
+GV_MODBUS.twoLeft:= current;
+GV_MODBUS.twoRight:= GV_MODBUS.blank;
+
+GV_MODBUS.threeLeft:= target;
+GV_MODBUS.threeRight:= GV_MODBUS.blank;	
+
+GV_MODBUS.fourLeft:= GV_MODBUS.blank; 
+GV_MODBUS.fourRight:= GV_MODBUS.blank;
+
+GV_MODBUS.twoRight:= Position_To_Row_Array(pos, GV_HMI.CurrentPos);     
+GV_MODBUS.threeRight:= Position_To_Row_Array(pos, GV_HMI.TargetPos);
+
+IF tick >= GV_MODBUS.refreshInterval THEN
+	Execute_Write_Screen();
+	tick := 0;
+END_IF
+
+tick := tick + 1;]]></ST>
+    </Implementation>
+    <LineIds Name="MoveToPosition">
+      <LineId Id="15" Count="12" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="28" Count="5" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

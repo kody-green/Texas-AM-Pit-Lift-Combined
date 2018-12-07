@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="Faults" Id="{ff7267c4-369a-4e06-b636-9800277a52cd}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Faults
+VAR
+	faults_oneleft: ARRAY [1..5] OF WORD := [16#2A2A, 16#2A2A, 16#2A2A, 16#2A46, 16#4155];
+	faults_oneRight: ARRAY [1..5] OF WORD := [16#4C54, 16#532A, 16#2A2A, 16#2A2A, 16#2A2A];
+	
+	door_1: ARRAY [1..5] OF WORD :=[16#446F, 16#6F72, 16#2031, 16#2020, 16#2020];
+	door_2: ARRAY [1..5] OF WORD :=[16#446F, 16#6F72, 16#2032, 16#2020, 16#2020];
+	door_3: ARRAY [1..5] OF WORD :=[16#446F, 16#6F72, 16#2033, 16#2020, 16#2020];
+	door_4: ARRAY [1..5] OF WORD :=[16#446F, 16#6F72, 16#2034, 16#2020, 16#2020];
+	down_limit: ARRAY [1..5] OF WORD :=[16#4477, 16#6E20, 16#4C69, 16#6D69, 16#7420];
+	up_limit: ARRAY [1..5] OF WORD :=[16#5570, 16#2020, 16#4C69, 16#6D69, 16#7420];
+	ult_limit: ARRAY [1..5] OF WORD :=[16#556C, 16#7420, 16#4C69, 16#6D69, 16#7420];
+	crush: ARRAY [1..5] OF WORD :=[16#4372, 16#7573, 16#6820, 16#2020, 16#2020];
+	
+	pageNum: WORD := 0;	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF GV_MODBUS.btnData = GV_MODBUS.btnUp THEN
+	pageNum := pageNum - 1;
+	
+	IF pageNum < 0 THEN
+		pageNum := 0;
+	END_IF
+	
+	Execute_Write_Screen();
+END_IF
+
+IF GV_MODBUS.btnData = GV_MODBUS.btnDwn THEN
+	pageNum := pageNum + 1;
+	
+	IF pageNum > 2 THEN
+		pageNum := 2;
+	END_IF
+	
+	Execute_Write_Screen();
+END_IF
+
+GV_MODBUS.oneLeft:= faults_oneLeft;
+GV_MODBUS.oneRight:= faults_oneRight; 
+
+IF pageNum = 0 THEN  
+	                             
+	GV_MODBUS.twoLeft:= up_limit; 
+	IF GV_LIFT.UP_LIMIT_INDICATOR_LATCH_OUT THEN
+		GV_MODBUS.twoRight:= GV_MODBUS.engaged;
+	ELSE
+		GV_MODBUS.twoRight:= GV_MODBUS.ok;		
+	END_IF
+	                        
+	GV_MODBUS.threeLeft:= down_limit;
+	IF GV_LIFT.DOWN_LIMIT_INDICATOR_LATCH_OUT THEN
+		GV_MODBUS.threeRight:= GV_MODBUS.engaged;
+	ELSE
+		GV_MODBUS.threeRight:= GV_MODBUS.ok;
+	END_IF	
+            
+	GV_MODBUS.fourLeft:= ult_limit;
+	IF GV_LIFT.ULTIMATE_LIMIT_INDICATOR_LATCH_OUT THEN
+		GV_MODBUS.fourRight:= GV_MODBUS.engaged;
+	ELSE
+		GV_MODBUS.fourRight:= GV_MODBUS.ok;
+	END_IF  
+        
+END_IF
+
+IF pageNum = 1 THEN
+	                                 
+	GV_MODBUS.twoLeft:= door_1;
+	IF GV_LIFT.DOOR_1_INDICATOR_LATCH_OUT THEN
+		GV_MODBUS.twoRight:= GV_MODBUS.engaged;
+	ELSE
+		GV_MODBUS.twoRight:= GV_MODBUS.ok;
+	END_IF  
+                            
+	GV_MODBUS.threeLeft:= door_2;
+	IF GV_LIFT.DOOR_2_INDICATOR_LATCH_OUT THEN
+		GV_MODBUS.threeRight:= GV_MODBUS.engaged;
+	ELSE
+		GV_MODBUS.threeRight:= GV_MODBUS.ok;
+	END_IF	
+                               
+	GV_MODBUS.fourLeft:= door_3; 
+	IF GV_LIFT.DOOR_3_INDICATOR_LATCH_OUT THEN
+		GV_MODBUS.fourRight:= GV_MODBUS.engaged;
+	ELSE
+		GV_MODBUS.fourRight:= GV_MODBUS.ok;		
+	END_IF
+	               
+	
+END_IF
+
+IF pageNum = 2 THEN
+	       
+	GV_MODBUS.twoLeft:= door_4;
+	IF GV_LIFT.DOOR_4_INDICATOR_LATCH_OUT THEN
+		GV_MODBUS.twoRight:= GV_MODBUS.engaged;
+	ELSE
+		GV_MODBUS.twoRight:= GV_MODBUS.ok;
+	END_IF  
+                           
+	GV_MODBUS.threeLeft:= crush;
+	IF GV_LIFT.CRUSH_PROTECTION_INDICATOR_OUT THEN
+		GV_MODBUS.threeRight:= GV_MODBUS.engaged;
+	ELSE
+		GV_MODBUS.threeRight:= GV_MODBUS.ok;
+	END_IF	
+                               
+	GV_MODBUS.fourLeft:= GV_MODBUS.blank; 
+	GV_MODBUS.fourRight:= GV_MODBUS.blank;
+	
+END_IF
+
+
+IF NOT GV_MODBUS.readExecute AND GV_MODBUS.addr = GV_MODBUS.oneLeftAddr THEN
+	GV_MODBUS.data:= GV_MODBUS.oneLeft;
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="Faults">
+      <LineId Id="20" Count="1" />
+      <LineId Id="28" Count="4" />
+      <LineId Id="22" Count="4" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="35" Count="2" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="72" Count="1" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="204" Count="6" />
+      <LineId Id="168" Count="6" />
+      <LineId Id="197" Count="6" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="141" Count="20" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="190" Count="6" />
+      <LineId Id="105" Count="8" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="48" Count="1" />
+      <LineId Id="120" Count="4" />
+      <LineId Id="119" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="MAIN" Id="{f931fcee-5ac4-4068-9063-b3a0ff76f962}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR		
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF GV_LIFT.DOOR_1_INDICATOR_LATCH_IN THEN
+	GV_LIFT.DOOR_1_INDICATOR_LATCH_OUT := TRUE;
+ELSE
+	GV_LIFT.DOOR_1_INDICATOR_LATCH_OUT := FALSE;	
+END_IF
+
+IF GV_LIFT.PIT_ESTOP_INDICATOR_IN THEN
+	GV_LIFT.PIT_ESTOP_INDICATOR_OUT := TRUE;
+ELSE
+	GV_LIFT.PIT_ESTOP_INDICATOR_OUT := FALSE;	
+END_IF
+
+IF GV_LIFT.DOWNSTAGE_ESTOP_INDICATOR_IN THEN
+	GV_LIFT.DOWNSTAGE_ESTOP_INDICATOR_OUT := TRUE;
+ELSE
+	GV_LIFT.DOWNSTAGE_ESTOP_INDICATOR_OUT := FALSE;	
+END_IF
+
+IF GV_LIFT.ESTOP_INDICATOR_IN THEN
+	GV_LIFT.ESTOP_INDICATOR_OUT := TRUE;
+ELSE
+	GV_LIFT.ESTOP_INDICATOR_OUT := FALSE;	
+END_IF
+
+IF GV_LIFT.FAULT_INDICATOR_IN THEN
+	GV_LIFT.FAULT_INDICATOR_OUT := TRUE;
+ELSE
+	GV_LIFT.FAULT_INDICATOR_OUT := FALSE;	
+END_IF
+
+IF GV_LIFT.UP_BUTTON_IN THEN
+	GV_LIFT.UP_BUTTON_OUT := TRUE;
+ELSE
+	GV_LIFT.UP_BUTTON_OUT := FALSE;
+END_IF
+
+IF GV_LIFT.DOWN_BUTTON_IN THEN
+	GV_LIFT.DOWN_BUTTON_OUT := TRUE;
+ELSE
+	GV_LIFT.DOWN_BUTTON_OUT := FALSE;
+END_IF
+
+IF GV_LIFT.RUN_BUTTON_IN THEN
+	GV_LIFT.RUN_BUTTON_OUT := TRUE;
+ELSE
+	GV_LIFT.RUN_BUTTON_OUT := FALSE;
+END_IF
+
+XML(); 
+HMI();
+Modbus();
+SwitchScreens();]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="425" Count="1" />
+      <LineId Id="428" Count="0" />
+      <LineId Id="430" Count="0" />
+      <LineId Id="427" Count="0" />
+      <LineId Id="432" Count="4" />
+      <LineId Id="431" Count="0" />
+      <LineId Id="438" Count="4" />
+      <LineId Id="437" Count="0" />
+      <LineId Id="448" Count="0" />
+      <LineId Id="447" Count="0" />
+      <LineId Id="449" Count="2" />
+      <LineId Id="424" Count="0" />
+      <LineId Id="752" Count="5" />
+      <LineId Id="790" Count="0" />
+      <LineId Id="750" Count="0" />
+      <LineId Id="791" Count="0" />
+      <LineId Id="793" Count="1" />
+      <LineId Id="792" Count="0" />
+      <LineId Id="796" Count="4" />
+      <LineId Id="795" Count="0" />
+      <LineId Id="802" Count="4" />
+      <LineId Id="801" Count="0" />
+      <LineId Id="849" Count="1" />
+      <LineId Id="576" Count="0" />
+      <LineId Id="655" Count="0" />
+      <LineId Id="476" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

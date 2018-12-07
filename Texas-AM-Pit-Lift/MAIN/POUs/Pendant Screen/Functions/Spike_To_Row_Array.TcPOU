@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="Spike_To_Row_Array" Id="{564aa44c-bca7-43c9-9d02-af4abd26b37d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Spike_To_Row_Array : ARRAY [1..10] OF WORD
+VAR_INPUT
+	firstChar: STRING;
+	spike: ST_SavedPositions;
+END_VAR
+VAR	
+	left: ARRAY [1..5] OF WORD;
+	right: ARRAY[1..5] OF WORD;
+	rightPosition: ARRAY[1..5] OF WORD;
+	
+	spikeName: STRING;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[spikeName := CONCAT(firstChar, spike.description);
+
+left:= Spike_To_Half_Row_Array(MID(spikeName, 10, 1));
+right:= Spike_To_Half_Row_Array(MID(spikeName, 10, 11));
+
+rightPosition:= Position_To_Row_Array(right, spike.target);
+
+Spike_To_Row_Array[1] := left[1];
+Spike_To_Row_Array[2] := left[2];
+Spike_To_Row_Array[3] := left[3];
+Spike_To_Row_Array[4] := left[4];
+Spike_To_Row_Array[5] := left[5];
+Spike_To_Row_Array[6] := rightPosition[1];
+Spike_To_Row_Array[7] := rightPosition[2];
+Spike_To_Row_Array[8] := rightPosition[3];
+Spike_To_Row_Array[9] := rightPosition[4];
+Spike_To_Row_Array[10] := rightPosition[5];]]></ST>
+    </Implementation>
+    <LineIds Name="Spike_To_Row_Array">
+      <LineId Id="133" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="130" Count="1" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="64" Count="2" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="68" Count="4" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

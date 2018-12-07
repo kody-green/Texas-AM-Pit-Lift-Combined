@@ -1,0 +1,53 @@
+Id;Default
+166;%.2f$"
+559;%.3f$"
+24;%s
+742;%s$"
+747;Clear Target
+136;Console E-Stop
+142;Crush Detected
+143;Crush Protection
+741;current position:
+537;DELETE TARGET
+75;Delete Target
+423;Desciption
+516;Description
+300;Door 1 - DSL
+132;Door 2 - DSR
+133;Door 3 - USL
+134;Door 4 - USR
+439;Door Interlock
+135;Door Interlocks
+298;DOWN EOT Limit
+297;DOWN Soft Limit
+141;DS Door E-Stop
+436;E-STOP
+307;EDIT
+599;Edit Description
+748;EDIT MODE:
+598;Edit Target Position
+641;EDIT TARGETS
+140;Emergency Stop
+437;EOT Limit
+299;Limit Status
+744;Load Target
+138;Pickle E-Stop
+137;Pit E-Stop
+736;Properties
+376;RUN
+746;Safety Status Panel
+144;Set Current Position
+146;Set DOWN Soft Limit
+145;Set UP Soft Limit
+438;Soft Limit
+435;SYSTEM
+440;System Fault
+638;Target
+571;Target Position
+743;target position:
+745;Target Positions
+162;Unload Target
+295;UP EOT Limit
+296;UP Soft Limit
+139;US Door E-Stop
+103;Write XML

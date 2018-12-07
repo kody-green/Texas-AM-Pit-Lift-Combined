@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <GVL Name="GV_MODBUS" Id="{3b492ee3-99d8-478e-b1c7-72a4fe91102d}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	UnitID: BYTE := 101;	
+	timeout: TIME := T#1S;
+	quantity: WORD := 5;
+	
+	btnUp: WORD := 2;
+	btnDwn: WORD := 4;
+	btnEnter: WORD := 1;
+	
+	oneLeftAddr: WORD := 0;
+	oneRightAddr: WORD:= 5;
+	twoLeftAddr: WORD:= 10;
+	twoRightAddr: WORD:= 15;
+	threeLeftAddr: WORD:= 20;
+	threeRightAddr: WORD:= 25;
+	fourLeftAddr: WORD:= 30;
+	fourRightAddr: WORD:= 35;	
+	
+	blank: ARRAY [1..5] OF WORD := [16#2020, 16#2020, 16#2020, 16#2020, 16#2020];
+	ok: ARRAY [1..5] OF WORD := [16#4F4B, 16#2020, 16#2020, 16#2020, 16#2020];
+	engaged: ARRAY [1..5] OF WORD := [16#454E, 16#4741, 16#4745, 16#4420, 16#2020];
+
+	inch: WORD:= 16#22;
+	inchSpace: WORD:= 16#2220;
+	space: WORD:= 16#0020;
+	spaceASCII: STRING := ' ';
+	dblSpace: WORD:=16#2020;
+	selected: WORD:= 16#3E;
+	selectedASCII: STRING:= '>';
+	loaded: WORD:= 16#2A;
+	loadedASCII: STRING:= '*';
+	
+	filterTarget: REAL:= 999.99;
+END_VAR
+
+VAR_GLOBAL	
+	
+	screen: ModbusRtuMasterV2_KL6x22B;
+	writeExecute: BOOL := TRUE;
+	readExecute: BOOL := FALSE;
+	doneWriting: BOOL := FALSE;
+	
+	oneLeft: ARRAY [1..5] OF WORD := GV_MODBUS.blank;
+	oneRight: ARRAY [1..5] OF WORD;                              
+	twoLeft: ARRAY [1..5] OF WORD;
+	twoRight: ARRAY [1..5] OF WORD;	                               
+	threeLeft: ARRAY [1..5] OF WORD;
+	threeRight: ARRAY [1..5] OF WORD;	                               
+	fourLeft: ARRAY [1..5] OF WORD; 
+	fourRight: ARRAY [1..5] OF WORD;
+				
+	addr: WORD:= GV_MODBUS.oneLeftAddr;
+	data: ARRAY [1..5] OF WORD := GV_MODBUS.oneLeft;	
+	
+	btnData: WORD := 0;		
+	
+	wasMTS : BOOL := FALSE;
+	refreshInterval: INT := 100;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

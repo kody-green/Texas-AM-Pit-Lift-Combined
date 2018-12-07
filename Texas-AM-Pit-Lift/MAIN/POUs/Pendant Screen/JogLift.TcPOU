@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="JogLift" Id="{b51312da-1bac-47c9-91ad-d5fd5b0ce8a9}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM JogLift
+VAR
+	jogOneLeft : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A2A, 16#2A2A, 16#4A4F, 16#4720];
+	jogOneRight : ARRAY [1..5] OF WORD := [16#4C49, 16#4654, 16#2A2A, 16#2A2A, 16#2A2A];
+	current : ARRAY [1..5] OF WORD := [16#4375, 16#7272, 16#656E, 16#7420, 16#506F];
+	pos : ARRAY [1..5] OF WORD := [16#7320, 16#2020, 16#2020, 16#2020, 16#2020];
+	moving : ARRAY [1..5] OF WORD := [16#4D6F, 16#7669, 16#6E67, 16#2020, 16#2020];
+	up : ARRAY [1..5] OF WORD := [16#2020, 16#2020, 16#2020, 16#2020, 16#5570];
+	down : ARRAY [1..5] OF WORD := [16#2020, 16#2020, 16#2020, 16#446F, 16#776E];
+	
+	movingUpLeft : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A4A, 16#4F47, 16#204C, 16#4946];
+	movingUpRight : ARRAY [1..5] OF WORD := [16#5420, 16#2D20, 16#5550, 16#2A2A, 16#2A2A];
+	movingDownLeft : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A4A, 16#4F47, 16#204C, 16#4946];
+	movingDownRight : ARRAY [1..5] OF WORD := [16#5420, 16#2D20, 16#444E, 16#2A2A, 16#2A2A];
+	
+	tick : INT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GV_MODBUS.oneLeft:= GV_MODBUS.blank;         
+GV_MODBUS.oneRight:= GV_MODBUS.blank;
+
+GV_MODBUS.twoLeft:= GV_MODBUS.blank;
+GV_MODBUS.twoRight:= GV_MODBUS.blank;
+
+GV_MODBUS.threeLeft:= current;
+GV_MODBUS.threeRight:= GV_MODBUS.blank;	
+
+GV_MODBUS.fourLeft:= GV_MODBUS.blank; 
+GV_MODBUS.fourRight:= GV_MODBUS.blank;
+
+GV_MODBUS.threeRight:= Position_To_Row_Array(pos, GV_HMI.CurrentPos);     
+
+IF GV_LIFT.DOWN_BUTTON_OUT THEN
+	GV_MODBUS.oneLeft:= movingDownLeft;
+	GV_MODBUS.oneRight := movingDownRight;
+ELSE
+	GV_MODBUS.oneLeft:= movingUpLeft;
+	GV_MODBUS.oneRight := movingUpRight;
+END_IF
+
+IF tick >= GV_MODBUS.refreshInterval THEN
+	Execute_Write_Screen();
+	tick := 0;
+END_IF
+
+tick := tick + 1;]]></ST>
+    </Implementation>
+    <LineIds Name="JogLift">
+      <LineId Id="10" Count="1" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="14" Count="1" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="49" Count="1" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="24" Count="2" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="21" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

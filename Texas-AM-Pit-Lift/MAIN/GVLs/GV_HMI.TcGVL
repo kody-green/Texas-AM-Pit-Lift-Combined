@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <GVL Name="GV_HMI" Id="{f0faad59-668f-4b47-9fcc-cad96068a6da}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	iMaxTargets		:	INT:=25;
+	iMaxButtons		:	INT:=20;
+
+END_VAR
+
+VAR_GLOBAL
+	ColorToggle		:	ARRAY [1..iMaxButtons] OF BOOL;
+
+	CurrentPos		:	REAL:=100;
+	TargetPos		:	REAL;
+	DisplayTgtPos	:	STRING:= '';
+	RowSelect		:	INT:=1;
+	ColumnSelect	:	INT:=1;
+	RowSelected		:	INT:= RowSelect;
+	
+	ClearToRun		:	BOOL:= FALSE;
+	DisplayTargets	:	BOOL;
+	
+	stPositions		:	ARRAY [1..25] OF ST_SavedPositions;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

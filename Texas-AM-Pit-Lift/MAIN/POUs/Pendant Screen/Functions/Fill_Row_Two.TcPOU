@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="Fill_Row_Two" Id="{3a251f3e-0781-4a93-9af1-89324f6e2c79}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Fill_Row_Two : BOOL
+VAR_INPUT
+	row: ARRAY [1..10] OF WORD;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GV_MODBUS.twoLeft[1]:= row[1];
+GV_MODBUS.twoLeft[2]:= row[2];
+GV_MODBUS.twoLeft[3]:= row[3];
+GV_MODBUS.twoLeft[4]:= row[4];
+GV_MODBUS.twoLeft[5]:= row[5];
+GV_MODBUS.twoRight[1]:= row[6];
+GV_MODBUS.twoRight[2]:= row[7];
+GV_MODBUS.twoRight[3]:= row[8];
+GV_MODBUS.twoRight[4]:= row[9];
+GV_MODBUS.twoRight[5]:= row[10];
+
+Fill_Row_Two := TRUE;]]></ST>
+    </Implementation>
+    <LineIds Name="Fill_Row_Two">
+      <LineId Id="10" Count="8" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

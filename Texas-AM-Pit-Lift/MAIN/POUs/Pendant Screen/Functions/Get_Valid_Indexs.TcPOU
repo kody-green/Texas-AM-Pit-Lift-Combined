@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="Get_Valid_Indexs" Id="{a84b37d0-7817-4376-9d51-ea3cb97f205d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Get_Valid_Indexs : ARRAY [1..GV_HMI.iMaxTargets] OF INT
+VAR_INPUT
+END_VAR
+VAR
+	indexes: ARRAY [1..GV_HMI.iMaxTargets] OF INT;
+	i: INT;
+	j: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[j := 1;
+FOR i:=1 TO GV_HMI.iMaxTargets BY 1 DO 
+   IF XML.savedvalues.savedpos[i].target < GV_MODBUS.filterTarget THEN
+	   indexes[j] := i;
+	   j := j + 1;
+   END_IF
+END_FOR;
+
+Get_Valid_Indexs := indexes;]]></ST>
+    </Implementation>
+    <LineIds Name="Get_Valid_Indexs">
+      <LineId Id="17" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="21" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="Execute_Write_Screen" Id="{c34f2788-754d-42b5-a5c7-b5a1c4b4c671}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Execute_Write_Screen : BOOL
+VAR_INPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GV_MODBUS.addr := GV_MODBUS.oneLeftAddr;
+GV_MODBUS.writeExecute := TRUE;
+GV_MODBUS.readExecute := FALSE;
+GV_MODBUS.doneWriting := FALSE;
+GV_MODBUS.btnData := 0;	]]></ST>
+    </Implementation>
+    <LineIds Name="Execute_Write_Screen">
+      <LineId Id="9" Count="3" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="Spike_To_Half_Row_Array" Id="{16915fda-02f9-42a4-82e4-ab7efa22b4d8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Spike_To_Half_Row_Array : ARRAY[1..5] OF WORD
+VAR_INPUT
+	spikeName: String;	
+END_VAR
+VAR
+	row: ARRAY[1..5] OF WORD;
+	n:BYTE:=8;
+	spikeNameLen: INT := 0;
+	
+	spikeIndex: INT := 0;
+	rowIndex: INT := 1;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[spikeIndex := 0;
+rowIndex := 1;
+spikeNameLen := LEN(spikeName);
+row:= GV_MODBUS.blank;
+
+WHILE rowIndex < 6 DO	
+	IF spikeIndex < spikeNameLen  THEN
+		row[rowIndex] := spikeName[spikeIndex];
+	ELSE
+		row[rowIndex] := GV_MODBUS.space;
+	END_IF	
+	row[rowIndex] := SHL(row[rowIndex], n);		
+	spikeIndex := spikeIndex + 1;
+	
+	IF spikeIndex < spikeNameLen THEN
+		row[rowIndex] := row[rowIndex] OR spikeName[spikeIndex];
+	ELSE
+		row[rowIndex] := row[rowIndex] OR GV_MODBUS.space;		
+	END_IF
+	spikeIndex := spikeIndex + 1;
+	
+	rowIndex := rowIndex + 1;	
+END_WHILE
+
+Spike_To_Half_Row_Array := row;]]></ST>
+    </Implementation>
+    <LineIds Name="Spike_To_Half_Row_Array">
+      <LineId Id="51" Count="21" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="73" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

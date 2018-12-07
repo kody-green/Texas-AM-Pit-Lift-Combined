@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="SwitchScreens" Id="{6a02257c-3ca6-42d0-b540-f283b9817c7d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM SwitchScreens
+VAR
+	screenFound : BOOL := TRUE;
+	screenSearchAttempts : INT := 0;
+	screenRetryInerval: INT := 10;
+	wasNoScreen : BOOL := FALSE;
+	
+	wasEstop : BOOL := FALSE;
+	wasFault : BOOL := FALSE;
+	wasJogging : BOOL := FALSE;
+	wasRunningToTarget : BOOL := FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF GV_MODBUS.screen.Error THEN
+	screenFound := FALSE;
+	wasNoScreen := TRUE;
+	
+	IF screenSearchAttempts > screenRetryInerval THEN
+		screenFound := TRUE;
+		GV_MODBUS.readExecute := TRUE;
+	END_IF
+	
+	screenSearchAttempts := screenSearchAttempts + 1;
+ELSE
+	screenFound := TRUE;
+		
+	IF GV_LIFT.ESTOP_INDICATOR_OUT THEN
+		EStop();
+		
+		IF NOT wasEstop THEN
+			Execute_Write_Screen();
+		END_IF
+		
+		wasEstop := TRUE;
+		GV_MODBUS.wasMTS := FALSE;
+		wasFault := FALSE;
+		wasJogging := FALSE;
+		wasRunningToTarget := FALSE;
+	ELSIF GV_LIFT.FAULT_INDICATOR_OUT THEN	
+		Faults();	
+	
+		IF NOT wasFault THEN
+			Execute_Write_Screen();
+		END_IF
+		
+		wasEstop := FALSE;
+		GV_MODBUS.wasMTS := FALSE;
+		wasFault := TRUE;
+		wasJogging := FALSE;
+		wasRunningToTarget := FALSE;
+	ELSIF GV_LIFT.UP_BUTTON_OUT OR GV_LIFT.DOWN_BUTTON_OUT THEN
+		JogLift();
+		
+		IF NOT wasJogging THEN
+			Execute_Write_Screen();
+		END_IF
+		
+		wasEstop := FALSE;
+		GV_MODBUS.wasMTS := FALSE;
+		wasFault := FALSE;
+		wasJogging := TRUE;
+		wasRunningToTarget := FALSE;
+	ELSIF GV_LIFT.RUN_BUTTON_OUT THEN
+		MoveToPosition();
+		
+		IF NOT wasRunningToTarget THEN
+			Execute_Write_Screen();
+		END_IF
+		
+		wasEstop := FALSE;
+		GV_MODBUS.wasMTS := FALSE;
+		wasFault := FALSE;
+		wasJogging := FALSE;
+		wasRunningToTarget := TRUE;
+	ELSE
+		SelectSpike();
+		
+		IF NOT GV_MODBUS.wasMTS THEN
+			Execute_Write_Screen();
+		END_IF
+		
+		wasEstop := FALSE;
+		GV_MODBUS.wasMTS := TRUE;
+		wasFault := FALSE;
+		wasJogging := FALSE;
+		wasRunningToTarget := FALSE;
+	END_IF
+	
+	IF wasNoScreen THEN
+		wasNoScreen := FALSE;
+		Execute_Write_Screen();
+	END_IF
+END_IF
+
+IF screenFound THEN	
+	ReadWriteScreen();
+	screenSearchAttempts := 0;
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="SwitchScreens">
+      <LineId Id="229" Count="0" />
+      <LineId Id="303" Count="0" />
+      <LineId Id="313" Count="0" />
+      <LineId Id="230" Count="0" />
+      <LineId Id="305" Count="1" />
+      <LineId Id="311" Count="0" />
+      <LineId Id="307" Count="0" />
+      <LineId Id="304" Count="0" />
+      <LineId Id="302" Count="0" />
+      <LineId Id="233" Count="0" />
+      <LineId Id="296" Count="0" />
+      <LineId Id="314" Count="0" />
+      <LineId Id="234" Count="59" />
+      <LineId Id="232" Count="0" />
+      <LineId Id="315" Count="2" />
+      <LineId Id="319" Count="0" />
+      <LineId Id="318" Count="0" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="228" Count="0" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="300" Count="0" />
+      <LineId Id="310" Count="0" />
+      <LineId Id="299" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

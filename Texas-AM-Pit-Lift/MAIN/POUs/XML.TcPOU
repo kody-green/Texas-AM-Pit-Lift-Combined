@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="XML" Id="{6eef0ea7-4544-4415-8d0d-0f64a62ae60c}" SpecialFunc="None">
+    <Declaration><![CDATA[ PROGRAM XML
+VAR
+   savedvalues     : ST_SavedStructure;
+   fbXmlSrvWrite   : FB_XmlSrvWrite;
+   fbXmlSrvRead    : FB_XmlSrvRead; 
+   sFileFolder     : T_MaxString := '\Hard Disk\'; (* CE: '\Hard Disk\' *) (* Win10: '\C:\ *)
+   sFileName       : T_MaxString := 'HMI-Saved-Positions.xml';
+   //sFilePath 	   : T_MaxString := 'C:\HMI-Saved-Positions.xml';  				//disable for CE
+   sFilePath       : T_MaxString := '\Hard Disk\HMI-Saved-Positions.xml';		//enable for CE
+   (*sFilePathWrite = sFileFolder + time + sFileName*)
+   bExecute        : BOOL; 
+   sXPath          : T_MaxString := '/dataentry/MAIN.savedvalues';
+   ntGetTime       : NT_GetTime;
+   stMyTimestruct  : TIMESTRUCT;
+   iState          : INT := 0;
+   bTwentySec      : BOOL:= FALSE;
+   bButton         : BOOL:= FALSE;
+   bTwentySecOver  : BOOL;
+   triggerWrite    : R_TRIG;
+   triggerButton   : R_TRIG;
+   i			   : INT:=1;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*CASE i	OF
+1..25:  GV_HMI.stPositions[i] := savedvalues.SavedPos[i];
+		i := i+1;
+26:		i := 1;
+END_CASE*)
+
+triggerButton(CLK:= bButton);
+
+
+CASE iState OF
+0: (* initialize *)
+   fbXmlSrvRead(
+   	 pSymAddr  := ADR(savedvalues),
+     cbSymSize := SIZEOF(savedvalues), 
+     sFilePath := sFilePath,
+     sXPath    := sXPath,
+     bExecute  := TRUE
+   );
+   iState:= 1; 
+   ;
+   
+1: (* wait for read operation *)
+   fbXmlSrvRead(bExecute:= FALSE);
+   IF NOT fbXmlSrvRead.bBusy AND NOT fbXmlSrvRead.bError THEN
+     iState:= 2; 
+   ELSIF fbXmlSrvRead.bError THEN
+     iState:= 100;
+   END_IF
+ 
+2: (* Write *)
+	savedvalues.counter:=savedvalues.counter + 1;
+	IF savedvalues.counter = 326767 THEN
+		savedvalues.counter := 0;
+	END_IF
+
+   fbXmlSrvWrite(nMode:=XMLSRV_ADDMISSING, pSymAddr:= ADR(savedvalues),
+   cbSymSize:= SIZEOF(savedvalues));
+   ntGetTime(START:= TRUE, TIMESTR=>stMyTimestruct); (* get Windows time *)
+   IF NOT ntGetTime.BUSY AND NOT ntGetTime.ERR THEN
+      iState:= 5;
+   ELSIF ntGetTime.ERR THEN
+      iState:= 100;
+ END_IF
+   
+5: (* working state *)
+   ntGetTime(START:= FALSE);
+   IF NOT ntGetTime.BUSY AND NOT ntGetTime.ERR THEN
+      ntGetTime(START:= TRUE, TIMESTR=>stMyTimestruct);
+   ELSIF ntGetTime.ERR THEN
+      iState:= 100;
+   END_IF
+
+   (* check if 20s have passed*)
+   IF stMyTimestruct.wSecond = 0 OR stMyTimestruct.wSecond = 20 
+                    OR stMyTimeStruct.wSecond = 40 THEN
+      bTwentySecOver:= TRUE;
+      ELSE
+      bTwentySecOver:= FALSE;
+   END_IF
+
+   (* if 20s have passed => trigger writing-process *)
+   triggerWrite(CLK:=bTwentySecOver);
+   IF (triggerWrite.Q OR triggerButton.Q) AND NOT fbXmlSrvWrite.bBusy AND NOT fbXmlSrvWrite.bError THEN 
+      (* write *)
+      fbXmlSrvWrite(sFilePath:=sFilePath, sXPath:=sXPath, bExecute:= TRUE);
+
+   ELSIF fbXmlSrvWrite.bError THEN
+      iState:= 100;
+   END_IF
+
+   (* reset fbXmlSrvWrite *)
+   IF fbXmlSrvWrite.bBusy AND NOT ntGetTime.ERR THEN
+      fbXmlSrvWrite(bExecute:= FALSE);
+   ELSIF ntGetTime.ERR THEN
+      iState:= 100;
+   END_IF
+ 
+100: (* error state*) 
+ ;
+
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="XML">
+      <LineId Id="516" Count="0" />
+      <LineId Id="513" Count="0" />
+      <LineId Id="521" Count="0" />
+      <LineId Id="520" Count="0" />
+      <LineId Id="178" Count="0" />
+      <LineId Id="519" Count="0" />
+      <LineId Id="518" Count="0" />
+      <LineId Id="492" Count="0" />
+      <LineId Id="474" Count="0" />
+      <LineId Id="180" Count="0" />
+      <LineId Id="297" Count="0" />
+      <LineId Id="350" Count="6" />
+      <LineId Id="358" Count="1" />
+      <LineId Id="420" Count="0" />
+      <LineId Id="413" Count="6" />
+      <LineId Id="360" Count="1" />
+      <LineId Id="443" Count="3" />
+      <LineId Id="442" Count="0" />
+      <LineId Id="185" Count="9" />
+      <LineId Id="200" Count="17" />
+      <LineId Id="231" Count="16" />
+      <LineId Id="73" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

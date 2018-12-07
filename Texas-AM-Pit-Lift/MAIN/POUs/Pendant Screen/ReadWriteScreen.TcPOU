@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="ReadWriteScreen" Id="{90cf1763-43f2-40d9-a13f-610af0c65604}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM ReadWriteScreen
+VAR
+	writeBusy: BOOL;
+	writeError: BOOL;
+	writeErrorId: MODBUS_ERRORS;
+	readBusy: BOOL;
+	readError: BOOL;
+	readErrorId: MODBUS_ERRORS;	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GV_MODBUS.screen.WriteRegs(
+	UnitID:= GV_MODBUS.UnitID, 
+	Timeout:= GV_MODBUS.timeout,
+	Quantity:= GV_MODBUS.quantity,
+	cbLength:= GV_MODBUS.quantity * 2,
+	Execute:= GV_MODBUS.writeExecute,
+	MBAddr := GV_MODBUS.addr,
+	pMemoryAddr:= ADR(GV_MODBUS.data),
+	Busy=> writeBusy,
+	Error=> writeError,
+	ErrorId=> writeErrorId
+);	
+
+GV_MODBUS.writeExecute := FALSE;
+
+GV_MODBUS.screen.ReadRegs(
+	UnitID:= GV_MODBUS.UnitID, 
+	Timeout:= GV_MODBUS.timeout,
+	Quantity:= 1,
+	cbLength:= 2,
+	Execute:= GV_MODBUS.readExecute,
+	MBAddr := 16#3A,
+	pMemoryAddr:= ADR(GV_MODBUS.btnData),
+	Busy=> readBusy,
+	Error=> readError,
+	ErrorId=> readErrorId
+);	
+
+IF NOT GV_MODBUS.screen.Busy THEN 
+	IF GV_MODBUS.screen.Error THEN 
+		GV_MODBUS.addr:= 99;
+	ELSE 
+		IF GV_MODBUS.doneWriting THEN
+			GV_MODBUS.addr := GV_MODBUS.oneLeftAddr;
+			GV_MODBUS.data:= GV_MODBUS.oneLeft;
+			GV_MODBUS.readExecute := TRUE;	
+		ELSIF GV_MODBUS.addr = GV_MODBUS.oneLeftAddr THEN
+			GV_MODBUS.addr := GV_MODBUS.oneRightAddr;
+			GV_MODBUS.data:= GV_MODBUS.oneRight;
+			GV_MODBUS.writeExecute := TRUE;
+		ELSIF GV_MODBUS.addr = GV_MODBUS.oneRightAddr THEN
+			GV_MODBUS.addr := GV_MODBUS.twoLeftAddr;
+			GV_MODBUS.data:= GV_MODBUS.twoLeft;
+			GV_MODBUS.writeExecute := TRUE;
+		ELSIF GV_MODBUS.addr = GV_MODBUS.twoLeftAddr THEN
+			GV_MODBUS.addr := GV_MODBUS.twoRightAddr;
+			GV_MODBUS.data:= GV_MODBUS.twoRight;
+			GV_MODBUS.writeExecute := TRUE;
+		ELSIF GV_MODBUS.addr = GV_MODBUS.twoRightAddr THEN
+			GV_MODBUS.addr := GV_MODBUS.threeLeftAddr;
+			GV_MODBUS.data:= GV_MODBUS.threeLeft;
+			GV_MODBUS.writeExecute := TRUE;
+		ELSIF GV_MODBUS.addr = GV_MODBUS.threeLeftAddr THEN
+			GV_MODBUS.addr := GV_MODBUS.threeRightAddr;
+			GV_MODBUS.data:= GV_MODBUS.threeRight;
+			GV_MODBUS.writeExecute := TRUE;
+		ELSIF GV_MODBUS.addr = GV_MODBUS.threeRightAddr THEN
+			GV_MODBUS.addr := GV_MODBUS.fourLeftAddr;
+			GV_MODBUS.data:= GV_MODBUS.fourLeft;
+			GV_MODBUS.writeExecute := TRUE;
+		ELSIF GV_MODBUS.addr = GV_MODBUS.fourLeftAddr THEN
+			GV_MODBUS.addr := GV_MODBUS.fourRightAddr;
+			GV_MODBUS.data:= GV_MODBUS.fourRight;
+			GV_MODBUS.writeExecute := TRUE;
+		ELSIF GV_MODBUS.addr = GV_MODBUS.fourRightAddr THEN
+			GV_MODBUS.addr := GV_MODBUS.oneLeftAddr;
+			GV_MODBUS.data:= GV_MODBUS.oneLeft;
+			GV_MODBUS.writeExecute := TRUE;
+			GV_MODBUS.doneWriting := TRUE;
+		END_IF		
+	END_IF
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="ReadWriteScreen">
+      <LineId Id="7" Count="31" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="91" Count="1" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="39" Count="27" />
+      <LineId Id="101" Count="1" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="103" Count="0" />
+      <LineId Id="69" Count="2" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

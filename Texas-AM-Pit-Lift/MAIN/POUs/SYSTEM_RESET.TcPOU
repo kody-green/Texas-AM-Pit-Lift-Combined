@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="SYSTEM_RESET" Id="{79ec6cbb-745c-4e4b-894b-dfefb2e21cbe}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM SYSTEM_RESET
+VAR CONSTANT
+	TRANSITION_COUNT : INT := 10;
+END_VAR
+
+VAR
+	cycleCounter : INT;
+	state : RESET_STATE;
+	
+	ERROR_ACKNOWLEDGEMENT_BUTTON_OUT AT %Q* : BOOL;
+	ESTOP_RESTART_BUTTON_OUT AT %Q* : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF GV_LIFT.SYSTEM_RESET_BUTTON_IN THEN
+	GV_LIFT.SYSTEM_RESET_BUTTON_IN := TRUE;
+	cycleCounter := cycleCounter + 1;
+	CASE state OF
+		RESET_STATE.IDLE :
+			IF(cycleCounter >= TRANSITION_COUNT) THEN
+				state := RESET_STATE.ERRACK_ON;
+				cycleCounter := 0;
+			END_IF
+		RESET_STATE.ERRACK_ON :
+			ERROR_ACKNOWLEDGEMENT_BUTTON_OUT := TRUE;
+			IF(cycleCounter >= TRANSITION_COUNT) THEN
+				state := RESET_STATE.ERRACK_OFF;
+				cycleCounter := 0;
+			END_IF
+		RESET_STATE.ERRACK_OFF :
+			ERROR_ACKNOWLEDGEMENT_BUTTON_OUT := FALSE;
+			IF(cycleCounter >= TRANSITION_COUNT) THEN
+				state := RESET_STATE.IDLE2;
+				cycleCounter := 0;
+			END_IF
+		RESET_STATE.IDLE2 :
+			IF(cycleCounter >= TRANSITION_COUNT) THEN
+				state := RESET_STATE.ESTOP_RESET_ON;
+				cycleCounter := 0;
+			END_IF
+		RESET_STATE.ESTOP_RESET_ON :
+			ERROR_ACKNOWLEDGEMENT_BUTTON_OUT := TRUE;
+			IF(cycleCounter >= TRANSITION_COUNT) THEN
+				state := RESET_STATE.IDLE;
+				cycleCounter := 0;
+				GV_LIFT.SYSTEM_RESET_BUTTON_IN := FALSE;
+			END_IF
+	END_CASE
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="SYSTEM_RESET">
+      <LineId Id="5" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="28" Count="1" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="40" Count="4" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="49" Count="2" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="53" Count="4" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="8" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="HMI" Id="{64e13a00-698b-4f83-9fef-3d94ef99aec6}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM HMI
+VAR
+	displayvalues	: ARRAY[1..25] OF ST_DisplayPositions;
+	displaycounter	: INT:=1;
+	insidelimits	: BOOL:= FALSE;
+	bLoadOK			: BOOL:= FALSE;
+	bLoaded			: BOOL:= FALSE;
+	bUnload			: BOOL:= FALSE;
+	bTgtLoaded		: BOOL:= FALSE;
+	bEditEnable		: BOOL:= FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Displayed Values Logic
+	CASE displaycounter OF
+	1..25: (* Creates a state machine that will write XML values to displayed values *)
+		IF 	XML.savedvalues.SavedPos[displaycounter].targetclear = FALSE THEN 
+			displayvalues[displaycounter].target := '';
+			//displayvalues[displaycounter].description := '';
+		ELSE	
+			displayvalues[displaycounter].target := CONCAT((REAL_TO_STRING(XML.savedvalues.SavedPos[displaycounter].target)),'"');
+		END_IF
+		displaycounter := displaycounter +1;
+	26: (*Resets State Machine *)
+			displaycounter := 1;
+	END_CASE
+	
+	displayvalues[displaycounter].description := (XML.savedvalues.SavedPos[displaycounter].description);	
+	
+//Determines if Target is inside Soft Limits
+	IF XML.savedvalues.savedpos[.GV_HMI.RowSelect].target <= (XML.savedvalues.FwdSoftLim) AND XML.savedvalues.savedpos[.GV_HMI.RowSelect].target >= (XML.savedvalues.RevSoftLim) THEN
+		insidelimits := TRUE;
+	ELSE
+		insidelimits := FALSE;
+	END_IF
+	
+//Load Button Logic
+	IF XML.savedvalues.savedpos[.GV_HMI.RowSelect].targetclear = TRUE AND insidelimits = TRUE THEN
+		bLoadOK	:= TRUE;
+	ELSE
+		bLoadOK	:= FALSE;	
+	END_IF
+
+//Removing Target if highlighted target changes
+	IF xml.savedvalues.SavedPos[GV_HMI.RowSelected].target <> xml.savedvalues.SavedPos[GV_HMI.RowSelect].target THEN
+		bTgtLoaded := FALSE;
+	END_IF
+	
+// Displaying Loaded Target
+	IF 	bTgtLoaded = FALSE OR bLoadOK = FALSE THEN
+		GV_HMI.DisplayTgtPos:= '';
+	ELSE
+		GV_HMI.DisplayTgtPos:= CONCAT(REAL_TO_STRING((GV_HMI.TargetPos)),'"');
+	END_IF
+// Hiding load Button to Display Unload Button
+	IF bLoadOK = TRUE AND bTgtLoaded = TRUE THEN
+		bUnload := TRUE;
+	ELSE bUnload := FALSE;	
+	END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="HMI">
+      <LineId Id="42" Count="0" />
+      <LineId Id="6" Count="6" />
+      <LineId Id="14" Count="3" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="70" Count="1" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="28" Count="2" />
+      <LineId Id="93" Count="2" />
+      <LineId Id="85" Count="2" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="88" Count="4" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="97" Count="2" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="100" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

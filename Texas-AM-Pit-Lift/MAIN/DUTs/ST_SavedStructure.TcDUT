@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <DUT Name="ST_SavedStructure" Id="{b7ffbcaa-7c3b-4f1f-ade3-c48f89174665}">
+    <Declaration><![CDATA[TYPE ST_SavedStructure :
+STRUCT
+	CurrentPos		:	REAL;
+	FwdSoftLim		:	REAL;
+	RevSoftLim		:	REAL;
+	Counter			:	INT;
+	SavedPos		:	ARRAY [1..25] OF ST_SavedPositions;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

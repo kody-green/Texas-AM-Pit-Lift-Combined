@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="Modbus" Id="{75570e4b-86a4-4178-977e-373e91360c16}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Modbus
+VAR		
+	stage: ST_SavedPositions;
+	house: ST_SavedPositions;	
+	pit: ST_SavedPositions;
+	long_name: ST_SavedPositions;	
+	basement: ST_SavedPositions;
+	initSpike1: ST_SavedPositions;
+	initSpike2: ST_SavedPositions;
+	initSpike3: ST_SavedPositions;
+	initSpike4: ST_SavedPositions;
+	initSpike5: ST_SavedPositions;
+	initSpike6: ST_SavedPositions;
+	initSpike7: ST_SavedPositions;
+	initSpike8: ST_SavedPositions;
+	initSpike9: ST_SavedPositions;
+	initSpike10: ST_SavedPositions;
+	initSpike11: ST_SavedPositions;
+	initSpike12: ST_SavedPositions;
+	initSpike13: ST_SavedPositions;
+	initSpike14: ST_SavedPositions;
+	initSpike15: ST_SavedPositions;
+	initSpike16: ST_SavedPositions;
+	initSpike17: ST_SavedPositions;
+	initSpike18: ST_SavedPositions;
+	initSpike19: ST_SavedPositions;
+	initSpike20: ST_SavedPositions;
+	initSpike21: ST_SavedPositions;
+	initSpike22: ST_SavedPositions;
+	initSpike23: ST_SavedPositions;
+	initSpike24: ST_SavedPositions;
+	initSpike25: ST_SavedPositions;	
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[stage.target := 0;
+stage.description := 'Stage Level';
+
+house.target := -47.6;
+house.description := 'House Levels';
+
+pit.target := -136.3;
+pit.description := 'Pit Level';
+
+long_name.target := 22.1;
+long_name.description := 'This is to long to show all of it';
+
+basement.target := -543.2;
+basement.description := 'Basement';
+
+ initSpike1.target := 999.99;
+ initSpike2.target := 999.99;
+ initSpike3.target := 999.99;
+ initSpike4.target := 999.99;
+ initSpike5.target := 999.99;
+ initSpike6.target := 999.99;
+ initSpike7.target := 999.99;
+ initSpike8.target := 999.99;
+ initSpike9.target := 999.99;
+initSpike10.target := 999.99;
+initSpike11.target := 999.99;
+initSpike12.target := 999.99;
+initSpike13.target := 999.99;
+initSpike14.target := 999.99;
+initSpike15.target := 999.99;
+initSpike16.target := 999.99;
+initSpike17.target := 999.99;
+initSpike18.target := 999.99;
+initSpike19.target := 999.99;
+initSpike20.target := 999.99;
+initSpike21.target := 999.99;
+initSpike22.target := 999.99;
+initSpike23.target := 999.99;
+initSpike24.target := 999.99;
+initSpike25.target := 999.99;
+
+ initSpike1.description := 'a';
+ initSpike2.description := 'b';
+ initSpike3.description := 'c';
+ initSpike4.description := 'd';
+ initSpike5.description := 'e';
+ initSpike6.description := 'f';
+ initSpike7.description := 'g';
+ initSpike8.description := 'h';
+ initSpike9.description := 'i';
+initSpike10.description := 'j';
+initSpike11.description := 'k';
+initSpike12.description := 'l';
+initSpike13.description := 'm';
+initSpike14.description := 'n';
+initSpike15.description := 'o';
+initSpike16.description := 'p';
+initSpike17.description := 'q';
+initSpike18.description := 'r';
+initSpike19.description := 's';
+initSpike20.description := 't';
+initSpike21.description := 'u';
+initSpike22.description := 'v';
+initSpike23.description := 'w';
+initSpike24.description := 'x';
+initSpike25.description := 'y';
+
+stage.target := 0;
+stage.description := 'Stage Level';
+
+house.target := -47.6;
+house.description := 'House Levels';
+
+pit.target := -136.3;
+pit.description := 'Pit Level';
+
+long_name.target := 22.1;
+long_name.description := 'This is to long to show all of it';
+
+basement.target := -543.2;
+basement.description := 'Basement';
+
+ initSpike1.target  := 999.99;
+ initSpike2.target  := 999.99;
+ initSpike3.target  := 999.99;
+ initSpike4.target  := 999.99;
+ initSpike5.target  := 999.99;
+ initSpike6.target  := 999.99;
+ initSpike7.target  := 999.99;
+ initSpike8.target  := 999.99;
+ initSpike9.target  := 999.99;
+initSpike10.target := 999.99;
+initSpike11.target := 999.99;
+initSpike12.target := 999.99;
+initSpike13.target := 999.99;
+initSpike14.target := 999.99;
+initSpike15.target := 999.99;
+initSpike16.target := 999.99;
+initSpike17.target := 999.99;
+initSpike18.target := 999.99;
+initSpike19.target := 999.99;
+initSpike20.target := 999.99;
+initSpike21.target := 999.99;
+initSpike22.target := 999.99;
+initSpike23.target := 999.99;
+initSpike24.target := 999.99;
+initSpike25.target := 999.99;
+
+ initSpike1.description := 'a';
+ initSpike2.description := 'b';
+ initSpike3.description := 'c';
+ initSpike4.description := 'd';
+ initSpike5.description := 'e';
+ initSpike6.description := 'f';
+ initSpike7.description := 'g';
+ initSpike8.description := 'h';
+ initSpike9.description := 'i';
+initSpike10.description := 'j';
+initSpike11.description := 'k';
+initSpike12.description := 'l';
+initSpike13.description := 'm';
+initSpike14.description := 'n';
+initSpike15.description := 'o';
+initSpike16.description := 'p';
+initSpike17.description := 'q';
+initSpike18.description := 'r';
+initSpike19.description := 's';
+initSpike20.description := 't';
+initSpike21.description := 'u';
+initSpike22.description := 'v';
+initSpike23.description := 'w';
+initSpike24.description := 'x';
+initSpike25.description := 'y';
+
+GV_HMI.stPositions[1] := stage; //initSpike1;//
+GV_HMI.stPositions[2] := house;//initSpike2;//
+GV_HMI.stPositions[3] := pit;//initSpike3;//
+GV_HMI.stPositions[4] := long_name;//initSpike4;//
+GV_HMI.stPositions[5] := initSpike5;
+GV_HMI.stPositions[6] := basement;//initSpike6;//
+GV_HMI.stPositions[7] := initSpike7;
+GV_HMI.stPositions[8] := initSpike8;
+GV_HMI.stPositions[9] := initSpike9;
+GV_HMI.stPositions[10] := initSpike10;
+GV_HMI.stPositions[11] := initSpike11;
+GV_HMI.stPositions[12] := initSpike12;
+GV_HMI.stPositions[13] := initSpike13;
+GV_HMI.stPositions[14] := initSpike14;
+GV_HMI.stPositions[15] := initSpike15;
+GV_HMI.stPositions[16] := initSpike16;
+GV_HMI.stPositions[17] := initSpike17;
+GV_HMI.stPositions[18] := initSpike18;
+GV_HMI.stPositions[19] := initSpike19;
+GV_HMI.stPositions[20] := initSpike20;
+GV_HMI.stPositions[21] := initSpike21;
+GV_HMI.stPositions[22] := initSpike22;
+GV_HMI.stPositions[23] := initSpike23;
+GV_HMI.stPositions[24] := initSpike24;
+GV_HMI.stPositions[25] := initSpike25;]]></ST>
+    </Implementation>
+    <LineIds Name="Modbus">
+      <LineId Id="883" Count="65" />
+      <LineId Id="975" Count="91" />
+      <LineId Id="801" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

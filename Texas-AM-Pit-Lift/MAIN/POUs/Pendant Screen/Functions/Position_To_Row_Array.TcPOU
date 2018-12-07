@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="Position_To_Row_Array" Id="{c2226fd8-1b71-4341-808e-9adf3dfe14de}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Position_To_Row_Array : ARRAY[1..5] OF WORD
+VAR_INPUT
+	row: ARRAY[1..5] OF WORD;
+	position: REAL;
+END_VAR
+VAR
+	posLen: INT;
+	posString: STRING;
+	n:BYTE:=8;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[posString := LREAL_TO_FMTSTR(position, 1, TRUE);
+posLen := LEN(posString);
+	
+IF posLen = 3 THEN
+	row[3] := row[3] AND 16#FF00;
+	row[3] :=  row[3] OR GV_MODBUS.space;
+	
+	row[4] := posString[0];
+	row[4] := SHL(row[4], n);
+	row[4] := row[4] OR posString[1];
+	
+	row[5] := posString[2];
+	row[5] := SHL(row[5], n);
+	row[5] := row[5] OR GV_MODBUS.inch;
+END_IF
+
+IF posLen = 4 THEN
+	
+	row[3] := GV_MODBUS.space;
+	row[3] := SHL(row[3], n);
+	row[3] := row[3] OR posString[0];
+	
+	row[4] := posString[1];
+	row[4] := SHL(row[4], n);
+	row[4] := row[4] OR posString[2];
+	
+	row[5] := posString[3];
+	row[5] := SHL(row[5], n);
+	row[5] := row[5] OR GV_MODBUS.inch;
+END_IF
+
+IF posLen = 5 THEN
+	
+	row[2] := row[2] AND 16#FF00;	
+	row[2] := row[2] OR GV_MODBUS.space;
+	
+	row[3] := posString[0];
+	row[3] := SHL(row[3], n);
+	row[3] := row[3] OR posString[1];
+		
+	row[4] := posString[2];
+	row[4] := SHL(row[4], n);
+	row[4] := row[4] OR posString[3];
+		
+	row[5] := posString[4];
+	row[5] := SHL(row[5], n);
+	row[5] := row[5] OR GV_MODBUS.inch;
+	
+END_IF
+
+IF posLen = 6 THEN
+	row[2] := GV_MODBUS.space;	
+	row[2] := SHL(row[2], n);
+	row[2] := row[2] OR posString[0];
+	 
+	row[3] := posString[1];
+	row[3] := SHL(row[3], n);
+	row[3] := row[3] OR posString[2];
+	 
+	row[4] := posString[3];
+	row[4] := SHL(row[4], n);
+	row[4] := row[4] OR posString[4];
+	 
+	row[5] := posString[5];
+	row[5] := SHL(row[5], n);
+	row[5] := row[5] OR GV_MODBUS.inch;
+	
+END_IF
+
+Position_To_Row_Array := row;]]></ST>
+    </Implementation>
+    <LineIds Name="Position_To_Row_Array">
+      <LineId Id="10" Count="3" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="15" Count="11" />
+      <LineId Id="28" Count="14" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="91" Count="1" />
+      <LineId Id="45" Count="30" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="79" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Crc="4078891879" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ee5fa1f7-ff5a-4433-9100-a9945de98fb2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TwinCAT3SafePlcProject</RootNamespace>
+    <AssemblyName>TwinCAT3SafePlcProject</AssemblyName>
+    <FileUpgradeFlags />
+    <UpgradeBackupLocation />
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetSystem>EL6900</TargetSystem>
+    <ProgrammingLanguage>Graphical Editor</ProgrammingLanguage>
+    <Worker>CCI</Worker>
+    <IntProjName>SAFETY</IntProjName>
+    <IsNewCreated>false</IsNewCreated>
+    <SPlcProjVersion>1.2.0.0</SPlcProjVersion>
+    <NextSdsId>79</NextSdsId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="TwinSafeGroup1\Alias Devices\ESTOP_RESTART_SAFETY_IN.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\REMOTE_ESTOP_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOOR_1_SAFETY_LATCH_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOOR_2_SAFETY_LATCH_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOOR_3_SAFETY_LATCH_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOOR_4_SAFETY_LATCH_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\UP_LIMIT_SAFETY_LATCH_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOWN_LIMIT_SAFETY_LATCH_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\ULTIMATE_LIMIT_SAFETY_LATCH_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\UP_SAFETY_IN.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOWN_SAFETY_IN.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\UP_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOWN_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\UP_LIMIT_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOWN_LIMIT_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\ULTIMATE_LIMIT_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\PIT_ESTOP_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\CONSOLE_ESTOP_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\PUMP_ESTOP_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOWNSTAGE_ESTOP_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\UPSTAGE_ESTOP_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOOR_1_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOOR_2_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOOR_3_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\DOOR_4_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\CRUSH_PROTECTION_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\ESTOP_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\ERROR_SAFETY_OUT.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 1 %28EK1914%29 - Module 1 %28FSOE%29.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 10 %28EL1904%29 - Module 1 %28FSOES%29.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 2 %28EK1914%29 - Module 1 %28FSOE%29.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 3 %28EL1904%29 - Module 1 %28FSOES%29.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 7 %28EL1904%29 - Module 1 %28FSOES%29.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 8 %28EL1904%29 - Module 1 %28FSOES%29_1.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 9 %28EL1904%29 - Module 1 %28FSOES%29.sds" />
+    <None Include="TwinSafeGroup1\TwinSafeGroup1.sal" />
+    <None Include="TwinSafeGroup1\TwinSafeGroup1.sal.diagram">
+      <DependentUpon>TwinSafeGroup1\TwinSafeGroup1.sal</DependentUpon>
+      <Visible>false</Visible>
+    </None>
+    <None Include="TargetSystemConfig.xml">
+      <Visible>false</Visible>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TwinSafeGroup1" />
+    <Folder Include="TwinSafeGroup1\Alias Devices" />
+    <None Include="TwinSafeGroup1\Alias Devices\ERROR_ACKNOWLEDGEMENT_SAFETY_IN.sds" />
+  </ItemGroup>
+</Project>
