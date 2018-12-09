@@ -16,6 +16,7 @@ VAR
 	movingDownLeft : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A4A, 16#4F47, 16#204C, 16#4946];
 	movingDownRight : ARRAY [1..5] OF WORD := [16#5420, 16#2D20, 16#444E, 16#2A2A, 16#2A2A];
 	
+	allowedToMove : BOOL := FALSE;
 	tick : INT := 0;
 END_VAR
 ]]></Declaration>
@@ -32,7 +33,7 @@ GV_MODBUS.threeRight:= GV_MODBUS.blank;
 GV_MODBUS.fourLeft:= GV_MODBUS.blank; 
 GV_MODBUS.fourRight:= GV_MODBUS.blank;
 
-GV_MODBUS.threeRight:= Position_To_Row_Array(pos, GV_HMI.CurrentPos);     
+GV_MODBUS.threeRight:= Position_To_Row_Array(pos, GV_LIFT.CURRENT_POSITION);     
 
 IF GV_LIFT.DOWN_BUTTON_OUT THEN
 	GV_MODBUS.oneLeft:= movingDownLeft;

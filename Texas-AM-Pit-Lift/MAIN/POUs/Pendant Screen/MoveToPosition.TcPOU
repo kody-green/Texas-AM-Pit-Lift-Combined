@@ -26,8 +26,8 @@ GV_MODBUS.threeRight:= GV_MODBUS.blank;
 GV_MODBUS.fourLeft:= GV_MODBUS.blank; 
 GV_MODBUS.fourRight:= GV_MODBUS.blank;
 
-GV_MODBUS.twoRight:= Position_To_Row_Array(pos, GV_HMI.CurrentPos);     
-GV_MODBUS.threeRight:= Position_To_Row_Array(pos, GV_HMI.TargetPos);
+GV_MODBUS.twoRight:= Position_To_Row_Array(pos, GV_LIFT.CURRENT_POSITION);     
+GV_MODBUS.threeRight:= Position_To_Row_Array(pos, GV_LIFT.TARGET_POSITION);
 
 IF tick >= GV_MODBUS.refreshInterval THEN
 	Execute_Write_Screen();

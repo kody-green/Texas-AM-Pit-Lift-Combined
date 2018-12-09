@@ -13,7 +13,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[j := 1;
 FOR i:=1 TO GV_HMI.iMaxTargets BY 1 DO 
-   IF XML.savedvalues.savedpos[i].target < GV_MODBUS.filterTarget THEN
+   IF XML.savedvalues.savedpos[i].targetclear THEN
 	   indexes[j] := i;
 	   j := j + 1;
    END_IF
@@ -24,12 +24,7 @@ Get_Valid_Indexs := indexes;]]></ST>
     <LineIds Name="Get_Valid_Indexs">
       <LineId Id="17" Count="0" />
       <LineId Id="9" Count="0" />
-      <LineId Id="13" Count="0" />
-      <LineId Id="18" Count="0" />
-      <LineId Id="20" Count="0" />
-      <LineId Id="19" Count="0" />
-      <LineId Id="7" Count="0" />
-      <LineId Id="22" Count="0" />
+      <LineId Id="31" Count="5" />
       <LineId Id="21" Count="0" />
     </LineIds>
   </POU>

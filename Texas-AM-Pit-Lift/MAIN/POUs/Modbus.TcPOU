@@ -169,6 +169,7 @@ initSpike23.description := 'w';
 initSpike24.description := 'x';
 initSpike25.description := 'y';
 
+//XML.savedvalues.SavedPos[1] := stage;
 GV_HMI.stPositions[1] := stage; //initSpike1;//
 GV_HMI.stPositions[2] := house;//initSpike2;//
 GV_HMI.stPositions[3] := pit;//initSpike3;//
@@ -197,7 +198,9 @@ GV_HMI.stPositions[25] := initSpike25;]]></ST>
     </Implementation>
     <LineIds Name="Modbus">
       <LineId Id="883" Count="65" />
-      <LineId Id="975" Count="91" />
+      <LineId Id="975" Count="66" />
+      <LineId Id="1099" Count="0" />
+      <LineId Id="1042" Count="24" />
       <LineId Id="801" Count="0" />
     </LineIds>
   </POU>

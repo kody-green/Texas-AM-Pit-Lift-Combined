@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="MOVE_TO_POSITION" Id="{56c13076-a9dd-4c45-b27c-b090b1590a60}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MOVE_TO_POSITION
+VAR CONSTANT
+	UP_OFFSET : REAL :=-1.375;
+	DOWN_OFFSET : REAL := 0.675;
+	POSITION_SCALE : REAL := 12000;
+END_VAR
+VAR
+	currentRawPosition AT %I* : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GV_LIFT.CURRENT_POSITION := UDINT_TO_REAL(currentRawPosition) / POSITION_SCALE;
+
+IF (GV_LIFT.RUN_BUTTON_OUT) THEN
+	IF(GV_LIFT.CURRENT_POSITION > (GV_LIFT.TARGET_POSITION + DOWN_OFFSET)) THEN
+		GV_LIFT.DOWN_BUTTON_OUT := TRUE;
+	ELSIF(GV_LIFT.CURRENT_POSITION < (GV_LIFT.TARGET_POSITION + UP_OFFSET)) THEN
+		GV_LIFT.UP_BUTTON_OUT := TRUE;
+	ELSE
+		GV_LIFT.UP_BUTTON_OUT := FALSE;
+		GV_LIFT.DOWN_BUTTON_OUT := FALSE;
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="MOVE_TO_POSITION">
+      <LineId Id="26" Count="1" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="55" Count="1" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="18" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

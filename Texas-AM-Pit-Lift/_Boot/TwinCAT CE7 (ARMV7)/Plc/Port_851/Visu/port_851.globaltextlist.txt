@@ -1,6 +1,8 @@
 Id;Default
+866;%.2f
 166;%.2f$"
 559;%.3f$"
+982;%f$"
 24;%s
 742;%s$"
 747;Clear Target
@@ -20,6 +22,9 @@ Id;Default
 135;Door Interlocks
 298;DOWN EOT Limit
 297;DOWN Soft Limit
+944;DOWN ULT Limit
+255;DOWN ultimate Limit
+725;DOWN Ultimate Limit
 141;DS Door E-Stop
 436;E-STOP
 307;EDIT
@@ -47,6 +52,7 @@ Id;Default
 743;target position:
 745;Target Positions
 162;Unload Target
+483;UP End Of Travel Limit
 295;UP EOT Limit
 296;UP Soft Limit
 139;US Door E-Stop

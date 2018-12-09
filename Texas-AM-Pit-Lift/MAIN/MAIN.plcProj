@@ -14,6 +14,9 @@
     <LibraryReferences>{7fd42938-1701-4c0f-9e49-e5d5a8f6b6a7}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\MOTION_STATE.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\RESET_STATE.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -56,6 +59,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Modbus.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\MOVE_TO_POSITION.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Pendant Screen\EStop.TcPOU">
@@ -101,9 +107,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Pendant Screen\SwitchScreens.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\RunToTarget.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\SYSTEM_RESET.TcPOU">

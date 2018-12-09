@@ -40,7 +40,7 @@ ELSE
 		wasFault := FALSE;
 		wasJogging := FALSE;
 		wasRunningToTarget := FALSE;
-	ELSIF GV_LIFT.FAULT_INDICATOR_OUT THEN	
+	ELSIF GV_LIFT.DOOR_4_INDICATOR_OUT THEN	
 		Faults();	
 	
 		IF NOT wasFault THEN
@@ -52,18 +52,7 @@ ELSE
 		wasFault := TRUE;
 		wasJogging := FALSE;
 		wasRunningToTarget := FALSE;
-	ELSIF GV_LIFT.UP_BUTTON_OUT OR GV_LIFT.DOWN_BUTTON_OUT THEN
-		JogLift();
-		
-		IF NOT wasJogging THEN
-			Execute_Write_Screen();
-		END_IF
-		
-		wasEstop := FALSE;
-		GV_MODBUS.wasMTS := FALSE;
-		wasFault := FALSE;
-		wasJogging := TRUE;
-		wasRunningToTarget := FALSE;
+	
 	ELSIF GV_LIFT.RUN_BUTTON_OUT THEN
 		MoveToPosition();
 		
@@ -76,6 +65,19 @@ ELSE
 		wasFault := FALSE;
 		wasJogging := FALSE;
 		wasRunningToTarget := TRUE;
+	ELSIF GV_LIFT.UP_BUTTON_OUT OR GV_LIFT.DOWN_BUTTON_OUT THEN
+		JogLift();
+		
+		IF NOT wasJogging THEN
+			Execute_Write_Screen();
+		END_IF
+		
+		wasEstop := FALSE;
+		GV_MODBUS.wasMTS := FALSE;
+		wasFault := FALSE;
+		wasJogging := TRUE;
+		wasRunningToTarget := FALSE;
+	
 	ELSE
 		SelectSpike();
 		
@@ -115,7 +117,14 @@ END_IF
       <LineId Id="233" Count="0" />
       <LineId Id="296" Count="0" />
       <LineId Id="314" Count="0" />
-      <LineId Id="234" Count="59" />
+      <LineId Id="234" Count="1" />
+      <LineId Id="332" Count="0" />
+      <LineId Id="237" Count="21" />
+      <LineId Id="335" Count="10" />
+      <LineId Id="334" Count="0" />
+      <LineId Id="333" Count="0" />
+      <LineId Id="259" Count="10" />
+      <LineId Id="281" Count="12" />
       <LineId Id="232" Count="0" />
       <LineId Id="315" Count="2" />
       <LineId Id="319" Count="0" />

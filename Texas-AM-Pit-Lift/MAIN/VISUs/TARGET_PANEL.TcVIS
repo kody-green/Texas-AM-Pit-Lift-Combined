@@ -197,8 +197,8 @@
                     <o t="InputBoxInputAction">
                       <v n="InputBoxVariable">"XML.savedvalues.savedpos[.GV_HMI.RowSelect].target"</v>
                       <v n="InputType">"VisuDialogs.Numpad"</v>
-                      <v n="InputBoxMin">"XML.savedvalues.revsoftlim"</v>
-                      <v n="InputBoxMax">"XML.savedvalues.fwdsoftlim"</v>
+                      <v n="InputBoxMin">"XML.savedvalues.DownSoftLim"</v>
+                      <v n="InputBoxMax">"XML.savedvalues.UpSoftLim"</v>
                       <v n="InputBoxDialogTitle">"'Target Position'"</v>
                       <v n="Password">false</v>
                       <v n="UseTextOutputVariable">false</v>
@@ -207,7 +207,7 @@
                       <v n="Format">""</v>
                     </o>
                     <o t="STSnippetInputAction">
-                      <v n="STSnippet">"IF XML.savedvalues.savedpos[.GV_HMI.RowSelect].target &lt;= XML.savedvalues.FwdSoftLim AND XML.savedvalues.savedpos[.GV_HMI.RowSelect].target &gt;= XML.savedvalues.RevSoftLim THEN
+                      <v n="STSnippet">"IF XML.savedvalues.savedpos[.GV_HMI.RowSelect].target &lt;= XML.savedvalues.UpSoftLim AND XML.savedvalues.savedpos[.GV_HMI.RowSelect].target &gt;= XML.savedvalues.DownSoftLim THEN
 	XML.savedvalues.savedpos[.GV_HMI.RowSelect].targetclear := TRUE;
 ELSE
 	XML.savedvalues.savedpos[.GV_HMI.RowSelect].targetclear := FALSE;
@@ -417,7 +417,7 @@ END_IF"</v>
                       <v n="Format">""</v>
                     </o>
                     <o t="STSnippetInputAction">
-                      <v n="STSnippet">"IF XML.savedvalues.savedpos[.GV_HMI.RowSelect].target &lt;= XML.savedvalues.FwdSoftLim AND XML.savedvalues.savedpos[.GV_HMI.RowSelect].target &gt;= XML.savedvalues.RevSoftLim THEN
+                      <v n="STSnippet">"IF XML.savedvalues.savedpos[.GV_HMI.RowSelect].target &lt;= XML.savedvalues.UpSoftLim AND XML.savedvalues.savedpos[.GV_HMI.RowSelect].target &gt;= XML.savedvalues.DownSoftLim THEN
 	XML.savedvalues.savedpos[.GV_HMI.RowSelect].targetclear := TRUE;
 ELSE
 	XML.savedvalues.savedpos[.GV_HMI.RowSelect].targetclear := FALSE;
@@ -1154,18 +1154,15 @@ END_IF"</v>
                       <v n="Id">135947015L</v>
                       <l n="Value" t="ArrayList" cet="NamedStyleColor">
                         <o>
-                          <v n="Color">-65536</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Frame-Color"</v>
+                          <v n="Color">-4276546</v>
+                          <v n="CanonicalName">"Element-DateTimePicker-Cell-FrameColor"</v>
                         </o>
                       </l>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-12337</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Fill-Color"</v>
-                        </o>
+                      <l n="Value" t="ArrayList" cet="UInt32">
+                        <v>4278222912</v>
                       </l>
                     </o>
                     <o>
@@ -1202,7 +1199,7 @@ END_IF"</v>
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">""</v>
+                      <v n="Value">"GV_LIFT.ESTOP_INDICATOR_IN &lt;&gt;1"</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -1258,7 +1255,11 @@ END_IF"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
-                      <v n="Value">true</v>
+                      <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">2827249010L</v>
+                      <v n="Value">"PS_HOLLOW"</v>
                     </o>
                   </l>
                 </o>
@@ -1303,18 +1304,15 @@ END_IF"</v>
                       <v n="Id">135947015L</v>
                       <l n="Value" t="ArrayList" cet="NamedStyleColor">
                         <o>
-                          <v n="Color">-65536</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Frame-Color"</v>
+                          <v n="Color">-4276546</v>
+                          <v n="CanonicalName">"Element-DateTimePicker-Cell-FrameColor"</v>
                         </o>
                       </l>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-12337</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Fill-Color"</v>
-                        </o>
+                      <l n="Value" t="ArrayList" cet="UInt32">
+                        <v>4278222912</v>
                       </l>
                     </o>
                     <o>
@@ -1351,7 +1349,7 @@ END_IF"</v>
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">""</v>
+                      <v n="Value">"GV_LIFT.ULTIMATE_LIMIT_INDICATOR_IN"</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -1407,7 +1405,15 @@ END_IF"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
-                      <v n="Value">true</v>
+                      <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">2827249010L</v>
+                      <v n="Value">"PS_HOLLOW"</v>
+                    </o>
+                    <o>
+                      <v n="Id">1375557818L</v>
+                      <v n="Value">false</v>
                     </o>
                   </l>
                 </o>
@@ -1452,18 +1458,15 @@ END_IF"</v>
                       <v n="Id">135947015L</v>
                       <l n="Value" t="ArrayList" cet="NamedStyleColor">
                         <o>
-                          <v n="Color">-65536</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Frame-Color"</v>
+                          <v n="Color">-4276546</v>
+                          <v n="CanonicalName">"Element-DateTimePicker-Cell-FrameColor"</v>
                         </o>
                       </l>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-12337</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Fill-Color"</v>
-                        </o>
+                      <l n="Value" t="ArrayList" cet="UInt32">
+                        <v>4278222912</v>
                       </l>
                     </o>
                     <o>
@@ -1500,7 +1503,7 @@ END_IF"</v>
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">""</v>
+                      <v n="Value">"HMI.bSoftLimFlag"</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -1556,7 +1559,11 @@ END_IF"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
-                      <v n="Value">true</v>
+                      <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">2827249010L</v>
+                      <v n="Value">"PS_HOLLOW"</v>
                     </o>
                   </l>
                 </o>
@@ -1601,18 +1608,15 @@ END_IF"</v>
                       <v n="Id">135947015L</v>
                       <l n="Value" t="ArrayList" cet="NamedStyleColor">
                         <o>
-                          <v n="Color">-65536</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Frame-Color"</v>
+                          <v n="Color">-4276546</v>
+                          <v n="CanonicalName">"Element-DateTimePicker-Cell-FrameColor"</v>
                         </o>
                       </l>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-12337</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Fill-Color"</v>
-                        </o>
+                      <l n="Value" t="ArrayList" cet="UInt32">
+                        <v>4278222912</v>
                       </l>
                     </o>
                     <o>
@@ -1705,7 +1709,15 @@ END_IF"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
-                      <v n="Value">true</v>
+                      <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">401380312L</v>
+                      <v n="Value">"HMI.dwDoorFlag"</v>
+                    </o>
+                    <o>
+                      <v n="Id">2827249010L</v>
+                      <v n="Value">"PS_HOLLOW"</v>
                     </o>
                   </l>
                 </o>
@@ -1751,20 +1763,14 @@ END_IF"</v>
                     </o>
                     <o>
                       <v n="Id">135947015L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-65536</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Frame-Color"</v>
-                        </o>
+                      <l n="Value" t="ArrayList" cet="UInt32">
+                        <v>4279834905</v>
                       </l>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-12337</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Fill-Color"</v>
-                        </o>
+                      <l n="Value" t="ArrayList" cet="UInt32">
+                        <v>4278222912</v>
                       </l>
                     </o>
                     <o>
@@ -1909,18 +1915,15 @@ END_IF"</v>
                       <v n="Id">135947015L</v>
                       <l n="Value" t="ArrayList" cet="NamedStyleColor">
                         <o>
-                          <v n="Color">-65536</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Frame-Color"</v>
+                          <v n="Color">-4276546</v>
+                          <v n="CanonicalName">"Element-DateTimePicker-Cell-FrameColor"</v>
                         </o>
                       </l>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-12337</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Fill-Color"</v>
-                        </o>
+                      <l n="Value" t="ArrayList" cet="UInt32">
+                        <v>4278222912</v>
                       </l>
                     </o>
                     <o>
@@ -2013,7 +2016,15 @@ END_IF"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
-                      <v n="Value">true</v>
+                      <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">3450524324L</v>
+                      <v n="Value">"HMI.dwCrushFlag"</v>
+                    </o>
+                    <o>
+                      <v n="Id">2827249010L</v>
+                      <v n="Value">"PS_HOLLOW"</v>
                     </o>
                   </l>
                 </o>
@@ -2058,18 +2069,15 @@ END_IF"</v>
                       <v n="Id">135947015L</v>
                       <l n="Value" t="ArrayList" cet="NamedStyleColor">
                         <o>
-                          <v n="Color">-65536</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Frame-Color"</v>
+                          <v n="Color">-4276546</v>
+                          <v n="CanonicalName">"Element-DateTimePicker-Cell-FrameColor"</v>
                         </o>
                       </l>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-12337</v>
-                          <v n="CanonicalName">"BasicElement-Alarm-Fill-Color"</v>
-                        </o>
+                      <l n="Value" t="ArrayList" cet="UInt32">
+                        <v>4278222912</v>
                       </l>
                     </o>
                     <o>
@@ -2163,6 +2171,10 @@ END_IF"</v>
                     <o>
                       <v n="Id">2597686782L</v>
                       <v n="Value">true</v>
+                    </o>
+                    <o>
+                      <v n="Id">2827249010L</v>
+                      <v n="Value">"PS_HOLLOW"</v>
                     </o>
                   </l>
                 </o>

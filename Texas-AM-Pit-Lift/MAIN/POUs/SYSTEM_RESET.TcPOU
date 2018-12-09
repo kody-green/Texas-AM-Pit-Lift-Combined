@@ -16,7 +16,6 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF GV_LIFT.SYSTEM_RESET_BUTTON_IN THEN
-	GV_LIFT.SYSTEM_RESET_BUTTON_IN := TRUE;
 	cycleCounter := cycleCounter + 1;
 	CASE state OF
 		RESET_STATE.IDLE :
@@ -42,18 +41,21 @@ END_VAR
 				cycleCounter := 0;
 			END_IF
 		RESET_STATE.ESTOP_RESET_ON :
-			ERROR_ACKNOWLEDGEMENT_BUTTON_OUT := TRUE;
+			ESTOP_RESTART_BUTTON_OUT := TRUE;
 			IF(cycleCounter >= TRANSITION_COUNT) THEN
-				state := RESET_STATE.IDLE;
+				state := RESET_STATE.COMPLETE;
 				cycleCounter := 0;
-				GV_LIFT.SYSTEM_RESET_BUTTON_IN := FALSE;
 			END_IF
+		RESET_STATE.COMPLETE :
+			ESTOP_RESTART_BUTTON_OUT := FALSE;
 	END_CASE
+ELSE
+	cycleCounter := 0;
+	state := RESET_STATE.IDLE;
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="SYSTEM_RESET">
       <LineId Id="5" Count="0" />
-      <LineId Id="7" Count="0" />
       <LineId Id="61" Count="0" />
       <LineId Id="35" Count="0" />
       <LineId Id="17" Count="0" />
@@ -72,9 +74,10 @@ END_IF]]></ST>
       <LineId Id="49" Count="2" />
       <LineId Id="46" Count="0" />
       <LineId Id="53" Count="4" />
-      <LineId Id="59" Count="0" />
       <LineId Id="52" Count="0" />
+      <LineId Id="74" Count="1" />
       <LineId Id="18" Count="0" />
+      <LineId Id="77" Count="2" />
       <LineId Id="8" Count="0" />
     </LineIds>
   </POU>

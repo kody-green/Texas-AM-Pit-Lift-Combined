@@ -17,7 +17,7 @@ VAR
 	
 	selectedCursorIndex: INT := 0;	
 	cursorIndex: INT := 1;
-	lastPos : REAL := GV_HMI.CurrentPos;
+	lastPos : REAL := GV_LIFT.TARGET_POSITION;
 	noneSelectedTargetPosValue : REAL := 0;
 	
 END_VAR
@@ -46,11 +46,11 @@ IF GV_MODBUS.btnData = GV_MODBUS.btnEnter THEN
 	selectedCursorIndex := cursorIndex;
 	
 	IF cursorIndex = 1 THEN
-		GV_HMI.TargetPos := XML.savedvalues.savedpos[firstSpikeIndex].target;
+		GV_LIFT.TARGET_POSITION := XML.savedvalues.savedpos[firstSpikeIndex].target;
 	ELSIF cursorIndex = 2 THEN
-		GV_HMI.TargetPos := XML.savedvalues.savedpos[secondSpikeIndex].target;
+		GV_LIFT.TARGET_POSITION := XML.savedvalues.savedpos[secondSpikeIndex].target;
 	ELSIF cursorIndex = 3 THEN
-		GV_HMI.TargetPos := XML.savedvalues.savedpos[thirdSpikeIndex].target;
+		GV_LIFT.TARGET_POSITION := XML.savedvalues.savedpos[thirdSpikeIndex].target;
 	END_IF
 	
 	Execute_Write_Screen();
@@ -109,7 +109,7 @@ GV_MODBUS.threeRight:= GV_MODBUS.blank;
 GV_MODBUS.fourLeft:= GV_MODBUS.blank; 
 GV_MODBUS.fourRight:= GV_MODBUS.blank;
 
-GV_MODBUS.oneRight:= Position_To_Row_Array(pos, GV_HMI.CurrentPos);     
+GV_MODBUS.oneRight:= Position_To_Row_Array(pos, GV_LIFT.CURRENT_POSITION);     
 	
 IF firstSpikeIndex > 0 THEN		
 	IF XML.savedvalues.savedpos[firstSpikeIndex].target < GV_MODBUS.filterTarget THEN

@@ -4,8 +4,8 @@
     <Declaration><![CDATA[TYPE ST_SavedStructure :
 STRUCT
 	CurrentPos		:	REAL;
-	FwdSoftLim		:	REAL;
-	RevSoftLim		:	REAL;
+	UpSoftLim		:	REAL;
+	DownSoftLim		:	REAL;
 	Counter			:	INT;
 	SavedPos		:	ARRAY [1..25] OF ST_SavedPositions;
 END_STRUCT
