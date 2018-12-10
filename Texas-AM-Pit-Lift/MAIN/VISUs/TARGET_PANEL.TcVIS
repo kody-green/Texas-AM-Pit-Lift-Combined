@@ -20,7 +20,7 @@
                         </o>
                         <o>
                           <v n="Id">1186196937L</v>
-                          <v n="Value">"HMI.ColorToggle[2]"</v>
+                          <v n="Value">"GV_HMI.ColorToggle[2]"</v>
                         </o>
                       </l>
                     </o>
@@ -169,7 +169,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"(HMI.ColorToggle[2])&lt;&gt;0"</v>
+                      <v n="Value">"(GV_HMI.ColorToggle[2])&lt;&gt;0"</v>
                     </o>
                     <o>
                       <v n="Id">2496894244L</v>
@@ -195,7 +195,7 @@
                   <v>OnMouseDown</v>
                   <a et="IInputAction">
                     <o t="InputBoxInputAction">
-                      <v n="InputBoxVariable">"XML.savedvalues.savedpos[.HMI.RowSelect].target"</v>
+                      <v n="InputBoxVariable">"XML.savedvalues.savedpos[.GV_HMI.RowSelect].target"</v>
                       <v n="InputType">"VisuDialogs.Numpad"</v>
                       <v n="InputBoxMin">"XML.savedvalues.DownSoftLim"</v>
                       <v n="InputBoxMax">"XML.savedvalues.UpSoftLim"</v>
@@ -207,10 +207,10 @@
                       <v n="Format">""</v>
                     </o>
                     <o t="STSnippetInputAction">
-                      <v n="STSnippet">"IF XML.savedvalues.savedpos[.HMI.RowSelect].target &lt;= XML.savedvalues.UpSoftLim AND XML.savedvalues.savedpos[.HMI.RowSelect].target &gt;= XML.savedvalues.DownSoftLim THEN
-	XML.savedvalues.savedpos[.HMI.RowSelect].targetclear := TRUE;
+                      <v n="STSnippet">"IF XML.savedvalues.savedpos[GV_HMI.RowSelect].target &lt;= XML.savedvalues.UpSoftLim AND XML.savedvalues.savedpos[GV_HMI.RowSelect].target &gt;= XML.savedvalues.DownSoftLim THEN
+	XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear := TRUE;
 ELSE
-	XML.savedvalues.savedpos[.HMI.RowSelect].targetclear := FALSE;
+	XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear := FALSE;
 END_IF
 
 
@@ -234,7 +234,7 @@ END_IF
                       <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
                         <o>
                           <v n="Id">1186196937L</v>
-                          <v n="Value">"HMI.ColorToggle[3]"</v>
+                          <v n="Value">"GV_HMI.ColorToggle[3]"</v>
                         </o>
                       </l>
                     </o>
@@ -383,7 +383,7 @@ END_IF
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"HMI.ColorToggle[3]"</v>
+                      <v n="Value">"GV_HMI.ColorToggle[3]"</v>
                     </o>
                     <o>
                       <v n="Id">2496894244L</v>
@@ -409,7 +409,7 @@ END_IF
                   <v>OnMouseDown</v>
                   <a et="IInputAction">
                     <o t="InputBoxInputAction">
-                      <v n="InputBoxVariable">"XML.savedvalues.savedpos[.HMI.RowSelect].description"</v>
+                      <v n="InputBoxVariable">"XML.savedvalues.savedpos[.GV_HMI.RowSelect].description"</v>
                       <v n="InputType">"VisuDialogs.Keypad"</v>
                       <v n="InputBoxMin">""</v>
                       <v n="InputBoxMax">""</v>
@@ -421,10 +421,10 @@ END_IF
                       <v n="Format">""</v>
                     </o>
                     <o t="STSnippetInputAction">
-                      <v n="STSnippet">"IF XML.savedvalues.savedpos[.HMI.RowSelect].target &lt;= XML.savedvalues.UpSoftLim AND XML.savedvalues.savedpos[.HMI.RowSelect].target &gt;= XML.savedvalues.DownSoftLim THEN
-	XML.savedvalues.savedpos[.HMI.RowSelect].targetclear := TRUE;
+                      <v n="STSnippet">"IF XML.savedvalues.savedpos[GV_HMI.RowSelect].target &lt;= XML.savedvalues.UpSoftLim AND XML.savedvalues.savedpos[GV_HMI.RowSelect].target &gt;= XML.savedvalues.DownSoftLim THEN
+	XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear := TRUE;
 ELSE
-	XML.savedvalues.savedpos[.HMI.RowSelect].targetclear := FALSE;
+	XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear := FALSE;
 END_IF
 
 
@@ -858,7 +858,7 @@ END_IF
                     </o>
                     <o>
                       <v n="Id">1137915858L</v>
-                      <v n="Value">"HMI.RowSelect"</v>
+                      <v n="Value">"GV_HMI.RowSelect"</v>
                     </o>
                     <o>
                       <v n="Id">1041310536L</v>
@@ -4144,7 +4144,7 @@ END_IF
                         </o>
                         <o>
                           <v n="Id">1186196937L</v>
-                          <v n="Value">"HMI.ColorToggle[1]"</v>
+                          <v n="Value">"GV_HMI.ColorToggle[1]"</v>
                         </o>
                       </l>
                     </o>
@@ -4293,7 +4293,7 @@ END_IF
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"(HMI.ColorToggle[1])&lt;&gt;0"</v>
+                      <v n="Value">"(GV_HMI.ColorToggle[1])&lt;&gt;0"</v>
                     </o>
                     <o>
                       <v n="Id">2496894244L</v>
@@ -4315,13 +4315,14 @@ END_IF
                 <v n="VisualElementIdentifier">"GenElemInst_185"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
                   <v>OnMouseDown</v>
                   <a cet="STSnippetInputAction">
                     <o>
-                      <v n="STSnippet">"XML.savedvalues.savedpos[.HMI.RowSelect].targetclear := FALSE;
-XML.savedvalues.savedpos[.HMI.RowSelect].target := 0.00;
-XML.savedvalues.savedpos[.HMI.RowSelect].description := '';
+                      <v n="STSnippet">"XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear := FALSE;
+XML.savedvalues.savedpos[GV_HMI.RowSelect].target := 0.00;
+XML.savedvalues.savedpos[GV_HMI.RowSelect].description := '';
+
 
 
 "</v>

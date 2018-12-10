@@ -7380,7 +7380,7 @@
                         </o>
                         <o>
                           <v n="Id">1186196937L</v>
-                          <v n="Value">"HMI.ColorToggle[1]"</v>
+                          <v n="Value">"GV_HMI.colortoggle[1]"</v>
                         </o>
                       </l>
                     </o>
@@ -7529,7 +7529,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"(HMI.ColorToggle[1])&lt;&gt;0"</v>
+                      <v n="Value">"(GV_HMI.colortoggle[1])&lt;&gt;0"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -7579,7 +7579,7 @@
                         </o>
                         <o>
                           <v n="Id">1186196937L</v>
-                          <v n="Value">"HMI.ColorToggle[2]"</v>
+                          <v n="Value">"GV_HMI.colortoggle[2]"</v>
                         </o>
                       </l>
                     </o>
@@ -7728,7 +7728,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"(HMI.ColorToggle[2])&lt;&gt;0"</v>
+                      <v n="Value">"(GV_HMI.colortoggle[2])&lt;&gt;0"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -7778,7 +7778,7 @@
                         </o>
                         <o>
                           <v n="Id">1186196937L</v>
-                          <v n="Value">"HMI.ColorToggle[3]"</v>
+                          <v n="Value">"GV_HMI.colortoggle[3]"</v>
                         </o>
                       </l>
                     </o>
@@ -7927,7 +7927,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"(HMI.ColorToggle[3])&lt;&gt;0"</v>
+                      <v n="Value">"(GV_HMI.colortoggle[3])&lt;&gt;0"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -7941,7 +7941,7 @@
                 <v n="VisualElementIdentifier">"GenElemInst_305"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="InputBoxInputAction[]">
                   <v>OnMouseDown</v>
                   <a cet="InputBoxInputAction">
                     <o>
@@ -9439,7 +9439,6 @@
         <Type n="Guid">System.Guid</Type>
         <Type n="Hashtable">System.Collections.Hashtable</Type>
         <Type n="HotkeyConfiguration">{6b108d46-58af-4e41-a3f4-174d8f160cc4}</Type>
-        <Type n="IInputAction[]">_3S.CoDeSys.VisualElem.IInputAction[], VisualElem, Version=3.5.10.0, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="InputBoxInputAction">{e8e7e747-f76f-4dee-ab1c-b9637e41ac26}</Type>
         <Type n="InputBoxInputAction[]">_3S.CoDeSys.VisualElem.InputBoxInputAction[], VisualElem.plugin, Version=3.5.10.32, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="Int16">System.Int16</Type>

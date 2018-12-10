@@ -13,13 +13,13 @@ VAR
 	bEditEnable			: BOOL:= FALSE;
 	DisplayTgtPos	:	STRING:= '';	
 
-//Color Toggle
+(*//Color Toggle
 	ColorToggle		:	ARRAY [1..20] OF BOOL;
 
 //Row Selection
 	RowSelect		:	INT:=1;	
 	RowSelected		:	INT:= RowSelect;
-	
+*)	
 //Indicator Flags	
 	bSoftUpLimFlag		: BOOL;
 	bSoftDownLimFlag	: BOOL;
@@ -65,21 +65,21 @@ END_VAR
 	displayvalues[displaycounter].description := (XML.savedvalues.SavedPos[displaycounter].description);	
 	
 //Determines if Target is inside Soft Limits
-	IF XML.savedvalues.savedpos[.HMI.RowSelect].target <= (XML.savedvalues.UpSoftLim) AND XML.savedvalues.savedpos[.HMI.RowSelect].target >= (XML.savedvalues.DownSoftLim) THEN
+	IF XML.savedvalues.savedpos[GV_HMI.RowSelect].target <= (XML.savedvalues.UpSoftLim) AND XML.savedvalues.savedpos[GV_HMI.RowSelect].target >= (XML.savedvalues.DownSoftLim) THEN
 		insidelimits := TRUE;
 	ELSE
 		insidelimits := FALSE;
 	END_IF
 	
 //Load Button Logic
-	IF XML.savedvalues.savedpos[.HMI.RowSelect].targetclear = TRUE AND insidelimits = TRUE THEN
+	IF XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear = TRUE AND insidelimits = TRUE THEN
 		bLoadOK	:= TRUE;
 	ELSE
 		bLoadOK	:= FALSE;	
 	END_IF
 
 //Removing Target if highlighted target changes
-	IF xml.savedvalues.SavedPos[HMI.RowSelected].target <> xml.savedvalues.SavedPos[HMI.RowSelect].target THEN
+	IF xml.savedvalues.SavedPos[GV_HMI.RowSelected].target <> xml.savedvalues.SavedPos[GV_HMI.RowSelect].target THEN
 		bTgtLoaded := FALSE;
 	END_IF
 	
