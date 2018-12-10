@@ -172,7 +172,7 @@
                       <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
                         <o>
                           <v n="Id">1186196937L</v>
-                          <v n="Value">"GV_HMI.ColorToggle[6]"</v>
+                          <v n="Value">"HMI.ColorToggle[6]"</v>
                         </o>
                       </l>
                     </o>
@@ -321,7 +321,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"GV_HMI.ColorToggle[6]"</v>
+                      <v n="Value">"HMI.ColorToggle[6]"</v>
                     </o>
                     <o>
                       <v n="Id">2496894244L</v>
@@ -1168,7 +1168,7 @@
                       <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
                         <o>
                           <v n="Id">1186196937L</v>
-                          <v n="Value">"GV_HMI.ColorToggle[6]"</v>
+                          <v n="Value">"HMI.ColorToggle[6]"</v>
                         </o>
                       </l>
                     </o>
@@ -1317,7 +1317,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"GV_HMI.ColorToggle[6]"</v>
+                      <v n="Value">"HMI.ColorToggle[6]"</v>
                     </o>
                     <o>
                       <v n="Id">2496894244L</v>
@@ -1343,9 +1343,12 @@
                   <v>OnMouseDown</v>
                   <a cet="STSnippetInputAction">
                     <o>
-                      <v n="STSnippet">"GV_LIFT.TARGET_POSITION := XML.savedvalues.savedpos[.GV_HMI.RowSelect].target;
-GV_HMI.RowSelected := GV_HMI.RowSelect;
-HMI.bTgtLoaded := TRUE;"</v>
+                      <v n="STSnippet">"GV_LIFT.TARGET_POSITION := XML.savedvalues.savedpos[.HMI.RowSelect].target;
+HMI.RowSelected := HMI.RowSelect;
+HMI.bTgtLoaded := TRUE;
+
+
+"</v>
                     </o>
                   </a>
                 </d>

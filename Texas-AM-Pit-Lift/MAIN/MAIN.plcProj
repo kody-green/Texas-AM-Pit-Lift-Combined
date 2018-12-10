@@ -58,9 +58,6 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Modbus.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\MOVE_TO_POSITION.TcPOU">
       <SubType>Code</SubType>
     </Compile>

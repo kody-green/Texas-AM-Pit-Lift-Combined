@@ -56,7 +56,6 @@ END_IF
 
 XML(); 
 HMI();
-Modbus();
 IO_SWITCHBOARD();
 SYSTEM_RESET();
 MOVE_TO_POSITION();
@@ -88,7 +87,6 @@ SwitchScreens();
       <LineId Id="801" Count="0" />
       <LineId Id="849" Count="1" />
       <LineId Id="576" Count="0" />
-      <LineId Id="655" Count="0" />
       <LineId Id="854" Count="1" />
       <LineId Id="857" Count="0" />
       <LineId Id="988" Count="0" />

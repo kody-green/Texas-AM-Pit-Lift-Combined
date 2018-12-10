@@ -26,20 +26,20 @@ END_VAR
       <ST><![CDATA[IF GV_MODBUS.btnData = GV_MODBUS.btnUp THEN
 	cursorIndex:= cursorIndex - 1;
 	selectedCursorIndex := 0;
-	GV_HMI.TargetPos := noneSelectedTargetPosValue;
+	GV_LIFT.TARGET_POSITION := noneSelectedTargetPosValue;
 	Execute_Write_Screen();
 END_IF
 
 IF GV_MODBUS.btnData = GV_MODBUS.btnDwn THEN
 	cursorIndex:= cursorIndex + 1;	
 	selectedCursorIndex := 0;
-	GV_HMI.TargetPos := noneSelectedTargetPosValue;
+	GV_LIFT.TARGET_POSITION := noneSelectedTargetPosValue;
 	Execute_Write_Screen();	
 END_IF
 
 IF NOT GV_MODBUS.wasMTS THEN
 	selectedCursorIndex := 0;
-	GV_HMI.TargetPos := noneSelectedTargetPosValue;
+	GV_LIFT.TARGET_POSITION := noneSelectedTargetPosValue;
 END_IF
 
 IF GV_MODBUS.btnData = GV_MODBUS.btnEnter THEN
