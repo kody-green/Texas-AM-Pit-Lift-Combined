@@ -12,27 +12,14 @@ VAR
 	bTgtLoaded			: BOOL:= FALSE;
 	bEditEnable			: BOOL:= FALSE;
 	DisplayTgtPos	:	STRING:= '';	
-
-(*//Color Toggle
-	ColorToggle		:	ARRAY [1..20] OF BOOL;
-
-//Row Selection
-	RowSelect		:	INT:=1;	
-	RowSelected		:	INT:= RowSelect;
-*)	
+	
 //Indicator Flags	
 	bSoftUpLimFlag		: BOOL;
 	bSoftDownLimFlag	: BOOL;
 	bSoftLimFlag		: BOOL;
 	bLimitHeaderFlag	: BOOL;
 	bSystemFlag			: BOOL:= FALSE;
-	
-//Default Colors
-	dwRed				: DWORD:= 16#FFFF0000;
-	dwGreen				: DWORD:= 16#FF008040;
-	dwYellow			: DWORD:= 16#FFFFFF00;
-	dwGrey				: DWORD:= 16#FFBEBEBE;
-	
+		
 //Color Fields
 	dwUpArrow			: DWORD;
 	dwDownArrow			: DWORD;
@@ -43,7 +30,6 @@ VAR
 	dwDoor4				: DWORD;
 	dwCrushFlag			: DWORD;
 	dwSysFaultFlag		: DWORD;
-
 
 END_VAR
 ]]></Declaration>
@@ -84,14 +70,14 @@ END_VAR
 	END_IF
 	
 // Displaying Loaded Target
-	IF 	bTgtLoaded = FALSE OR bLoadOK = FALSE THEN
+	IF 	bTgtLoaded = FALSE OR bLoadOK = FALSE OR GV_LIFT.MTS_ALLOWED = FALSE THEN
 		DisplayTgtPos:= '';
 	ELSE
 		DisplayTgtPos:= CONCAT(REAL_TO_STRING((GV_LIFT.TARGET_POSITION)),'"');
 	END_IF
 
 // Hiding load Button to Display Unload Button
-	IF bLoadOK = TRUE AND bTgtLoaded = TRUE THEN
+	IF bLoadOK = TRUE AND bTgtLoaded = TRUE AND GV_LIFT.MTS_ALLOWED THEN
 		bUnload := TRUE;
 	ELSE bUnload := FALSE;	
 	END_IF
@@ -109,29 +95,7 @@ END_VAR
 		bSoftDownLimFlag := FALSE;
 	ELSE bSoftDownLimFlag := TRUE;
 	END_IF
-	
-//Up Arrow Indicator
-	IF NOT GV_LIFT.UP_LIMIT_INDICATOR_IN THEN 
-		dwUpArrow := dwRed;
-	ELSIF GV_LIFT.CURRENT_POSITION > XML.savedvalues.UpSoftLim THEN
-		dwUpArrow := dwYellow;
-	ELSIF GV_LIFT.UP_INDICATOR_IN THEN
-		 dwUpArrow := dwGreen;
-	ELSE
-		dwUpArrow := dwGrey;
-	END_IF
-
-//Down Arrow Indicator
-	IF NOT GV_LIFT.DOWN_LIMIT_INDICATOR_IN THEN 
-		dwDownArrow := dwRed;
-	ELSIF GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim THEN
-		dwDownArrow := dwYellow;
-	ELSIF GV_LIFT.DOWN_INDICATOR_IN THEN
-		 dwDownArrow := dwGreen;
-	ELSE
-		dwDownArrow := dwGrey;
-	END_IF
-	
+		
 //Soft Limit System Indicator
 	IF GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim OR GV_LIFT.CURRENT_POSITION < XML.savedvalues.UpSoftLim THEN
 		bSoftLimFlag := TRUE;
@@ -146,48 +110,16 @@ END_VAR
 	END_IF
  	
 //Door Interlock Indicator Logic
-	IF GV_LIFT.DOOR_1_INDICATOR_IN AND GV_LIFT.DOOR_2_INDICATOR_IN AND GV_LIFT.DOOR_3_INDICATOR_IN AND GV_LIFT.DOOR_4_INDICATOR_IN THEN
-		dwDoorFlag := dwGreen;
-	(*ELSIF GV_LIFT.DOOR_1_INDICATOR_LATCH_IN OR GV_LIFT.DOOR_2_INDICATOR_LATCH_IN OR GV_LIFT.DOOR_3_INDICATOR_LATCH_IN OR GV_LIFT.DOOR_4_INDICATOR_LATCH_IN THEN
-		dwDoorFlag := dwYellow;*)
-	ELSE dwDoorFlag := dwRed;
-	END_IF 
-	//Door 1 Indicator
-		IF GV_LIFT.DOOR_1_INDICATOR_IN THEN
-			dwDoor1 := dwGreen;
-		ELSIF GV_Lift.DOOR_1_INDICATOR_LATCH_IN THEN
-			dwDoor1 := dwYellow;
-		ELSE dwDoor1 := dwRed;
-		END_IF
-	//Door 2 Indicator
-		IF GV_LIFT.DOOR_2_INDICATOR_IN THEN
-			dwDoor2 := dwGreen;
-		ELSIF GV_Lift.DOOR_2_INDICATOR_LATCH_IN THEN
-			dwDoor2 := dwYellow;
-		ELSE dwDoor2 := dwRed;
-		END_IF
-	//Door 3 Indicator
-		IF GV_LIFT.DOOR_3_INDICATOR_IN THEN
-			dwDoor3 := dwGreen;
-		ELSIF GV_Lift.DOOR_3_INDICATOR_LATCH_IN THEN
-			dwDoor3 := dwYellow;
-		ELSE dwDoor3 := dwRed;
-		END_IF
-	//Door 4 Indicator
-		IF GV_LIFT.DOOR_4_INDICATOR_IN THEN
-			dwDoor4 := dwGreen;
-		ELSIF GV_Lift.DOOR_4_INDICATOR_LATCH_IN THEN
-			dwDoor4 := dwYellow;
-		ELSE dwDoor4 := dwRed;
-		END_IF
-		
-//Crush Protection Indicator Logic
-	IF GV_LIFT.CRUSH_PROTECTION_INDICATOR_IN THEN
-		dwCrushFlag := dwGreen;
-	ELSE dwCrushFlag := dwRed;
-	END_IF
 
-//System Fault Logic]]></ST>
+//Crush Protection Indicator Logic
+
+//System Fault Logic
+
+HMI_Up_Arrow_Indicator();
+HMI_Down_Arrow_Indicator();
+HMI_Door_Toggle();
+HMI_Crush_Indicator();
+HMI_System_Indicator();]]></ST>
     </Implementation>
     <LineIds Name="HMI">
       <LineId Id="42" Count="0" />
@@ -226,20 +158,7 @@ END_VAR
       <LineId Id="199" Count="3" />
       <LineId Id="198" Count="0" />
       <LineId Id="203" Count="0" />
-      <LineId Id="114" Count="0" />
-      <LineId Id="188" Count="0" />
-      <LineId Id="187" Count="0" />
-      <LineId Id="179" Count="1" />
-      <LineId Id="183" Count="3" />
-      <LineId Id="150" Count="0" />
-      <LineId Id="146" Count="0" />
-      <LineId Id="145" Count="0" />
-      <LineId Id="190" Count="0" />
-      <LineId Id="189" Count="0" />
-      <LineId Id="153" Count="2" />
-      <LineId Id="176" Count="2" />
-      <LineId Id="147" Count="0" />
-      <LineId Id="156" Count="3" />
+      <LineId Id="157" Count="2" />
       <LineId Id="172" Count="0" />
       <LineId Id="164" Count="0" />
       <LineId Id="160" Count="0" />
@@ -251,29 +170,13 @@ END_VAR
       <LineId Id="245" Count="0" />
       <LineId Id="242" Count="0" />
       <LineId Id="115" Count="0" />
-      <LineId Id="118" Count="0" />
-      <LineId Id="121" Count="0" />
-      <LineId Id="123" Count="0" />
-      <LineId Id="127" Count="0" />
-      <LineId Id="126" Count="0" />
-      <LineId Id="122" Count="0" />
-      <LineId Id="204" Count="0" />
-      <LineId Id="134" Count="0" />
-      <LineId Id="205" Count="0" />
-      <LineId Id="211" Count="2" />
-      <LineId Id="206" Count="0" />
-      <LineId Id="217" Count="5" />
-      <LineId Id="216" Count="0" />
-      <LineId Id="224" Count="5" />
-      <LineId Id="223" Count="0" />
-      <LineId Id="232" Count="5" />
-      <LineId Id="231" Count="0" />
       <LineId Id="215" Count="0" />
       <LineId Id="133" Count="0" />
-      <LineId Id="135" Count="1" />
-      <LineId Id="140" Count="0" />
-      <LineId Id="137" Count="0" />
       <LineId Id="141" Count="1" />
+      <LineId Id="299" Count="1" />
+      <LineId Id="298" Count="0" />
+      <LineId Id="302" Count="1" />
+      <LineId Id="301" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="HMI_Up_Arrow_Indicator" Id="{375d2ac6-23df-4b1a-a638-0f0bedb16b1e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM HMI_Up_Arrow_Indicator
+VAR
+	dwUpArrow: DWORD;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT GV_LIFT.UP_LIMIT_INDICATOR_IN THEN 
+	dwUpArrow := GV_HMI.dwRed;
+ELSIF GV_LIFT.CURRENT_POSITION > XML.savedvalues.UpSoftLim THEN
+	dwUpArrow := GV_HMI.dwYellow;
+ELSIF GV_LIFT.UP_INDICATOR_IN THEN
+	 dwUpArrow := GV_HMI.dwGreen;
+ELSE
+	dwUpArrow := GV_HMI.dwGrey;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="HMI_Up_Arrow_Indicator">
+      <LineId Id="7" Count="7" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

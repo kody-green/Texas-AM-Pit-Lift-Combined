@@ -9,6 +9,7 @@ VAR CONSTANT
 END_VAR
 VAR
 	currentRawPosition AT %I* : UDINT;
+	JUST_RAN: BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -17,14 +18,18 @@ END_VAR
 IF (GV_LIFT.RUN_BUTTON_OUT) AND GV_LIFT.MTS_ALLOWED	THEN
 	IF(GV_LIFT.CURRENT_POSITION > (GV_LIFT.TARGET_POSITION + DOWN_OFFSET)) THEN
 		GV_LIFT.DOWN_BUTTON_OUT := TRUE;
+		JUST_RAN := TRUE;
 	ELSIF(GV_LIFT.CURRENT_POSITION < (GV_LIFT.TARGET_POSITION + UP_OFFSET)) THEN
 		GV_LIFT.UP_BUTTON_OUT := TRUE;
+		JUST_RAN := TRUE;
 	ELSE
 		GV_LIFT.UP_BUTTON_OUT := FALSE;
 		GV_LIFT.DOWN_BUTTON_OUT := FALSE;
 		GV_LIFT.MTS_ALLOWED := FALSE;
+		JUST_RAN:= FALSE;
 	END_IF
-	
+ELSIF JUST_RAN THEN
+		GV_LIFT.MTS_ALLOWED := FALSE;
 	
 END_IF]]></ST>
     </Implementation>
@@ -32,14 +37,19 @@ END_IF]]></ST>
       <LineId Id="26" Count="1" />
       <LineId Id="5" Count="0" />
       <LineId Id="21" Count="0" />
-      <LineId Id="52" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="111" Count="0" />
       <LineId Id="23" Count="0" />
-      <LineId Id="53" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="102" Count="0" />
       <LineId Id="50" Count="0" />
       <LineId Id="55" Count="1" />
       <LineId Id="68" Count="0" />
+      <LineId Id="112" Count="0" />
       <LineId Id="20" Count="0" />
-      <LineId Id="66" Count="1" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="67" Count="0" />
       <LineId Id="18" Count="0" />
     </LineIds>
   </POU>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="HMI_System_Indicator" Id="{5deedf6c-fe35-4cf8-8e96-7ebcc8d7d603}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM HMI_System_Indicator
+VAR
+	bSystemFlag : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF
+	GV_LIFT.ESTOP_INDICATOR_IN = FALSE AND GV_LIFT.ULTIMATE_LIMIT_INDICATOR_IN AND HMI.bSoftLimFlag AND HMI_Door_Toggle.bDoorFlag = FALSE AND HMI_Crush_Indicator.bCrushFlag = FALSE THEN
+	bSystemFlag := TRUE;
+ELSE
+	bSystemFlag := FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="HMI_System_Indicator">
+      <LineId Id="5" Count="1" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="11" Count="1" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

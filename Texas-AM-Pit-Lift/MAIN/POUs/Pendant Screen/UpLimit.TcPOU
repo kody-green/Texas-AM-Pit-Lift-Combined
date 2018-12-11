@@ -2,41 +2,41 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
   <POU Name="UpLimit" Id="{e6866071-58cb-426d-9411-09cfc3e0f235}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM UpLimit
-VAR
-	header_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A55, 16#5020, 16#4D4F, 16#5645];
-	header_right : ARRAY [1..5] OF WORD := [16#204C, 16#4F43, 16#4B45, 16#442A, 16#2A2A];
+VAR	
+	crush_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A2A, 16#2A43, 16#5255, 16#5348];
+	crush_right : ARRAY [1..5] OF WORD := [16#2046, 16#4155, 16#4C54, 16#2A2A, 16#2A2A];
 	
-	message_left : ARRAY [1..5] OF WORD := [16#506C, 16#6561, 16#7365, 16#206A, 16#6F67];
-	message_right : ARRAY [1..5] OF WORD := [16#2064, 16#6F77, 16#6E20, 16#2020, 16#2020];
+	hard_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A2A, 16#5550, 16#2048, 16#4152];
+	hard_right : ARRAY [1..5] OF WORD := [16#4420, 16#4C49, 16#4D49, 16#542A, 16#2A2A];
+	
+	soft_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A2A, 16#5550, 16#2053, 16#4F46];
+	soft_right : ARRAY [1..5] OF WORD := [16#5420, 16#4C49, 16#4D49, 16#542A, 16#2A2A];	
+	
+	message_left : ARRAY [1..5] OF WORD := [16#2020, 16#504C, 16#4541, 16#5345, 16#204A];
+	message_right : ARRAY [1..5] OF WORD := [16#4F47, 16#2044, 16#4F57, 16#4E20, 16#2020];
 	
 	current : ARRAY [1..5] OF WORD := [16#4375, 16#7272, 16#656E, 16#7420, 16#506F];
 	pos : ARRAY [1..5] OF WORD := [16#7320, 16#2020, 16#2020, 16#2020, 16#2020];
-	fault : ARRAY [1..5] OF WORD := [16#4661, 16#756C, 16#7420, 16#2020, 16#2020];
-	
-	crush: ARRAY [1..5] OF WORD :=[16#4372, 16#7573, 16#6820, 16#2020, 16#2020];
-	up_limit: ARRAY [1..5] OF WORD :=[16#5570, 16#2020, 16#454F, 16#5420, 16#2020];
-	soft_up: ARRAY [1..5] OF WORD := [16#5570, 16#2020, 16#536F, 16#6674, 16#2020];
-	
 	tick: INT := 0;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[GV_MODBUS.oneLeft:= header_left;
-GV_MODBUS.oneRight:= header_right;
-
-GV_MODBUS.twoLeft := fault;
+      <ST><![CDATA[GV_MODBUS.twoLeft:= message_left;
+GV_MODBUS.twoRight:= message_right;
 
 IF GV_LIFT.CRUSH_PROTECTION_INDICATOR_OUT THEN
-	GV_MODBUS.twoRight := crush;
+	GV_MODBUS.oneLeft := crush_left;
+	GV_MODBUS.oneRight := crush_right;
 ELSIF GV_LIFT.UP_LIMIT_INDICATOR_OUT THEN
-	GV_MODBUS.twoRight := up_limit;
+	GV_MODBUS.oneLeft := hard_left;
+	GV_MODBUS.oneRight := hard_right;
 ELSIF GV_LIFT.CURRENT_POSITION > XML.savedvalues.UpSoftLim THEN
-	GV_MODBUS.twoRight := soft_up;
+	GV_MODBUS.oneLeft := soft_left;
+	GV_MODBUS.oneRight := soft_right;
 END_IF
 
-GV_MODBUS.threeLeft:= message_left;
-GV_MODBUS.threeRight:= message_right;
-
+GV_MODBUS.threeLeft := GV_MODBUS.blank;
+GV_MODBUS.threeRight := GV_MODBUS.blank;
 
 GV_MODBUS.fourLeft:= current;
 GV_MODBUS.fourRight:= GV_MODBUS.blank;	
@@ -53,18 +53,20 @@ tick := tick + 1;
 ]]></ST>
     </Implementation>
     <LineIds Name="UpLimit">
-      <LineId Id="19" Count="1" />
-      <LineId Id="44" Count="0" />
-      <LineId Id="43" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="58" Count="0" />
       <LineId Id="31" Count="0" />
       <LineId Id="23" Count="0" />
       <LineId Id="30" Count="0" />
+      <LineId Id="75" Count="0" />
       <LineId Id="25" Count="1" />
+      <LineId Id="76" Count="0" />
       <LineId Id="28" Count="1" />
+      <LineId Id="77" Count="0" />
       <LineId Id="27" Count="0" />
-      <LineId Id="21" Count="1" />
-      <LineId Id="5" Count="0" />
-      <LineId Id="33" Count="1" />
+      <LineId Id="60" Count="1" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="34" Count="0" />
       <LineId Id="41" Count="1" />
       <LineId Id="40" Count="0" />
       <LineId Id="39" Count="0" />

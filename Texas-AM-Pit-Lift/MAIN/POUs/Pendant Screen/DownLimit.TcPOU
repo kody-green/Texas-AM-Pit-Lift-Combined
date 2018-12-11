@@ -2,29 +2,31 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
   <POU Name="DownLimit" Id="{8dc1dc21-9c24-4b40-a3dc-389869464ead}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM DownLimit
-VAR
-	header_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#444F, 16#574E, 16#204D, 16#4F56];
-	header_right : ARRAY [1..5] OF WORD := [16#4520, 16#4C4F, 16#434B, 16#4544, 16#2A2A];
-	
-	message_left : ARRAY [1..5] OF WORD := [16#506C, 16#6561, 16#7365, 16#206A, 16#6F67];
-	message_right : ARRAY [1..5] OF WORD := [16#2075, 16#7020, 16#2020, 16#2020, 16#2020];
+VAR	
+	ult_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A44, 16#4F57, 16#4E20, 16#554C];
+	ult_right : ARRAY [1..5] OF WORD := [16#5420, 16#4C49, 16#4D49, 16#542A, 16#2A2A];
+
+	hard_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A44, 16#4F57, 16#4E20, 16#4841];
+	hard_right : ARRAY [1..5] OF WORD := [16#5244, 16#204C, 16#494D, 16#4954, 16#2A2A];
+
+	soft_left : ARRAY [1..5] OF WORD := ;
+	soft_right : ARRAY [1..5] OF WORD := ;
+		
+
+	message_left : ARRAY [1..5] OF WORD := [16#2020, 16#2050, 16#4C45, 16#4153, 16#4520];
+	message_right : ARRAY [1..5] OF WORD := [16#4A4F, 16#4720, 16#5550, 16#2020, 16#2020];
 	
 	current : ARRAY [1..5] OF WORD := [16#4375, 16#7272, 16#656E, 16#7420, 16#506F];
 	pos : ARRAY [1..5] OF WORD := [16#7320, 16#2020, 16#2020, 16#2020, 16#2020];
-	fault : ARRAY [1..5] OF WORD := [16#4661, 16#756C, 16#7420, 16#2020, 16#2020];
-		
-	ult_limit: ARRAY [1..5] OF WORD :=[16#4477, 16#6E20, 16#556C, 16#7420, 16#2020];
-	down_limit: ARRAY [1..5] OF WORD := [16#4477, 16#6E20, 16#454F, 16#5420, 16#2020];	
-	soft_down: ARRAY [1..5] OF WORD := [16#4477, 16#6E20, 16#536F, 16#6674, 16#2020];
 	
 	tick: INT := 0;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[GV_MODBUS.oneLeft:= header_left;
-GV_MODBUS.oneRight:= header_right;
+      <ST><![CDATA[
 
-GV_MODBUS.twoLeft := fault;
+GV_MODBUS.twoLeft:= message_left;
+GV_MODBUS.twoRight:= message_right;
 
 IF GV_LIFT.ULTIMATE_LIMIT_INDICATOR_OUT THEN
 	GV_MODBUS.twoRight := ult_limit;
@@ -34,8 +36,8 @@ ELSIF GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim THEN
 	GV_MODBUS.twoRight := soft_down;
 END_IF
 
-GV_MODBUS.threeLeft:= message_left;
-GV_MODBUS.threeRight:= message_right;
+GV_MODBUS.threeLeft := GV_MODBUS.blank;
+GV_MODBUS.threeRight := GV_MODBUS.blank;
 
 GV_MODBUS.fourLeft:= current;
 GV_MODBUS.fourRight:= GV_MODBUS.blank;	
@@ -51,10 +53,14 @@ END_IF
 tick := tick + 1;]]></ST>
     </Implementation>
     <LineIds Name="DownLimit">
-      <LineId Id="21" Count="1" />
-      <LineId Id="40" Count="0" />
       <LineId Id="39" Count="0" />
-      <LineId Id="23" Count="10" />
+      <LineId Id="50" Count="1" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="24" Count="6" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="54" Count="0" />
       <LineId Id="35" Count="3" />
       <LineId Id="5" Count="0" />
       <LineId Id="42" Count="6" />

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="HMI_Door_Toggle" Id="{4268ac57-f08a-4dd4-aeaa-43a224c81dac}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM HMI_Door_Toggle
+VAR
+	dwDoorFlag: DWORD;
+	dwDoor1: DWORD;
+	dwDoor2: DWORD;
+	dwDoor3: DWORD;
+	dwDoor4: DWORD;
+	bDoorFlag : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Door Interlock Indicator Logic
+	IF GV_LIFT.DOOR_1_INDICATOR_IN AND GV_LIFT.DOOR_2_INDICATOR_IN AND GV_LIFT.DOOR_3_INDICATOR_IN AND GV_LIFT.DOOR_4_INDICATOR_IN THEN
+		dwDoorFlag := GV_HMI.dwGreen;
+		bDoorFlag := FALSE;
+	ELSIF GV_LIFT.DOOR_1_INDICATOR_LATCH_IN OR GV_LIFT.DOOR_2_INDICATOR_LATCH_IN OR GV_LIFT.DOOR_3_INDICATOR_LATCH_IN OR GV_LIFT.DOOR_4_INDICATOR_LATCH_IN THEN
+		dwDoorFlag := GV_HMI.dwYellow;
+		bDoorFlag := FALSE;
+	ELSE dwDoorFlag := GV_HMI.dwRed;
+		bDoorFlag := TRUE;
+	END_IF 
+	
+	//Door 1 Indicator
+		IF GV_LIFT.DOOR_1_INDICATOR_IN THEN
+			dwDoor1 := GV_HMI.dwGreen;
+		ELSIF GV_Lift.DOOR_1_INDICATOR_LATCH_IN THEN
+			dwDoor1 := GV_HMI.dwYellow;
+		ELSE dwDoor1 := GV_HMI.dwRed;
+		END_IF
+	//Door 2 Indicator
+		IF GV_LIFT.DOOR_2_INDICATOR_IN THEN
+			dwDoor2 := GV_HMI.dwGreen;
+		ELSIF GV_Lift.DOOR_2_INDICATOR_LATCH_IN THEN
+			dwDoor2 := GV_HMI.dwYellow;
+		ELSE dwDoor2 := GV_HMI.dwRed;
+		END_IF
+	//Door 3 Indicator
+		IF GV_LIFT.DOOR_3_INDICATOR_IN THEN
+			dwDoor3 := GV_HMI.dwGreen;
+		ELSIF GV_Lift.DOOR_3_INDICATOR_LATCH_IN THEN
+			dwDoor3 := GV_HMI.dwYellow;
+		ELSE dwDoor3 := GV_HMI.dwRed;
+		END_IF
+	//Door 4 Indicator
+		IF GV_LIFT.DOOR_4_INDICATOR_IN THEN
+			dwDoor4 := GV_HMI.dwGreen;
+		ELSIF GV_Lift.DOOR_4_INDICATOR_LATCH_IN THEN
+			dwDoor4 := GV_HMI.dwYellow;
+		ELSE dwDoor4 := GV_HMI.dwRed;
+		END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="HMI_Door_Toggle">
+      <LineId Id="6" Count="2" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="13" Count="26" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

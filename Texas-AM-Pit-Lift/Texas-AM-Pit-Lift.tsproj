@@ -202,6 +202,10 @@
 							<Type>UDINT</Type>
 						</Var>
 						<Var>
+							<Name>GV_MODBUS.screen.InData</Name>
+							<Type GUID="{A6DACA51-6BEF-4744-9842-DFBA6F0B44D3}" Namespace="Tc2_ModbusRTU">MB_KL6inData22B</Type>
+						</Var>
+						<Var>
 							<Name>GV_LIFT.SYSTEM_RESET_BUTTON_IN</Name>
 							<Type>BOOL</Type>
 						</Var>
@@ -317,10 +321,6 @@
 							<Name>GV_LIFT.CONSOLE_ESTOP_INDICATOR_IN</Name>
 							<Type>BOOL</Type>
 						</Var>
-						<Var>
-							<Name>GV_MODBUS.screen.InData</Name>
-							<Type GUID="{A6DACA51-6BEF-4744-9842-DFBA6F0B44D3}" Namespace="Tc2_ModbusRTU">MB_KL6inData22B</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
 						<Name>PlcTask Outputs</Name>
@@ -331,6 +331,10 @@
 						<Var>
 							<Name>SYSTEM_RESET.ESTOP_RESTART_BUTTON_OUT</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GV_MODBUS.screen.OutData</Name>
+							<Type GUID="{F5093E02-3126-4DB1-90E8-DE305C8C9A8E}" Namespace="Tc2_ModbusRTU">MB_KL6outData22B</Type>
 						</Var>
 						<Var>
 							<Name>GV_LIFT.REMOTE_ACTIVE_INDICATOR_OUT</Name>
@@ -451,10 +455,6 @@
 						<Var>
 							<Name>GV_LIFT.CONSOLE_ESTOP_INDICATOR_OUT</Name>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GV_MODBUS.screen.OutData</Name>
-							<Type GUID="{F5093E02-3126-4DB1-90E8-DE305C8C9A8E}" Namespace="Tc2_ModbusRTU">MB_KL6outData22B</Type>
 						</Var>
 					</Vars>
 					<TaskPouOids>

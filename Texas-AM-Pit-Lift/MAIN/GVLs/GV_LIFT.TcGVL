@@ -112,6 +112,8 @@ VAR_GLOBAL
 	
 	MTS_ALLOWED : BOOL := FALSE;
 	
+	SYSTEM_FAULT : BOOL;
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

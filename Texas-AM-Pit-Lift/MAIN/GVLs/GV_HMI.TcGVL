@@ -16,6 +16,12 @@ VAR_GLOBAL
 	RowSelect		:	INT:=1;
 	ColumnSelect	:	INT:=1;
 	RowSelected		:	INT:= RowSelect;
+
+
+	dwRed				: DWORD:= 16#FFFF0000;
+	dwGreen				: DWORD:= 16#FF008040;
+	dwYellow			: DWORD:= 16#FFFFFF00;
+	dwGrey				: DWORD:= 16#FFBEBEBE;
 	
 END_VAR]]></Declaration>
   </GVL>

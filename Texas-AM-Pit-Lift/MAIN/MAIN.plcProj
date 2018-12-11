@@ -52,6 +52,21 @@
     <Compile Include="POUs\HMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\HMI\HMI_Crush_Indicator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\HMI\HMI_Door_Toggle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\HMI\HMI_Down_Arrow_Indicator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\HMI\HMI_System_Indicator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\HMI\HMI_Up_Arrow_Indicator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\IO_SWITCHBOARD.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -143,6 +158,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\HMI" />
     <Folder Include="POUs\Pendant Screen" />
     <Folder Include="POUs\Pendant Screen\Functions" />
     <Folder Include="VISUs" />

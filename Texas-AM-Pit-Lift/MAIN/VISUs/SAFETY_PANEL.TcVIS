@@ -2317,7 +2317,7 @@
                     </o>
                     <o>
                       <v n="Id">401380312L</v>
-                      <v n="Value">"HMI.dwDoor1"</v>
+                      <v n="Value">"HMI_Door_Toggle.dwDoor1"</v>
                     </o>
                   </l>
                 </o>
@@ -2789,7 +2789,7 @@
                     </o>
                     <o>
                       <v n="Id">401380312L</v>
-                      <v n="Value">"HMI.dwDoor2"</v>
+                      <v n="Value">"HMI_Door_Toggle.dwDoor2"</v>
                     </o>
                   </l>
                 </o>
@@ -3265,7 +3265,7 @@
                     </o>
                     <o>
                       <v n="Id">401380312L</v>
-                      <v n="Value">"HMI.dwDoor3"</v>
+                      <v n="Value">"HMI_Door_Toggle.dwDoor3"</v>
                     </o>
                   </l>
                 </o>
@@ -3741,7 +3741,7 @@
                     </o>
                     <o>
                       <v n="Id">401380312L</v>
-                      <v n="Value">"HMI.dwDoor4"</v>
+                      <v n="Value">"HMI_Door_Toggle.dwDoor4"</v>
                     </o>
                   </l>
                 </o>
@@ -4220,7 +4220,7 @@
                     </o>
                     <o>
                       <v n="Id">401380312L</v>
-                      <v n="Value">"HMI.dwDoorFlag"</v>
+                      <v n="Value">"HMI_Door_Toggle.dwDoorFlag"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -6871,7 +6871,11 @@
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
-                      <v n="Value">true</v>
+                      <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">401380312L</v>
+                      <v n="Value">"HMI_Crush_Indicator.dwCrushFlag"</v>
                     </o>
                   </l>
                 </o>
@@ -7342,11 +7346,15 @@
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
-                      <v n="Value">true</v>
+                      <v n="Value">false</v>
                     </o>
                     <o>
                       <v n="Id">2827249010L</v>
                       <v n="Value">"PS_HOLLOW"</v>
+                    </o>
+                    <o>
+                      <v n="Id">401380312L</v>
+                      <v n="Value">"HMI_Crush_Indicator.dwCrushFlag"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -9345,10 +9353,10 @@
               <d n="FbMethods" t="CaseInsensitiveHashtable" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>7bfc57bd-86e8-421c-a632-3d117fe1c9b8</v>
-                <v>FB_Reinit</v>
-                <v>4993a458-2520-4cba-851a-dcf8622ecfaf</v>
                 <v>FB_Exit</v>
                 <v>f54f920f-8360-49a4-b06b-a5280d54f680</v>
+                <v>FB_Reinit</v>
+                <v>4993a458-2520-4cba-851a-dcf8622ecfaf</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{db4b2d66-b86b-4214-9862-03332748a1aa}</v>
