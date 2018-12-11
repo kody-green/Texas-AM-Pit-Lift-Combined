@@ -10,16 +10,14 @@ VAR
 	door_2: ARRAY [1..5] OF WORD :=[16#446F, 16#6F72, 16#2032, 16#2020, 16#2020];
 	door_3: ARRAY [1..5] OF WORD :=[16#446F, 16#6F72, 16#2033, 16#2020, 16#2020];
 	door_4: ARRAY [1..5] OF WORD :=[16#446F, 16#6F72, 16#2034, 16#2020, 16#2020];
-	down_limit: ARRAY [1..5] OF WORD :=[16#4477, 16#6E20, 16#4C69, 16#6D69, 16#7420];
-	up_limit: ARRAY [1..5] OF WORD :=[16#5570, 16#2020, 16#4C69, 16#6D69, 16#7420];
-	ult_limit: ARRAY [1..5] OF WORD :=[16#556C, 16#7420, 16#4C69, 16#6D69, 16#7420];
-	crush: ARRAY [1..5] OF WORD :=[16#4372, 16#7573, 16#6820, 16#2020, 16#2020];
+		
+	
 	
 	pageNum: WORD := 0;	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF GV_MODBUS.btnData = GV_MODBUS.btnUp THEN
+      <ST><![CDATA[(*IF GV_MODBUS.btnData = GV_MODBUS.btnUp THEN
 	pageNum := pageNum - 1;
 	
 	IF pageNum < 0 THEN
@@ -32,8 +30,8 @@ END_IF
 IF GV_MODBUS.btnData = GV_MODBUS.btnDwn THEN
 	pageNum := pageNum + 1;
 	
-	IF pageNum > 2 THEN
-		pageNum := 2;
+	IF pageNum > 3 THEN
+		pageNum := 3;
 	END_IF
 	
 	Execute_Write_Screen();
@@ -42,72 +40,96 @@ END_IF
 GV_MODBUS.oneLeft:= faults_oneLeft;
 GV_MODBUS.oneRight:= faults_oneRight; 
 
-IF pageNum = 0 THEN  
+IF pageNum = 0 THEN 
 	                             
-	GV_MODBUS.twoLeft:= up_limit; 
-	IF GV_LIFT.UP_LIMIT_INDICATOR_LATCH_OUT THEN
-		GV_MODBUS.twoRight:= GV_MODBUS.engaged;
+	GV_MODBUS.threeLeft:= up_limit; 
+	
+		GV_MODBUS.threeRight:= GV_MODBUS.fault_string;
 	ELSE
-		GV_MODBUS.twoRight:= GV_MODBUS.ok;		
+		GV_MODBUS.threeRight:= GV_MODBUS.ok;		
 	END_IF
-	                        
-	GV_MODBUS.threeLeft:= down_limit;
-	IF GV_LIFT.DOWN_LIMIT_INDICATOR_LATCH_OUT THEN
-		GV_MODBUS.threeRight:= GV_MODBUS.engaged;
+	
+	GV_MODBUS.twoLeft:= soft_up;
+	
+	IF GV_LIFT.CURRENT_POSITION < XML.savedvalues.UpSoftLim THEN
+		GV_MODBUS.twoRight:= GV_MODBUS.fault_string;
 	ELSE
-		GV_MODBUS.threeRight:= GV_MODBUS.ok;
-	END_IF	
-            
-	GV_MODBUS.fourLeft:= ult_limit;
-	IF GV_LIFT.ULTIMATE_LIMIT_INDICATOR_LATCH_OUT THEN
-		GV_MODBUS.fourRight:= GV_MODBUS.engaged;
+		GV_MODBUS.twoRight:= GV_MODBUS.ok;	
+		
+	END_IF
+
+	GV_MODBUS.fourLeft:= soft_down;
+	IF GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim THEN
+		GV_MODBUS.fourRight := GV_MODBUS.fault_string;
 	ELSE
-		GV_MODBUS.fourRight:= GV_MODBUS.ok;
-	END_IF  
+		GV_MODBUS.fourRight:= GV_MODBUS.ok;	
+	END_IF
         
 END_IF
 
 IF pageNum = 1 THEN
-	                                 
-	GV_MODBUS.twoLeft:= door_1;
-	IF GV_LIFT.DOOR_1_INDICATOR_LATCH_OUT THEN
-		GV_MODBUS.twoRight:= GV_MODBUS.engaged;
+	       	                        
+	GV_MODBUS.twoLeft:= down_limit;
+	IF GV_LIFT.DOWN_LIMIT_INDICATOR_OUT THEN
+		GV_MODBUS.twoRight:= GV_MODBUS.fault_string;
 	ELSE
 		GV_MODBUS.twoRight:= GV_MODBUS.ok;
+	END_IF	
+            
+	GV_MODBUS.threeLeft:= ult_limit;
+	IF GV_LIFT.ULTIMATE_LIMIT_INDICATOR_OUT THEN
+		GV_MODBUS.threeRight:= GV_MODBUS.fault_string;
+	ELSE
+		GV_MODBUS.threeRight:= GV_MODBUS.ok;
+	END_IF     
+                       
+	GV_MODBUS.fourLeft:= door_1;
+	IF GV_LIFT.DOOR_1_INDICATOR_OUT THEN
+		GV_MODBUS.fourRight:= GV_MODBUS.fault_string;
+	ELSE
+		GV_MODBUS.fourRight:= GV_MODBUS.ok;
 	END_IF  
-                            
-	GV_MODBUS.threeLeft:= door_2;
-	IF GV_LIFT.DOOR_2_INDICATOR_LATCH_OUT THEN
-		GV_MODBUS.threeRight:= GV_MODBUS.engaged;
+   
+END_IF
+
+IF pageNum = 2 THEN
+	                                
+	GV_MODBUS.twoLeft:= door_2;
+	IF GV_LIFT.DOOR_2_INDICATOR_OUT THEN
+		GV_MODBUS.twoRight:= GV_MODBUS.fault_string;
 	ELSE
 		GV_MODBUS.threeRight:= GV_MODBUS.ok;
 	END_IF	
                                
-	GV_MODBUS.fourLeft:= door_3; 
-	IF GV_LIFT.DOOR_3_INDICATOR_LATCH_OUT THEN
-		GV_MODBUS.fourRight:= GV_MODBUS.engaged;
+	GV_MODBUS.threeLeft:= door_3; 
+	IF GV_LIFT.DOOR_3_INDICATOR_OUT THEN
+		GV_MODBUS.threeRight:= GV_MODBUS.fault_string;
 	ELSE
-		GV_MODBUS.fourRight:= GV_MODBUS.ok;		
+		GV_MODBUS.threeRight:= GV_MODBUS.ok;		
 	END_IF
 	               
 	
-END_IF
-
-IF pageNum = 2 THEN
-	       
-	GV_MODBUS.twoLeft:= door_4;
-	IF GV_LIFT.DOOR_4_INDICATOR_LATCH_OUT THEN
-		GV_MODBUS.twoRight:= GV_MODBUS.engaged;
+	GV_MODBUS.fourLeft:= door_4;
+	IF GV_LIFT.DOOR_4_INDICATOR_OUT THEN
+		GV_MODBUS.fourRight:= GV_MODBUS.fault_string;
 	ELSE
-		GV_MODBUS.twoRight:= GV_MODBUS.ok;
+		GV_MODBUS.fourRight:= GV_MODBUS.ok;
 	END_IF  
                            
-	GV_MODBUS.threeLeft:= crush;
+	
+END_IF
+
+IF pageNum = 3 THEN
+	GV_MODBUS.twoLeft := crush;
+	
 	IF GV_LIFT.CRUSH_PROTECTION_INDICATOR_OUT THEN
-		GV_MODBUS.threeRight:= GV_MODBUS.engaged;
+		GV_MODBUS.twoRight:= GV_MODBUS.fault_string;
 	ELSE
-		GV_MODBUS.threeRight:= GV_MODBUS.ok;
+		GV_MODBUS.twoRight:= GV_MODBUS.ok;
 	END_IF	
+	
+	GV_MODBUS.threeLeft:= GV_MODBUS.blank;
+	GV_MODBUS.threeRight:= GV_MODBUS.blank;
                                
 	GV_MODBUS.fourLeft:= GV_MODBUS.blank; 
 	GV_MODBUS.fourRight:= GV_MODBUS.blank;
@@ -117,7 +139,7 @@ END_IF
 
 IF NOT GV_MODBUS.readExecute AND GV_MODBUS.addr = GV_MODBUS.oneLeftAddr THEN
 	GV_MODBUS.data:= GV_MODBUS.oneLeft;
-END_IF
+END_IF*)
 ]]></ST>
     </Implementation>
     <LineIds Name="Faults">
@@ -132,24 +154,48 @@ END_IF
       <LineId Id="72" Count="1" />
       <LineId Id="39" Count="0" />
       <LineId Id="74" Count="0" />
+      <LineId Id="293" Count="6" />
       <LineId Id="51" Count="0" />
-      <LineId Id="204" Count="6" />
-      <LineId Id="168" Count="6" />
-      <LineId Id="197" Count="6" />
+      <LineId Id="262" Count="1" />
+      <LineId Id="270" Count="0" />
+      <LineId Id="264" Count="0" />
+      <LineId Id="268" Count="1" />
+      <LineId Id="267" Count="0" />
+      <LineId Id="265" Count="0" />
+      <LineId Id="210" Count="0" />
+      <LineId Id="276" Count="0" />
+      <LineId Id="271" Count="0" />
+      <LineId Id="203" Count="0" />
+      <LineId Id="274" Count="1" />
+      <LineId Id="272" Count="1" />
       <LineId Id="97" Count="0" />
       <LineId Id="41" Count="0" />
       <LineId Id="43" Count="0" />
       <LineId Id="42" Count="0" />
-      <LineId Id="141" Count="20" />
-      <LineId Id="76" Count="0" />
+      <LineId Id="248" Count="12" />
+      <LineId Id="141" Count="0" />
+      <LineId Id="261" Count="0" />
+      <LineId Id="142" Count="5" />
       <LineId Id="96" Count="0" />
       <LineId Id="45" Count="0" />
       <LineId Id="47" Count="0" />
       <LineId Id="46" Count="0" />
+      <LineId Id="277" Count="14" />
       <LineId Id="190" Count="6" />
-      <LineId Id="105" Count="8" />
       <LineId Id="118" Count="0" />
       <LineId Id="48" Count="1" />
+      <LineId Id="232" Count="0" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="236" Count="0" />
+      <LineId Id="247" Count="0" />
+      <LineId Id="237" Count="4" />
+      <LineId Id="246" Count="0" />
+      <LineId Id="242" Count="0" />
+      <LineId Id="245" Count="0" />
+      <LineId Id="243" Count="1" />
+      <LineId Id="233" Count="0" />
+      <LineId Id="235" Count="0" />
+      <LineId Id="234" Count="0" />
       <LineId Id="120" Count="4" />
       <LineId Id="119" Count="0" />
     </LineIds>

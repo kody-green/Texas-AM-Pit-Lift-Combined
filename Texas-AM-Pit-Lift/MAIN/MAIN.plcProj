@@ -61,6 +61,12 @@
     <Compile Include="POUs\MOVE_TO_POSITION.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Pendant Screen\DoorFaults.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Pendant Screen\DownLimit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Pendant Screen\EStop.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -104,6 +110,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Pendant Screen\SwitchScreens.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Pendant Screen\UpLimit.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\SYSTEM_RESET.TcPOU">

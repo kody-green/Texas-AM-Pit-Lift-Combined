@@ -9,7 +9,9 @@ VAR
 	wasNoScreen : BOOL := FALSE;
 	
 	wasEstop : BOOL := FALSE;
-	wasFault : BOOL := FALSE;
+	wasDoorFault : BOOL := FALSE;
+	wasUpLimit : BOOL := FALSE;
+	wasDwnLimit : BOOL := FALSE;
 	wasJogging : BOOL := FALSE;
 	wasRunningToTarget : BOOL := FALSE;
 END_VAR
@@ -37,22 +39,55 @@ ELSE
 		
 		wasEstop := TRUE;
 		GV_MODBUS.wasMTS := FALSE;
-		wasFault := FALSE;
+		wasDoorFault := FALSE;
+		wasUpLimit := FALSE;
+		wasDwnLimit := FALSE;
 		wasJogging := FALSE;
 		wasRunningToTarget := FALSE;
-	ELSIF GV_LIFT.DOOR_4_INDICATOR_OUT THEN	
-		Faults();	
+	ELSIF GV_LIFT.DOOR_1_INDICATOR_OUT OR GV_LIFT.DOOR_2_INDICATOR_OUT OR GV_LIFT.DOOR_3_INDICATOR_OUT OR GV_LIFT.DOOR_4_INDICATOR_OUT THEN	
+		DoorFaults();	
 	
-		IF NOT wasFault THEN
+		IF NOT wasDoorFault THEN
 			Execute_Write_Screen();
 		END_IF
 		
 		wasEstop := FALSE;
 		GV_MODBUS.wasMTS := FALSE;
-		wasFault := TRUE;
+		wasDoorFault := TRUE;
+		wasUpLimit := FALSE;
+		wasDwnLimit := FALSE;
 		wasJogging := FALSE;
 		wasRunningToTarget := FALSE;
+		
+	ELSIF GV_LIFT.UP_LIMIT_INDICATOR_OUT OR GV_LIFT.CRUSH_PROTECTION_INDICATOR_OUT OR GV_LIFT.CURRENT_POSITION > XML.savedvalues.UpSoftLim THEN
+		UpLimit();	
 	
+		IF NOT wasUpLimit THEN
+			Execute_Write_Screen();
+		END_IF
+		
+		wasEstop := FALSE;
+		GV_MODBUS.wasMTS := FALSE;
+		wasDoorFault := FALSE;
+		wasUpLimit := TRUE;
+		wasDwnLimit := FALSE;
+		wasJogging := FALSE;
+		wasRunningToTarget := FALSE;
+		
+	ELSIF GV_LIFT.ULTIMATE_LIMIT_INDICATOR_OUT OR GV_LIFT.DOWN_LIMIT_INDICATOR_OUT OR GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim THEN
+		DownLimit();	
+	
+		IF NOT wasDwnLimit THEN
+			Execute_Write_Screen();
+		END_IF
+		
+		wasEstop := FALSE;
+		GV_MODBUS.wasMTS := FALSE;
+		wasDoorFault := FALSE;
+		wasUpLimit := FALSE;
+		wasDwnLimit := TRUE;
+		wasJogging := FALSE;
+		wasRunningToTarget := FALSE;
 	ELSIF GV_LIFT.RUN_BUTTON_OUT THEN
 		MoveToPosition();
 		
@@ -62,7 +97,9 @@ ELSE
 		
 		wasEstop := FALSE;
 		GV_MODBUS.wasMTS := FALSE;
-		wasFault := FALSE;
+		wasDoorFault := FALSE;
+		wasUpLimit := FALSE;
+		wasDwnLimit := FALSE;
 		wasJogging := FALSE;
 		wasRunningToTarget := TRUE;
 	ELSIF GV_LIFT.UP_BUTTON_OUT OR GV_LIFT.DOWN_BUTTON_OUT THEN
@@ -74,7 +111,9 @@ ELSE
 		
 		wasEstop := FALSE;
 		GV_MODBUS.wasMTS := FALSE;
-		wasFault := FALSE;
+		wasDoorFault := FALSE;
+		wasUpLimit := FALSE;
+		wasDwnLimit := FALSE;
 		wasJogging := TRUE;
 		wasRunningToTarget := FALSE;
 	
@@ -87,7 +126,9 @@ ELSE
 		
 		wasEstop := FALSE;
 		GV_MODBUS.wasMTS := TRUE;
-		wasFault := FALSE;
+		wasDoorFault := FALSE;
+		wasUpLimit := FALSE;
+		wasDwnLimit := FALSE;
 		wasJogging := FALSE;
 		wasRunningToTarget := FALSE;
 	END_IF
@@ -105,36 +146,24 @@ END_IF
 ]]></ST>
     </Implementation>
     <LineIds Name="SwitchScreens">
-      <LineId Id="229" Count="0" />
-      <LineId Id="303" Count="0" />
-      <LineId Id="313" Count="0" />
-      <LineId Id="230" Count="0" />
-      <LineId Id="305" Count="1" />
-      <LineId Id="311" Count="0" />
-      <LineId Id="307" Count="0" />
-      <LineId Id="304" Count="0" />
-      <LineId Id="302" Count="0" />
-      <LineId Id="233" Count="0" />
-      <LineId Id="296" Count="0" />
-      <LineId Id="314" Count="0" />
-      <LineId Id="234" Count="1" />
-      <LineId Id="332" Count="0" />
-      <LineId Id="237" Count="21" />
-      <LineId Id="335" Count="10" />
-      <LineId Id="334" Count="0" />
-      <LineId Id="333" Count="0" />
-      <LineId Id="259" Count="10" />
-      <LineId Id="281" Count="12" />
-      <LineId Id="232" Count="0" />
-      <LineId Id="315" Count="2" />
-      <LineId Id="319" Count="0" />
-      <LineId Id="318" Count="0" />
-      <LineId Id="231" Count="0" />
-      <LineId Id="228" Count="0" />
-      <LineId Id="202" Count="0" />
-      <LineId Id="300" Count="0" />
-      <LineId Id="310" Count="0" />
-      <LineId Id="299" Count="0" />
+      <LineId Id="370" Count="21" />
+      <LineId Id="459" Count="1" />
+      <LineId Id="392" Count="12" />
+      <LineId Id="461" Count="1" />
+      <LineId Id="405" Count="1" />
+      <LineId Id="496" Count="0" />
+      <LineId Id="407" Count="0" />
+      <LineId Id="484" Count="11" />
+      <LineId Id="483" Count="0" />
+      <LineId Id="497" Count="13" />
+      <LineId Id="482" Count="0" />
+      <LineId Id="408" Count="9" />
+      <LineId Id="463" Count="1" />
+      <LineId Id="418" Count="11" />
+      <LineId Id="465" Count="1" />
+      <LineId Id="430" Count="12" />
+      <LineId Id="467" Count="1" />
+      <LineId Id="443" Count="13" />
       <LineId Id="5" Count="0" />
     </LineIds>
   </POU>

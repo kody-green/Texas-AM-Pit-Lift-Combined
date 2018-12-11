@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="DoorFaults" Id="{17bb635c-b6f7-4157-a8d6-2a30cc4dea9b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM DoorFaults
+VAR
+	header_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A2A, 16#2A44, 16#4F4F, 16#5220];
+	header_right: ARRAY [1..5] OF WORD := [16#4641, 16#554C, 16#542A, 16#2A2A, 16#2A2A];
+	
+	usr_ok: ARRAY [1..5] OF WORD := [16#5553, 16#5220, 16#4F4B, 16#2020, 16#2020];
+	usr_fault: ARRAY [1..5] OF WORD := [16#5553, 16#5220, 16#464C, 16#5420, 16#2020];
+	
+	usl_ok: ARRAY [1..5] OF WORD := [16#5553, 16#4C20, 16#4F4B, 16#2020, 16#2020];
+	usl_fault: ARRAY [1..5] OF WORD := [16#5553, 16#4C20, 16#464C, 16#5420, 16#2020];
+	
+	dsr_ok: ARRAY [1..5] OF WORD := [16#4453, 16#5220, 16#4F4B, 16#2020, 16#2020];
+	dsr_fault: ARRAY [1..5] OF WORD := [16#4453, 16#5220, 16#464C, 16#5420, 16#2020];
+	
+	dsl_ok: ARRAY [1..5] OF WORD := [16#4453, 16#4C20, 16#4F4B, 16#2020, 16#2020];
+	dsl_fault: ARRAY [1..5] OF WORD := [16#4453, 16#4C20, 16#464C, 16#5420, 16#2020];
+	
+	
+	tick: INT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GV_MODBUS.oneLeft:= header_left;
+GV_MODBUS.oneRight:= header_right;
+
+GV_MODBUS.twoLeft:= GV_MODBUS.blank;
+GV_MODBUS.twoRight:= GV_MODBUS.blank;
+
+IF GV_LIFT.DOOR_1_INDICATOR_OUT THEN
+	GV_MODBUS.threeLeft:= dsl_fault;
+ELSE
+	GV_MODBUS.threeLeft:= dsl_ok;
+END_IF  
+
+IF GV_LIFT.DOOR_2_INDICATOR_OUT THEN
+	GV_MODBUS.threeRight:= dsr_fault;
+ELSE
+	GV_MODBUS.threeRight:= dsr_ok;
+END_IF
+
+IF GV_LIFT.DOOR_3_INDICATOR_OUT THEN
+	GV_MODBUS.fourLeft:= usl_fault;
+ELSE
+	GV_MODBUS.fourLeft:= usl_ok;
+END_IF
+
+IF GV_LIFT.DOOR_4_INDICATOR_OUT THEN
+	GV_MODBUS.fourRight:= usr_fault;
+ELSE
+	GV_MODBUS.fourRight:= usr_ok;
+END_IF
+
+
+IF tick >= GV_MODBUS.refreshInterval THEN
+	Execute_Write_Screen();
+	tick := 0;
+END_IF
+
+tick := tick + 1;]]></ST>
+    </Implementation>
+    <LineIds Name="DoorFaults">
+      <LineId Id="60" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="51" Count="1" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="57" Count="1" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="66" Count="6" />
+      <LineId Id="65" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

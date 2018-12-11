@@ -55,12 +55,12 @@ ELSE
 END_IF
 
 XML(); 
-HMI();
+//HMI();
 IO_SWITCHBOARD();
 SYSTEM_RESET();
 MOVE_TO_POSITION();
-SwitchScreens();
-]]></ST>
+HMI();
+SwitchScreens();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="425" Count="1" />
@@ -89,8 +89,8 @@ SwitchScreens();
       <LineId Id="576" Count="0" />
       <LineId Id="854" Count="1" />
       <LineId Id="857" Count="0" />
+      <LineId Id="992" Count="0" />
       <LineId Id="988" Count="0" />
-      <LineId Id="861" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
