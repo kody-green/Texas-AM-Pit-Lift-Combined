@@ -14,9 +14,6 @@
     <LibraryReferences>{7fd42938-1701-4c0f-9e49-e5d5a8f6b6a7}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs\MOTION_STATE.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\RESET_STATE.TcDUT">
       <SubType>Code</SubType>
     </Compile>

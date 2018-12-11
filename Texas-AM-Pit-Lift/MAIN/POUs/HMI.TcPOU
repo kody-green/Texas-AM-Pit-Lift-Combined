@@ -85,19 +85,19 @@ END_VAR
 //System Indicator
 
 //Soft Up Limit Indicator
-	IF GV_LIFT.CURRENT_POSITION > XML.savedvalues.UpSoftLim THEN
+	IF (GV_LIFT.CURRENT_POSITION > XML.savedvalues.UpSoftLim) AND NOT GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN THEN
 		bSoftUpLimFlag := FALSE;
 	ELSE bSoftUpLimFlag := TRUE;
 	END_IF
 	
 //Soft Down Limit Indicator
-	IF GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim THEN
+	IF (GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim) AND NOT GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN THEN
 		bSoftDownLimFlag := FALSE;
 	ELSE bSoftDownLimFlag := TRUE;
 	END_IF
 		
 //Soft Limit System Indicator
-	IF GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim OR GV_LIFT.CURRENT_POSITION < XML.savedvalues.UpSoftLim THEN
+	IF (GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim) OR (GV_LIFT.CURRENT_POSITION < XML.savedvalues.UpSoftLim) OR GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN THEN
 		bSoftLimFlag := TRUE;
 		bSystemFlag:= TRUE;
 	ELSE bSoftLimFlag := FALSE;

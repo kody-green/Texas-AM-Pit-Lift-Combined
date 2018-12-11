@@ -202,6 +202,18 @@
 							<Type>UDINT</Type>
 						</Var>
 						<Var>
+							<Name>IO_SWITCHBOARD.CONSOLE_RESET_BUTTON_IN</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO_SWITCHBOARD.REMOTE_RESET_BUTTON_IN</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GV_MODBUS.screen.InData</Name>
 							<Type GUID="{A6DACA51-6BEF-4744-9842-DFBA6F0B44D3}" Namespace="Tc2_ModbusRTU">MB_KL6inData22B</Type>
 						</Var>
@@ -2390,13 +2402,15 @@
 				<Link VarA="PlcTask Inputs^MOVE_TO_POSITION.currentRawPosition" VarB="TxPDO-1^Position Value"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 3 (EL1859)">
-				<Link VarA="PlcTask Inputs^GV_LIFT.SYSTEM_RESET_BUTTON_IN" VarB="Channel 5^Input"/>
+				<Link VarA="PlcTask Inputs^GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN" VarB="Channel 1^Input"/>
 				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.CONSOLE_DOWN_BUTTON_IN" VarB="Channel 3^Input"/>
+				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.CONSOLE_RESET_BUTTON_IN" VarB="Channel 5^Input"/>
 				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.CONSOLE_RUN_BUTTON_IN" VarB="Channel 4^Input"/>
 				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.CONSOLE_UP_BUTTON_IN" VarB="Channel 2^Input"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 5 (EK1914)">
 				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.REMOTE_DOWN_BUTTON_IN" VarB="Module 2 (DIO)^DIO Inputs^Input 1"/>
+				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.REMOTE_RESET_BUTTON_IN" VarB="Module 2 (DIO)^DIO Inputs^Input 0"/>
 				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.REMOTE_RUN_BUTTON_IN" VarB="Module 2 (DIO)^DIO Inputs^Input 3"/>
 				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.REMOTE_UP_BUTTON_IN" VarB="Module 2 (DIO)^DIO Inputs^Input 2"/>
 			</OwnerB>
