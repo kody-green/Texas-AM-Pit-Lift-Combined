@@ -6,14 +6,24 @@ VAR CONSTANT
 	UP_OFFSET : REAL :=-1.375;
 	DOWN_OFFSET : REAL := 0.675;
 	POSITION_SCALE : REAL := 12000;
+	
 END_VAR
 VAR
 	currentRawPosition AT %I* : UDINT;
-	
+	rStagePosition : REAL;
+	rCurrentPosition : REAL;
+	bRecalculatePosition : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[GV_LIFT.CURRENT_POSITION := UDINT_TO_REAL(currentRawPosition) / POSITION_SCALE;
+      <ST><![CDATA[rCurrentPosition := UDINT_TO_REAL(currentRawPosition);
+
+IF(bRecalculatePosition) THEN
+	rStagePosition := rCurrentPosition - (POSITION_SCALE * GV_HMI.updatedPos);
+	bRecalculatePosition := FALSE;
+END_IF
+
+GV_LIFT.CURRENT_POSITION := (rCurrentPosition-rStagePosition)/ POSITION_SCALE;
 
 IF (GV_LIFT.RUN_BUTTON_OUT) AND GV_LIFT.MTS_ALLOWED	THEN
 	IF(GV_LIFT.CURRENT_POSITION > (GV_LIFT.TARGET_POSITION + DOWN_OFFSET)) THEN
@@ -30,10 +40,16 @@ IF (GV_LIFT.RUN_BUTTON_OUT) AND GV_LIFT.MTS_ALLOWED	THEN
 	END_IF
 ELSIF GV_LIFT.JUST_RAN THEN
 		GV_LIFT.MTS_ALLOWED := FALSE;
-	
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="MOVE_TO_POSITION">
+      <LineId Id="118" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="122" Count="0" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="125" Count="0" />
+      <LineId Id="127" Count="0" />
       <LineId Id="26" Count="1" />
       <LineId Id="5" Count="0" />
       <LineId Id="21" Count="0" />
@@ -49,7 +65,6 @@ END_IF]]></ST>
       <LineId Id="20" Count="0" />
       <LineId Id="66" Count="0" />
       <LineId Id="108" Count="0" />
-      <LineId Id="67" Count="0" />
       <LineId Id="18" Count="0" />
     </LineIds>
   </POU>
