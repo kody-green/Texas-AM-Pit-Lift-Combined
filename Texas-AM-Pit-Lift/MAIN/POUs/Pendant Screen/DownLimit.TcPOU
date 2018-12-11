@@ -9,8 +9,8 @@ VAR
 	hard_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A44, 16#4F57, 16#4E20, 16#4841];
 	hard_right : ARRAY [1..5] OF WORD := [16#5244, 16#204C, 16#494D, 16#4954, 16#2A2A];
 
-	soft_left : ARRAY [1..5] OF WORD := ;
-	soft_right : ARRAY [1..5] OF WORD := ;
+	soft_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A44, 16#4F57, 16#4E20, 16#534F];
+	soft_right : ARRAY [1..5] OF WORD := [16#4654, 16#204C, 16#494D, 16#4954, 16#2A2A];
 		
 
 	message_left : ARRAY [1..5] OF WORD := [16#2020, 16#2050, 16#4C45, 16#4153, 16#4520];
@@ -29,11 +29,14 @@ GV_MODBUS.twoLeft:= message_left;
 GV_MODBUS.twoRight:= message_right;
 
 IF GV_LIFT.ULTIMATE_LIMIT_INDICATOR_OUT THEN
-	GV_MODBUS.twoRight := ult_limit;
+	GV_MODBUS.oneLeft := ult_left;
+	GV_MODBUS.oneRight := ult_right;
 ELSIF GV_LIFT.DOWN_LIMIT_INDICATOR_OUT THEN
-	GV_MODBUS.twoRight := down_limit;
+	GV_MODBUS.oneLeft := hard_left;
+	GV_MODBUS.oneRight := hard_right;
 ELSIF GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim THEN
-	GV_MODBUS.twoRight := soft_down;
+	GV_MODBUS.oneLeft := soft_left;
+	GV_MODBUS.oneRight := soft_right;
 END_IF
 
 GV_MODBUS.threeLeft := GV_MODBUS.blank;
@@ -57,7 +60,13 @@ tick := tick + 1;]]></ST>
       <LineId Id="50" Count="1" />
       <LineId Id="23" Count="0" />
       <LineId Id="52" Count="0" />
-      <LineId Id="24" Count="6" />
+      <LineId Id="24" Count="1" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="28" Count="1" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="30" Count="0" />
       <LineId Id="53" Count="0" />
       <LineId Id="33" Count="0" />
       <LineId Id="54" Count="0" />

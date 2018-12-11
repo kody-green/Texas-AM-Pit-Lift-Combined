@@ -27,6 +27,7 @@ END_VAR
 	cursorIndex:= cursorIndex - 1;
 	selectedCursorIndex := 0;
 	GV_LIFT.MTS_ALLOWED := FALSE;
+	GV_LIFT.JUST_RAN := FALSE;
 	Execute_Write_Screen();
 END_IF
 
@@ -34,6 +35,7 @@ IF GV_MODBUS.btnData = GV_MODBUS.btnDwn THEN
 	cursorIndex:= cursorIndex + 1;	
 	selectedCursorIndex := 0;
 	GV_LIFT.MTS_ALLOWED := FALSE;
+	GV_LIFT.JUST_RAN := FALSE;
 	Execute_Write_Screen();	
 END_IF
 
@@ -177,12 +179,14 @@ END_IF]]></ST>
       <LineId Id="625" Count="0" />
       <LineId Id="900" Count="0" />
       <LineId Id="1051" Count="0" />
+      <LineId Id="1090" Count="0" />
       <LineId Id="978" Count="0" />
       <LineId Id="12" Count="1" />
       <LineId Id="19" Count="0" />
       <LineId Id="622" Count="0" />
       <LineId Id="954" Count="0" />
       <LineId Id="1050" Count="0" />
+      <LineId Id="1089" Count="0" />
       <LineId Id="979" Count="0" />
       <LineId Id="20" Count="0" />
       <LineId Id="1046" Count="0" />
