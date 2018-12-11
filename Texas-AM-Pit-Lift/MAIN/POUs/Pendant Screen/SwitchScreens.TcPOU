@@ -88,7 +88,7 @@ ELSE
 		wasDwnLimit := TRUE;
 		wasJogging := FALSE;
 		wasRunningToTarget := FALSE;
-	ELSIF GV_LIFT.RUN_BUTTON_OUT THEN
+	ELSIF GV_LIFT.RUN_BUTTON_OUT AND GV_LIFT.MTS_ALLOWED THEN
 		MoveToPosition();
 		
 		IF NOT wasRunningToTarget THEN

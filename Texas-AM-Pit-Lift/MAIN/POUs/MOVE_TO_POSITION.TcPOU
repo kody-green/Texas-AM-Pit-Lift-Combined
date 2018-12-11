@@ -14,7 +14,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[GV_LIFT.CURRENT_POSITION := UDINT_TO_REAL(currentRawPosition) / POSITION_SCALE;
 
-IF (GV_LIFT.RUN_BUTTON_OUT) THEN
+IF (GV_LIFT.RUN_BUTTON_OUT) AND GV_LIFT.MTS_ALLOWED	THEN
 	IF(GV_LIFT.CURRENT_POSITION > (GV_LIFT.TARGET_POSITION + DOWN_OFFSET)) THEN
 		GV_LIFT.DOWN_BUTTON_OUT := TRUE;
 	ELSIF(GV_LIFT.CURRENT_POSITION < (GV_LIFT.TARGET_POSITION + UP_OFFSET)) THEN
@@ -22,7 +22,10 @@ IF (GV_LIFT.RUN_BUTTON_OUT) THEN
 	ELSE
 		GV_LIFT.UP_BUTTON_OUT := FALSE;
 		GV_LIFT.DOWN_BUTTON_OUT := FALSE;
+		GV_LIFT.MTS_ALLOWED := FALSE;
 	END_IF
+	
+	
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="MOVE_TO_POSITION">
@@ -34,7 +37,9 @@ END_IF]]></ST>
       <LineId Id="53" Count="0" />
       <LineId Id="50" Count="0" />
       <LineId Id="55" Count="1" />
+      <LineId Id="68" Count="0" />
       <LineId Id="20" Count="0" />
+      <LineId Id="66" Count="1" />
       <LineId Id="18" Count="0" />
     </LineIds>
   </POU>

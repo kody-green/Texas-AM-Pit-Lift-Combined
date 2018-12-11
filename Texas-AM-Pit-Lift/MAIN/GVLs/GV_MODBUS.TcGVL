@@ -34,6 +34,7 @@ VAR_GLOBAL CONSTANT
 	selectedASCII: STRING:= '>';
 	loaded: WORD:= 16#2A;
 	loadedASCII: STRING:= '*';
+	outOfBoundsASCII: STRING := 'x';
 	
 	filterTarget: REAL:= 999.99;
 END_VAR
@@ -60,7 +61,7 @@ VAR_GLOBAL
 	btnData: WORD := 0;		
 	
 	wasMTS : BOOL := FALSE;
-	refreshInterval: INT := 100;
+	refreshInterval: INT := 50;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

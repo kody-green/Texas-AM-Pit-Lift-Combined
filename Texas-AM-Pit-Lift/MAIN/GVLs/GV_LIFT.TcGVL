@@ -110,6 +110,8 @@ VAR_GLOBAL
 	
 	STATUS : MOTION_STATE;
 	
+	MTS_ALLOWED : BOOL := FALSE;
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
