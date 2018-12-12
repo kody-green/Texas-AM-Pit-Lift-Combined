@@ -58,7 +58,7 @@ END_VAR
 	END_IF
 	
 //Load Button Logic
-	IF XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear AND insidelimits AND GV_LIFT.RUN_BUTTON_OUT THEN
+	IF XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear AND insidelimits AND NOT GV_LIFT.RUN_BUTTON_OUT THEN
 		bLoadOK	:= TRUE;
 	ELSE
 		bLoadOK	:= FALSE;	

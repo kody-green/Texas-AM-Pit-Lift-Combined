@@ -14,6 +14,7 @@ VAR
 	wasDwnLimit : BOOL := FALSE;
 	wasJogging : BOOL := FALSE;
 	wasRunningToTarget : BOOL := FALSE;
+	doubleWrite : BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -95,6 +96,7 @@ ELSE
 			Execute_Write_Screen();
 		END_IF
 		
+		
 		wasEstop := FALSE;
 		GV_MODBUS.wasMTS := FALSE;
 		wasDoorFault := FALSE;
@@ -106,7 +108,7 @@ ELSE
 		JogLift();
 		
 		IF NOT wasJogging THEN
-			Execute_Write_Screen();
+			Execute_Write_Screen();	
 		END_IF
 		
 		wasEstop := FALSE;
@@ -121,7 +123,13 @@ ELSE
 		SelectSpike();
 		
 		IF NOT GV_MODBUS.wasMTS THEN
+			Execute_Write_Screen();	
+			doubleWrite := TRUE;		
+		END_IF
+		
+		IF doubleWrite AND GV_MODBUS.doneWriting AND GV_MODBUS.wasMTS THEN
 			Execute_Write_Screen();
+			doubleWrite := FALSE;
 		END_IF
 		
 		wasEstop := FALSE;
@@ -157,11 +165,26 @@ END_IF
       <LineId Id="483" Count="0" />
       <LineId Id="497" Count="13" />
       <LineId Id="482" Count="0" />
-      <LineId Id="408" Count="9" />
+      <LineId Id="408" Count="3" />
+      <LineId Id="564" Count="0" />
+      <LineId Id="566" Count="0" />
+      <LineId Id="412" Count="0" />
+      <LineId Id="414" Count="3" />
       <LineId Id="463" Count="1" />
-      <LineId Id="418" Count="11" />
+      <LineId Id="418" Count="4" />
+      <LineId Id="555" Count="0" />
+      <LineId Id="557" Count="0" />
+      <LineId Id="556" Count="0" />
+      <LineId Id="426" Count="3" />
       <LineId Id="465" Count="1" />
-      <LineId Id="430" Count="12" />
+      <LineId Id="430" Count="7" />
+      <LineId Id="542" Count="0" />
+      <LineId Id="438" Count="1" />
+      <LineId Id="544" Count="1" />
+      <LineId Id="547" Count="0" />
+      <LineId Id="546" Count="0" />
+      <LineId Id="543" Count="0" />
+      <LineId Id="440" Count="2" />
       <LineId Id="467" Count="1" />
       <LineId Id="443" Count="13" />
       <LineId Id="5" Count="0" />
