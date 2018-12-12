@@ -17,17 +17,17 @@ END_VAR
       <ST><![CDATA[GV_MODBUS.oneLeft:= mtpOneLeft;         
 GV_MODBUS.oneRight:= mtpOneRight;
 
-GV_MODBUS.twoLeft:= current;
+GV_MODBUS.twoLeft:= GV_MODBUS.blank; 
 GV_MODBUS.twoRight:= GV_MODBUS.blank;
 
-GV_MODBUS.threeLeft:= target;
-GV_MODBUS.threeRight:= GV_MODBUS.blank;	
 
-GV_MODBUS.fourLeft:= GV_MODBUS.blank; 
-GV_MODBUS.fourRight:= GV_MODBUS.blank;
+GV_MODBUS.threeLeft:= current;
+GV_MODBUS.threeRight:= GV_MODBUS.blank;
+GV_MODBUS.threeRight:= Position_To_Row_Array(pos, GV_LIFT.CURRENT_POSITION);     
 
-GV_MODBUS.twoRight:= Position_To_Row_Array(pos, GV_LIFT.CURRENT_POSITION);     
-GV_MODBUS.threeRight:= Position_To_Row_Array(pos, GV_LIFT.TARGET_POSITION);
+GV_MODBUS.fourLeft:= target;
+GV_MODBUS.fourRight:= GV_MODBUS.blank;	
+GV_MODBUS.fourRight:= Position_To_Row_Array(pos, GV_LIFT.TARGET_POSITION);
 
 IF tick >= GV_MODBUS.refreshInterval THEN
 	Execute_Write_Screen();
@@ -37,8 +37,12 @@ END_IF
 tick := tick + 1;]]></ST>
     </Implementation>
     <LineIds Name="MoveToPosition">
-      <LineId Id="15" Count="12" />
-      <LineId Id="34" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="54" Count="3" />
+      <LineId Id="17" Count="2" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="20" Count="2" />
+      <LineId Id="53" Count="0" />
       <LineId Id="28" Count="5" />
       <LineId Id="5" Count="0" />
     </LineIds>

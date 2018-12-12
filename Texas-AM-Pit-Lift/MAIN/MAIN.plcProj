@@ -3,7 +3,7 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6c06d2cc-7c44-4682-b47c-851cff4ba625}</ProjectGuid>
+    <ProjectGuid>{029a51cd-9782-47d2-a4e5-2d1b1d82975c}</ProjectGuid>
     <Name>MAIN</Name>
     <ProgramVersion>3.1.0.5</ProgramVersion>
     <Application>{e5ce2111-e9f0-4832-96a2-40d506d60c1a}</Application>
@@ -86,9 +86,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Pendant Screen\EStop.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Pendant Screen\Faults.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Pendant Screen\Functions\Execute_Write_Screen.TcPOU">

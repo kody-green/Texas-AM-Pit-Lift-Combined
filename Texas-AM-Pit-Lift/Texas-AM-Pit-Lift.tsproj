@@ -167,12 +167,16 @@
 			</Tasks>
 		</System>
 		<Plc>
-			<Project GUID="{6C06D2CC-7C44-4682-B47C-851CFF4BA625}" Name="MAIN" PrjFilePath="MAIN\MAIN.plcproj" TmcFilePath="MAIN\MAIN.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e">
+			<Project GUID="{029A51CD-9782-47D2-A4E5-2D1B1D82975C}" Name="MAIN" PrjFilePath="MAIN\MAIN.plcproj" TmcFilePath="MAIN\MAIN.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e">
 				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="MAIN\MAIN.tmc">
 					<Name>MAIN Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>MOVE_TO_POSITION.currentRawPosition</Name>
+							<Type>UDINT</Type>
+						</Var>
 						<Var>
 							<Name>IO_SWITCHBOARD.CONSOLE_DOWN_BUTTON_IN</Name>
 							<Type>BOOL</Type>
@@ -183,6 +187,10 @@
 						</Var>
 						<Var>
 							<Name>IO_SWITCHBOARD.CONSOLE_UP_BUTTON_IN</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO_SWITCHBOARD.CONSOLE_RESET_BUTTON_IN</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -198,24 +206,8 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MOVE_TO_POSITION.currentRawPosition</Name>
-							<Type>UDINT</Type>
-						</Var>
-						<Var>
-							<Name>IO_SWITCHBOARD.CONSOLE_RESET_BUTTON_IN</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>IO_SWITCHBOARD.REMOTE_RESET_BUTTON_IN</Name>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GV_MODBUS.screen.InData</Name>
-							<Type GUID="{A6DACA51-6BEF-4744-9842-DFBA6F0B44D3}" Namespace="Tc2_ModbusRTU">MB_KL6inData22B</Type>
 						</Var>
 						<Var>
 							<Name>GV_LIFT.SYSTEM_RESET_BUTTON_IN</Name>
@@ -333,6 +325,14 @@
 							<Name>GV_LIFT.CONSOLE_ESTOP_INDICATOR_IN</Name>
 							<Type>BOOL</Type>
 						</Var>
+						<Var>
+							<Name>GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GV_MODBUS.screen.InData</Name>
+							<Type GUID="{A6DACA51-6BEF-4744-9842-DFBA6F0B44D3}" Namespace="Tc2_ModbusRTU">MB_KL6inData22B</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
 						<Name>PlcTask Outputs</Name>
@@ -343,10 +343,6 @@
 						<Var>
 							<Name>SYSTEM_RESET.ESTOP_RESTART_BUTTON_OUT</Name>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GV_MODBUS.screen.OutData</Name>
-							<Type GUID="{F5093E02-3126-4DB1-90E8-DE305C8C9A8E}" Namespace="Tc2_ModbusRTU">MB_KL6outData22B</Type>
 						</Var>
 						<Var>
 							<Name>GV_LIFT.REMOTE_ACTIVE_INDICATOR_OUT</Name>
@@ -467,6 +463,10 @@
 						<Var>
 							<Name>GV_LIFT.CONSOLE_ESTOP_INDICATOR_OUT</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GV_MODBUS.screen.OutData</Name>
+							<Type GUID="{F5093E02-3126-4DB1-90E8-DE305C8C9A8E}" Namespace="Tc2_ModbusRTU">MB_KL6outData22B</Type>
 						</Var>
 					</Vars>
 					<TaskPouOids>

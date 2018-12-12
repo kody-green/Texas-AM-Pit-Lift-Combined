@@ -70,11 +70,7 @@ END_VAR
 	END_IF
 	
 // Displaying Loaded Target
-	IF 	bTgtLoaded = FALSE OR bLoadOK = FALSE OR GV_LIFT.MTS_ALLOWED = FALSE THEN
-		DisplayTgtPos:= '';
-	ELSE
 		DisplayTgtPos:= CONCAT(REAL_TO_STRING((GV_LIFT.TARGET_POSITION)),'"');
-	END_IF
 
 // Hiding load Button to Display Unload Button
 	IF bLoadOK = TRUE AND bTgtLoaded = TRUE AND GV_LIFT.MTS_ALLOWED THEN
@@ -139,8 +135,8 @@ END_VAR
       <LineId Id="93" Count="2" />
       <LineId Id="85" Count="2" />
       <LineId Id="96" Count="0" />
-      <LineId Id="88" Count="4" />
-      <LineId Id="83" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="92" Count="0" />
       <LineId Id="132" Count="0" />
       <LineId Id="97" Count="2" />
       <LineId Id="101" Count="0" />

@@ -20,10 +20,14 @@ VAR
 	lastPos : REAL := GV_LIFT.TARGET_POSITION;
 	noneSelectedTargetPosValue : REAL := 0;
 	tempTarget : REAL := 0;
+	
+	maxCursorIndex : INT := 0;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF GV_MODBUS.btnData = GV_MODBUS.btnUp THEN
+      <ST><![CDATA[indexs := Get_Valid_Indexs();
+
+IF GV_MODBUS.btnData = GV_MODBUS.btnUp THEN
 	cursorIndex:= cursorIndex - 1;
 	selectedCursorIndex := 0;
 	GV_LIFT.MTS_ALLOWED := FALSE;
@@ -41,8 +45,19 @@ END_IF
 
 IF NOT GV_MODBUS.wasMTS THEN
 	selectedCursorIndex := 0;
-	GV_LIFT.TARGET_POSITION := noneSelectedTargetPosValue;
+	//GV_LIFT.TARGET_POSITION := noneSelectedTargetPosValue;
 END_IF
+
+IF (indexs[3] > 0) THEN
+	maxCursorIndex := 3;
+ELSIF(indexs[2] > 0) THEN 
+	maxCursorIndex := 2;
+ELSIF(indexs[1] > 0) THEN
+	maxCursorIndex := 1;
+ELSE
+	maxCursorIndex := 0;
+END_IF
+
 
 IF GV_MODBUS.btnData = GV_MODBUS.btnEnter THEN
 	selectedCursorIndex := cursorIndex;
@@ -57,13 +72,12 @@ IF GV_MODBUS.btnData = GV_MODBUS.btnEnter THEN
 	
 	IF tempTarget >=  XML.savedvalues.DownSoftLim AND tempTarget <=  XML.savedvalues.UpSoftLim THEN
 		GV_LIFT.MTS_ALLOWED := TRUE;
+		GV_LIFT.JUST_RAN := FALSE;
 		GV_LIFT.TARGET_POSITION := tempTarget;
 	END_IF	
 	
 	Execute_Write_Screen();
 END_IF
-
-indexs := Get_Valid_Indexs();
 
 IF firstSpikeIndex = 0 THEN
 	firstSpikeIndex := indexs[1];
@@ -85,7 +99,7 @@ IF cursorIndex < 1 THEN
 	cursorIndex := 1;
 END_IF
 
-IF cursorIndex > 3 THEN	
+IF cursorIndex > maxCursorIndex THEN	
 	indexesIndex := indexesIndex + 1;
 	
 	IF indexesIndex > (GV_HMI.iMaxTargets - 2) THEN
@@ -104,7 +118,7 @@ IF cursorIndex > 3 THEN
 	secondSpikeIndex := indexs[indexesIndex + 1];
 	thirdSpikeIndex := indexs[indexesIndex + 2];
 	
-	cursorIndex := 3;
+	cursorIndex := maxCursorIndex;
 END_IF
 
 GV_MODBUS.oneLeft:= current_pos;         
@@ -175,6 +189,7 @@ IF NOT GV_MODBUS.readExecute AND GV_MODBUS.addr = GV_MODBUS.oneLeftAddr THEN
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="SelectSpike">
+      <LineId Id="1112" Count="1" />
       <LineId Id="355" Count="0" />
       <LineId Id="625" Count="0" />
       <LineId Id="900" Count="0" />
@@ -194,6 +209,13 @@ END_IF]]></ST>
       <LineId Id="1047" Count="0" />
       <LineId Id="1049" Count="0" />
       <LineId Id="1048" Count="0" />
+      <LineId Id="1118" Count="0" />
+      <LineId Id="1117" Count="0" />
+      <LineId Id="1119" Count="0" />
+      <LineId Id="1121" Count="2" />
+      <LineId Id="1125" Count="2" />
+      <LineId Id="1120" Count="0" />
+      <LineId Id="1116" Count="0" />
       <LineId Id="921" Count="0" />
       <LineId Id="920" Count="0" />
       <LineId Id="924" Count="0" />
@@ -202,13 +224,13 @@ END_IF]]></ST>
       <LineId Id="1021" Count="3" />
       <LineId Id="1020" Count="0" />
       <LineId Id="1073" Count="1" />
-      <LineId Id="1077" Count="1" />
+      <LineId Id="1077" Count="0" />
+      <LineId Id="1129" Count="0" />
+      <LineId Id="1078" Count="0" />
       <LineId Id="1076" Count="0" />
       <LineId Id="980" Count="0" />
       <LineId Id="1079" Count="0" />
       <LineId Id="923" Count="0" />
-      <LineId Id="838" Count="0" />
-      <LineId Id="837" Count="0" />
       <LineId Id="886" Count="0" />
       <LineId Id="885" Count="0" />
       <LineId Id="887" Count="0" />
