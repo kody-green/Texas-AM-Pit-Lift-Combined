@@ -39,6 +39,7 @@ Id;Default
 79;Hard Limit
 299;Limit Status
 744;Load Target
+572;Pendant E-Stop
 138;Pickle E-Stop
 137;Pit E-Stop
 736;Properties

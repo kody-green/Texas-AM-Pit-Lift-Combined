@@ -412,7 +412,7 @@ END_IF"</v>
                       <v n="InputType">"VisuDialogs.Keypad"</v>
                       <v n="InputBoxMin">""</v>
                       <v n="InputBoxMax">""</v>
-                      <v n="InputBoxDialogTitle">""</v>
+                      <v n="InputBoxDialogTitle">"'Edit Target Description'"</v>
                       <v n="Password">false</v>
                       <v n="UseTextOutputVariable">false</v>
                       <v n="TextOutputVariableInitialized">true</v>
@@ -4790,10 +4790,10 @@ XML.savedvalues.savedpos[GV_HMI.RowSelect].description := '';
               <d n="FbMethods" t="CaseInsensitiveHashtable_1" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>69f8df59-e798-4c6f-ad93-87b2424a0842</v>
-                <v>FB_Exit</v>
-                <v>1d1da067-3510-4c18-83c6-1f756b636666</v>
                 <v>FB_Reinit</v>
                 <v>29bd7c22-4400-4407-9823-0bc43bab7d55</v>
+                <v>FB_Exit</v>
+                <v>1d1da067-3510-4c18-83c6-1f756b636666</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{2030a112-3bca-4441-8133-c2f260934066}</v>

@@ -5612,7 +5612,7 @@
                     </o>
                     <o>
                       <v n="Id">390574330L</v>
-                      <v n="Value">"Pickle E-Stop"</v>
+                      <v n="Value">"Pendant E-Stop"</v>
                     </o>
                     <o>
                       <v n="Id">1782330054L</v>
@@ -5632,7 +5632,7 @@
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
-                      <v n="Value">"138"</v>
+                      <v n="Value">"572"</v>
                     </o>
                   </l>
                 </o>
@@ -7555,7 +7555,7 @@
                 <v n="VisualElementIdentifier">"GenElemInst_299"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String">
                   <v>OnDialogClosed</v>
                   <a cet="STSnippetInputAction">
                     <o>
@@ -7760,7 +7760,7 @@
                 <v n="VisualElementIdentifier">"GenElemInst_303"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="InputBoxInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
                   <v>OnMouseDown</v>
                   <a cet="InputBoxInputAction">
                     <o>
@@ -7768,7 +7768,7 @@
                       <v n="InputType">"VisuDialogs.Numpad"</v>
                       <v n="InputBoxMin">""</v>
                       <v n="InputBoxMax">""</v>
-                      <v n="InputBoxDialogTitle">"'Up Limit'"</v>
+                      <v n="InputBoxDialogTitle">"'Up Soft Limit'"</v>
                       <v n="Password">false</v>
                       <v n="UseTextOutputVariable">false</v>
                       <v n="TextOutputVariableInitialized">true</v>
@@ -9371,10 +9371,10 @@
               <d n="FbMethods" t="CaseInsensitiveHashtable" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>7bfc57bd-86e8-421c-a632-3d117fe1c9b8</v>
-                <v>FB_Exit</v>
-                <v>f54f920f-8360-49a4-b06b-a5280d54f680</v>
                 <v>FB_Reinit</v>
                 <v>4993a458-2520-4cba-851a-dcf8622ecfaf</v>
+                <v>FB_Exit</v>
+                <v>f54f920f-8360-49a4-b06b-a5280d54f680</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{db4b2d66-b86b-4214-9862-03332748a1aa}</v>
@@ -9476,6 +9476,7 @@
         <Type n="Object">System.Object</Type>
         <Type n="String">System.String</Type>
         <Type n="STSnippetInputAction">{6302d3fe-6ea5-4c42-819a-a9734a133b3d}</Type>
+        <Type n="STSnippetInputAction[]">_3S.CoDeSys.VisualElem.STSnippetInputAction[], VisualElem.plugin, Version=3.5.10.32, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="TextDocument">{f3878285-8e4f-490b-bb1b-9acbb7eb04db}</Type>
         <Type n="TextLine">{a5de0b0b-1cb5-4913-ac21-9d70293ec00d}</Type>
         <Type n="UInt32">System.UInt32</Type>
