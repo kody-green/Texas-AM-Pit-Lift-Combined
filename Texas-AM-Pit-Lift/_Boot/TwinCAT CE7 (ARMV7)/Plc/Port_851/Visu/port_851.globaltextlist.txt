@@ -21,6 +21,7 @@ Id;Default
 439;Door Interlock
 135;Door Interlocks
 298;DOWN EOT Limit
+532;DOWN Hard Limit
 297;DOWN Soft Limit
 990;DOWN Soft Limit: %.2f$"
 944;DOWN ULT Limit
@@ -35,6 +36,7 @@ Id;Default
 641;EDIT TARGETS
 140;Emergency Stop
 437;EOT Limit
+79;Hard Limit
 299;Limit Status
 744;Load Target
 138;Pickle E-Stop
@@ -55,6 +57,7 @@ Id;Default
 162;Unload Target
 483;UP End Of Travel Limit
 295;UP EOT Limit
+446;UP Hard Limit
 296;UP Soft Limit
 453;UP Soft Limit %.2f$"
 139;US Door E-Stop

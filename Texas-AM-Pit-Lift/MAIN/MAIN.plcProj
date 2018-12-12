@@ -58,7 +58,13 @@
     <Compile Include="POUs\HMI\HMI_Down_Arrow_Indicator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\HMI\HMI_Hard_Limits.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\HMI\HMI_System_Indicator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\HMI\HMI_Ultimate_Limit.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\HMI\HMI_Up_Arrow_Indicator.TcPOU">

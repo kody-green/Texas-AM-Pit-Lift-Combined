@@ -3,7 +3,7 @@
   <DUT Name="ST_SavedStructure" Id="{b7ffbcaa-7c3b-4f1f-ade3-c48f89174665}">
     <Declaration><![CDATA[TYPE ST_SavedStructure :
 STRUCT
-	CurrentPos		:	REAL;
+	rStagePosition 	:	REAL;
 	UpSoftLim		:	REAL;
 	DownSoftLim		:	REAL;
 	Counter			:	INT;

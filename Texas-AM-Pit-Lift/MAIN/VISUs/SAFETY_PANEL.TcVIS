@@ -1624,7 +1624,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"GV_LIFT.DOWN_LIMIT_INDICATOR_IN"</v>
+                      <v n="Value">""</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -1681,6 +1681,10 @@
                     <o>
                       <v n="Id">2597686782L</v>
                       <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">401380312L</v>
+                      <v n="Value">"HMI_Hard_Limits.DownHardLimit"</v>
                     </o>
                   </l>
                 </o>
@@ -1982,7 +1986,7 @@
                     </o>
                     <o>
                       <v n="Id">390574330L</v>
-                      <v n="Value">"DOWN EOT Limit"</v>
+                      <v n="Value">"DOWN Hard Limit"</v>
                     </o>
                     <o>
                       <v n="Id">1782330054L</v>
@@ -2002,7 +2006,7 @@
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
-                      <v n="Value">"298"</v>
+                      <v n="Value">"532"</v>
                     </o>
                   </l>
                 </o>
@@ -6189,7 +6193,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"GV_LIFT.ESTOP_INDICATOR_IN &lt;&gt;1"</v>
+                      <v n="Value">"GV_LIFT.ESTOP_INDICATOR_OUT"</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -8051,7 +8055,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"GV_LIFT.ULTIMATE_LIMIT_INDICATOR_IN"</v>
+                      <v n="Value">""</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -8108,6 +8112,10 @@
                     <o>
                       <v n="Id">2597686782L</v>
                       <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">401380312L</v>
+                      <v n="Value">"HMI_Ultimate_Limit.DownUltLimit"</v>
                     </o>
                   </l>
                 </o>
@@ -8519,7 +8527,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"GV_LIFT.UP_LIMIT_INDICATOR_IN"</v>
+                      <v n="Value">""</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -8576,6 +8584,10 @@
                     <o>
                       <v n="Id">2597686782L</v>
                       <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">401380312L</v>
+                      <v n="Value">"HMI_Hard_Limits.UpHardLimit"</v>
                     </o>
                   </l>
                 </o>
@@ -8877,7 +8889,7 @@
                     </o>
                     <o>
                       <v n="Id">390574330L</v>
-                      <v n="Value">"UP EOT Limit"</v>
+                      <v n="Value">"UP Hard Limit"</v>
                     </o>
                     <o>
                       <v n="Id">1782330054L</v>
@@ -8897,7 +8909,7 @@
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
-                      <v n="Value">"295"</v>
+                      <v n="Value">"446"</v>
                     </o>
                   </l>
                 </o>

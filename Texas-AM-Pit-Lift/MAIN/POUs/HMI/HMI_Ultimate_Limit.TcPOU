@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="HMI_Ultimate_Limit" Id="{1bd66aa5-721b-45f5-9953-10e6f1eb9311}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM HMI_Ultimate_Limit
+VAR
+	DownUltLimit: DWORD;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF GV_Lift.ULTIMATE_LIMIT_INDICATOR_OUT THEN
+	DownUltLimit := GV_HMI.dwRed;
+ELSIF GV_Lift.ULTIMATE_LIMIT_INDICATOR_LATCH_OUT THEN
+	DownUltLimit := GV_HMI.dwYellow;
+ELSE DownUltLimit := GV_HMI.dwGreen;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="HMI_Ultimate_Limit">
+      <LineId Id="12" Count="0" />
+      <LineId Id="7" Count="3" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

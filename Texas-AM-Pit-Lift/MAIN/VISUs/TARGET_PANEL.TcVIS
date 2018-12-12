@@ -191,10 +191,20 @@
                 <v n="VisualElementIdentifier">"GenElemInst_11"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String">
+                  <v>OnDialogClosed</v>
+                  <a cet="STSnippetInputAction">
+                    <o>
+                      <v n="STSnippet">"IF XML.savedvalues.savedpos[GV_HMI.RowSelect].target &lt;= XML.savedvalues.UpSoftLim AND XML.savedvalues.savedpos[GV_HMI.RowSelect].target &gt;= XML.savedvalues.DownSoftLim THEN
+	XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear := TRUE;
+ELSE
+	XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear := FALSE;
+END_IF"</v>
+                    </o>
+                  </a>
                   <v>OnMouseDown</v>
-                  <a et="IInputAction">
-                    <o t="InputBoxInputAction">
+                  <a cet="InputBoxInputAction">
+                    <o>
                       <v n="InputBoxVariable">"XML.savedvalues.savedpos[.GV_HMI.RowSelect].target"</v>
                       <v n="InputType">"VisuDialogs.Numpad"</v>
                       <v n="InputBoxMin">"XML.savedvalues.DownSoftLim"</v>
@@ -205,17 +215,6 @@
                       <v n="TextOutputVariableInitialized">true</v>
                       <v n="OtherVarConversion">""</v>
                       <v n="Format">""</v>
-                    </o>
-                    <o t="STSnippetInputAction">
-                      <v n="STSnippet">"IF XML.savedvalues.savedpos[GV_HMI.RowSelect].target &lt;= XML.savedvalues.UpSoftLim AND XML.savedvalues.savedpos[GV_HMI.RowSelect].target &gt;= XML.savedvalues.DownSoftLim THEN
-	XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear := TRUE;
-ELSE
-	XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear := FALSE;
-END_IF
-
-
-
-"</v>
                     </o>
                   </a>
                 </d>
@@ -413,7 +412,7 @@ END_IF
                       <v n="InputType">"VisuDialogs.Keypad"</v>
                       <v n="InputBoxMin">""</v>
                       <v n="InputBoxMax">""</v>
-                      <v n="InputBoxDialogTitle">""</v>
+                      <v n="InputBoxDialogTitle">"Enter a description:"</v>
                       <v n="Password">false</v>
                       <v n="UseTextOutputVariable">false</v>
                       <v n="TextOutputVariableInitialized">true</v>
@@ -1207,7 +1206,7 @@ END_IF
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"GV_LIFT.ESTOP_INDICATOR_IN &lt;&gt;1"</v>
+                      <v n="Value">"GV_LIFT.ESTOP_INDICATOR_OUT"</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -1357,7 +1356,7 @@ END_IF
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"GV_LIFT.ULTIMATE_LIMIT_INDICATOR_IN"</v>
+                      <v n="Value">""</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -1422,6 +1421,10 @@ END_IF
                     <o>
                       <v n="Id">1375557818L</v>
                       <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">401380312L</v>
+                      <v n="Value">"HMI_Hard_Limits.HardLimitFlag"</v>
                     </o>
                   </l>
                 </o>
@@ -2810,7 +2813,7 @@ END_IF
                     </o>
                     <o>
                       <v n="Id">390574330L</v>
-                      <v n="Value">"EOT Limit"</v>
+                      <v n="Value">"Hard Limit"</v>
                     </o>
                     <o>
                       <v n="Id">1782330054L</v>
@@ -2830,7 +2833,7 @@ END_IF
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
-                      <v n="Value">"437"</v>
+                      <v n="Value">"79"</v>
                     </o>
                   </l>
                 </o>
@@ -4787,10 +4790,10 @@ XML.savedvalues.savedpos[GV_HMI.RowSelect].description := '';
               <d n="FbMethods" t="CaseInsensitiveHashtable_1" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>69f8df59-e798-4c6f-ad93-87b2424a0842</v>
-                <v>FB_Exit</v>
-                <v>1d1da067-3510-4c18-83c6-1f756b636666</v>
                 <v>FB_Reinit</v>
                 <v>29bd7c22-4400-4407-9823-0bc43bab7d55</v>
+                <v>FB_Exit</v>
+                <v>1d1da067-3510-4c18-83c6-1f756b636666</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{2030a112-3bca-4441-8133-c2f260934066}</v>

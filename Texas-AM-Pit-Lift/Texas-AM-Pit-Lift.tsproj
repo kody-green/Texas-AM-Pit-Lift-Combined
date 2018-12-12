@@ -161,7 +161,7 @@
 				<Task Id="1" Priority="20" CycleTime="150000" AmsPort="350">
 					<Name>PlcTask</Name>
 				</Task>
-				<Task Id="4" Priority="30" CycleTime="100000" AmsPort="351" AdtTasks="true">
+				<Task Id="4" Priority="30" CycleTime="200000" AmsPort="351" AdtTasks="true">
 					<Name>VISU_TASK</Name>
 				</Task>
 			</Tasks>

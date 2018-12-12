@@ -115,6 +115,7 @@ VAR_GLOBAL
 	
 	LIMIT_OVERRIDE_BUTTON_IN AT %I* : BOOL;
 	
+	STAGE_POSITION : REAL;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

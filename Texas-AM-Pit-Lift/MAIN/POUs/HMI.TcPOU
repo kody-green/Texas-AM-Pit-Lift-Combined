@@ -58,7 +58,7 @@ END_VAR
 	END_IF
 	
 //Load Button Logic
-	IF XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear = TRUE AND insidelimits = TRUE THEN
+	IF XML.savedvalues.savedpos[GV_HMI.RowSelect].targetclear AND insidelimits AND GV_LIFT.RUN_BUTTON_OUT THEN
 		bLoadOK	:= TRUE;
 	ELSE
 		bLoadOK	:= FALSE;	
@@ -109,17 +109,15 @@ END_VAR
 	ELSE bLimitHeaderFlag := TRUE;
 	END_IF
  	
-//Door Interlock Indicator Logic
 
-//Crush Protection Indicator Logic
-
-//System Fault Logic
-
-HMI_Up_Arrow_Indicator();
-HMI_Down_Arrow_Indicator();
-HMI_Door_Toggle();
-HMI_Crush_Indicator();
-HMI_System_Indicator();]]></ST>
+//Button and Inidcator Calls
+	HMI_Up_Arrow_Indicator();
+	HMI_Down_Arrow_Indicator();
+	HMI_Door_Toggle();
+	HMI_Crush_Indicator();
+	HMI_System_Indicator();
+	HMI_Hard_Limits();
+	HMI_Ultimate_Limit();]]></ST>
     </Implementation>
     <LineIds Name="HMI">
       <LineId Id="42" Count="0" />
@@ -169,14 +167,12 @@ HMI_System_Indicator();]]></ST>
       <LineId Id="247" Count="0" />
       <LineId Id="245" Count="0" />
       <LineId Id="242" Count="0" />
-      <LineId Id="115" Count="0" />
-      <LineId Id="215" Count="0" />
-      <LineId Id="133" Count="0" />
       <LineId Id="141" Count="1" />
-      <LineId Id="299" Count="1" />
+      <LineId Id="300" Count="0" />
       <LineId Id="298" Count="0" />
       <LineId Id="302" Count="1" />
       <LineId Id="301" Count="0" />
+      <LineId Id="305" Count="1" />
     </LineIds>
   </POU>
 </TcPlcObject>

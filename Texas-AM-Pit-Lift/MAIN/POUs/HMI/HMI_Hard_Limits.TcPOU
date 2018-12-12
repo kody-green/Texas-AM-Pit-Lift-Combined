@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="HMI_Hard_Limits" Id="{9b115ec3-af99-49ea-84d3-99d3538841c2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM HMI_Hard_Limits
+VAR
+	UpHardLimit		: DWORD;
+	DownHardLimit	: DWORD;
+	HardLimitFlag	: DWORD;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF GV_Lift.UP_LIMIT_INDICATOR_OUT THEN
+	UpHardLimit := GV_HMI.dwRed;
+ELSIF GV_Lift.UP_LIMIT_INDICATOR_LATCH_OUT THEN
+	UpHardLimit := GV_HMI.dwYellow;
+ELSE UpHardLimit := GV_HMI.dwGreen;
+END_IF
+
+IF GV_Lift.DOWN_LIMIT_INDICATOR_OUT THEN
+	DownHardLimit := GV_HMI.dwRed;
+ELSIF GV_Lift.DOWN_LIMIT_INDICATOR_LATCH_OUT THEN
+	DownHardLimit := GV_HMI.dwYellow;
+ELSE DownHardLimit := GV_HMI.dwGreen;
+END_IF
+
+IF GV_Lift.DOWN_LIMIT_INDICATOR_OUT OR GV_LIFT.UP_LIMIT_INDICATOR_OUT OR GV_LIFT.ULTIMATE_LIMIT_INDICATOR_OUT THEN
+	HardLimitFlag := GV_HMI.dwRed;
+ELSE HardLimitFlag := GV_HMI.dwGreen;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="HMI_Hard_Limits">
+      <LineId Id="7" Count="4" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="15" Count="5" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="31" Count="2" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="30" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

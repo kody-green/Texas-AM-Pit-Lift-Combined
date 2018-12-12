@@ -16,47 +16,42 @@ END_VAR
 	IF GV_LIFT.DOOR_1_INDICATOR_IN AND GV_LIFT.DOOR_2_INDICATOR_IN AND GV_LIFT.DOOR_3_INDICATOR_IN AND GV_LIFT.DOOR_4_INDICATOR_IN THEN
 		dwDoorFlag := GV_HMI.dwGreen;
 		bDoorFlag := FALSE;
-	ELSIF GV_LIFT.DOOR_1_INDICATOR_LATCH_IN OR GV_LIFT.DOOR_2_INDICATOR_LATCH_IN OR GV_LIFT.DOOR_3_INDICATOR_LATCH_IN OR GV_LIFT.DOOR_4_INDICATOR_LATCH_IN THEN
-		dwDoorFlag := GV_HMI.dwYellow;
-		bDoorFlag := FALSE;
 	ELSE dwDoorFlag := GV_HMI.dwRed;
 		bDoorFlag := TRUE;
 	END_IF 
 	
 	//Door 1 Indicator
-		IF GV_LIFT.DOOR_1_INDICATOR_IN THEN
-			dwDoor1 := GV_HMI.dwGreen;
-		ELSIF GV_Lift.DOOR_1_INDICATOR_LATCH_IN THEN
+		IF GV_LIFT.DOOR_1_INDICATOR_OUT THEN
+			dwDoor1 := GV_HMI.dwRed;
+		ELSIF GV_Lift.DOOR_1_INDICATOR_LATCH_OUT THEN
 			dwDoor1 := GV_HMI.dwYellow;
-		ELSE dwDoor1 := GV_HMI.dwRed;
+		ELSE dwDoor1 := GV_HMI.dwGreen;
 		END_IF
 	//Door 2 Indicator
-		IF GV_LIFT.DOOR_2_INDICATOR_IN THEN
-			dwDoor2 := GV_HMI.dwGreen;
-		ELSIF GV_Lift.DOOR_2_INDICATOR_LATCH_IN THEN
+		IF GV_LIFT.DOOR_2_INDICATOR_OUT THEN
+			dwDoor2 := GV_HMI.dwRed;
+		ELSIF GV_Lift.DOOR_2_INDICATOR_LATCH_OUT THEN
 			dwDoor2 := GV_HMI.dwYellow;
-		ELSE dwDoor2 := GV_HMI.dwRed;
+		ELSE dwDoor2 := GV_HMI.dwGreen;
 		END_IF
 	//Door 3 Indicator
-		IF GV_LIFT.DOOR_3_INDICATOR_IN THEN
-			dwDoor3 := GV_HMI.dwGreen;
-		ELSIF GV_Lift.DOOR_3_INDICATOR_LATCH_IN THEN
+		IF GV_LIFT.DOOR_3_INDICATOR_OUT THEN
+			dwDoor3 := GV_HMI.dwRed;
+		ELSIF GV_Lift.DOOR_3_INDICATOR_LATCH_OUT THEN
 			dwDoor3 := GV_HMI.dwYellow;
-		ELSE dwDoor3 := GV_HMI.dwRed;
+		ELSE dwDoor3 := GV_HMI.dwGreen;
 		END_IF
 	//Door 4 Indicator
-		IF GV_LIFT.DOOR_4_INDICATOR_IN THEN
-			dwDoor4 := GV_HMI.dwGreen;
-		ELSIF GV_Lift.DOOR_4_INDICATOR_LATCH_IN THEN
+		IF GV_LIFT.DOOR_4_INDICATOR_OUT THEN
+			dwDoor4 := GV_HMI.dwRed;
+		ELSIF GV_Lift.DOOR_4_INDICATOR_LATCH_OUT THEN
 			dwDoor4 := GV_HMI.dwYellow;
-		ELSE dwDoor4 := GV_HMI.dwRed;
+		ELSE dwDoor4 := GV_HMI.dwGreen;
 		END_IF]]></ST>
     </Implementation>
     <LineIds Name="HMI_Door_Toggle">
       <LineId Id="6" Count="2" />
       <LineId Id="48" Count="0" />
-      <LineId Id="9" Count="1" />
-      <LineId Id="50" Count="0" />
       <LineId Id="11" Count="0" />
       <LineId Id="49" Count="0" />
       <LineId Id="12" Count="0" />

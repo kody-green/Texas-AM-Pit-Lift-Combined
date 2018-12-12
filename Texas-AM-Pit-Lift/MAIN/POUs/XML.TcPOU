@@ -22,15 +22,10 @@ VAR
    triggerWrite    : R_TRIG;
    triggerButton   : R_TRIG;
    i			   : INT:=1;
+   LoadComplate   : BOOL;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*CASE i	OF
-1..25:  GV_HMI.stPositions[i] := savedvalues.SavedPos[i];
-		i := i+1;
-26:		i := 1;
-END_CASE*)
-
-triggerButton(CLK:= bButton);
+      <ST><![CDATA[triggerButton(CLK:= bButton);
 
 
 CASE iState OF
@@ -49,8 +44,10 @@ CASE iState OF
    fbXmlSrvRead(bExecute:= FALSE);
    IF NOT fbXmlSrvRead.bBusy AND NOT fbXmlSrvRead.bError THEN
      iState:= 2; 
+	 LoadComplate := TRUE;
    ELSIF fbXmlSrvRead.bError THEN
      iState:= 100;
+	 LoadComplate:=FALSE;
    END_IF
  
 2: (* Write *)
@@ -76,14 +73,13 @@ CASE iState OF
       iState:= 100;
    END_IF
 
-   (* check if 20s have passed*)
-   IF stMyTimestruct.wSecond = 0 OR stMyTimestruct.wSecond = 20 
-                    OR stMyTimeStruct.wSecond = 40 THEN
-      bTwentySecOver:= TRUE;
-      ELSE
-      bTwentySecOver:= FALSE;
-   END_IF
-
+	IF stMyTimestruct.wMinute = 0 OR stMyTimestruct.wMinute = 15 OR stMyTimeStruct.wMinute = 30 OR stMyTimeStruct.wMinute = 45 OR stMyTimeStruct.wMinute = 60 THEN
+		bTwentySecOver:= TRUE;
+		savedvalues.rStagePosition := GV_LIFT.STAGE_POSITION;
+	ELSE
+		bTwentySecOver:= FALSE;
+	END_IF
+	
    (* if 20s have passed => trigger writing-process *)
    triggerWrite(CLK:=bTwentySecOver);
    IF (triggerWrite.Q OR triggerButton.Q) AND NOT fbXmlSrvWrite.bBusy AND NOT fbXmlSrvWrite.bError THEN 
@@ -107,27 +103,36 @@ CASE iState OF
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="XML">
-      <LineId Id="516" Count="0" />
-      <LineId Id="513" Count="0" />
-      <LineId Id="521" Count="0" />
-      <LineId Id="520" Count="0" />
-      <LineId Id="178" Count="0" />
-      <LineId Id="519" Count="0" />
       <LineId Id="518" Count="0" />
-      <LineId Id="492" Count="0" />
       <LineId Id="474" Count="0" />
+      <LineId Id="553" Count="0" />
       <LineId Id="180" Count="0" />
       <LineId Id="297" Count="0" />
       <LineId Id="350" Count="6" />
       <LineId Id="358" Count="1" />
       <LineId Id="420" Count="0" />
-      <LineId Id="413" Count="6" />
+      <LineId Id="413" Count="3" />
+      <LineId Id="573" Count="0" />
+      <LineId Id="417" Count="1" />
+      <LineId Id="575" Count="0" />
+      <LineId Id="419" Count="0" />
       <LineId Id="360" Count="1" />
       <LineId Id="443" Count="3" />
       <LineId Id="442" Count="0" />
       <LineId Id="185" Count="9" />
-      <LineId Id="200" Count="17" />
-      <LineId Id="231" Count="16" />
+      <LineId Id="200" Count="5" />
+      <LineId Id="214" Count="0" />
+      <LineId Id="544" Count="0" />
+      <LineId Id="550" Count="0" />
+      <LineId Id="577" Count="0" />
+      <LineId Id="551" Count="0" />
+      <LineId Id="548" Count="0" />
+      <LineId Id="543" Count="0" />
+      <LineId Id="569" Count="0" />
+      <LineId Id="215" Count="2" />
+      <LineId Id="231" Count="5" />
+      <LineId Id="554" Count="0" />
+      <LineId Id="238" Count="9" />
       <LineId Id="73" Count="0" />
     </LineIds>
   </POU>

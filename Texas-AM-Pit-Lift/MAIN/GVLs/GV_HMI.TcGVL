@@ -12,7 +12,7 @@ VAR_GLOBAL
 	ColorToggle		  :	ARRAY [1..20] OF BOOL;
 
 	CurrentPos		:	REAL:=100;
-	updatedPos  	:   REAL:=0;
+	updatedPos  	:   REAL;
 	RowSelect		:	INT:=1;
 	ColumnSelect	:	INT:=1;
 	RowSelected		:	INT:= RowSelect;
