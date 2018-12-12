@@ -43,6 +43,9 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="MOTION_TASK.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -76,7 +79,7 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\MOVE_TO_POSITION.TcPOU">
+    <Compile Include="POUs\MOTION.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Pendant Screen\DoorFaults.TcPOU">

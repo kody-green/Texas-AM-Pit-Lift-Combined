@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <Task Name="MOTION_TASK" Id="{b0165ffa-3b32-46ef-b12d-fffd4affdcac}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>10000</CycleTime>
+    <Priority>1</Priority>
+    <PouCall>
+      <Name>MOTION</Name>
+    </PouCall>
+    <TaskFBGuid>{7bef14a7-47b5-40ae-91ed-d6ae41dd1363}</TaskFBGuid>
+    <Fb_init>{a54f5662-cc10-4961-be07-3626fda370e5}</Fb_init>
+    <Fb_exit>{0beefe15-d1e0-4c06-9a3a-7e177c023e43}</Fb_exit>
+    <CycleUpdate>{4b09a94c-20e9-4f4e-a600-cd882142e904}</CycleUpdate>
+    <PostCycleUpdate>{d447c8ca-b82a-447e-b081-c8126c5292c5}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>

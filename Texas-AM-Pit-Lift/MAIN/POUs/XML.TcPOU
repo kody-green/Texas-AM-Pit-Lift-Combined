@@ -22,7 +22,7 @@ VAR
    triggerWrite    : R_TRIG;
    triggerButton   : R_TRIG;
    i			   : INT:=1;
-   LoadComplate   : BOOL;
+   LoadComplete   : BOOL;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[triggerButton(CLK:= bButton);
@@ -44,10 +44,10 @@ CASE iState OF
    fbXmlSrvRead(bExecute:= FALSE);
    IF NOT fbXmlSrvRead.bBusy AND NOT fbXmlSrvRead.bError THEN
      iState:= 2; 
-	 LoadComplate := TRUE;
+	 LoadComplete := TRUE;
    ELSIF fbXmlSrvRead.bError THEN
      iState:= 100;
-	 LoadComplate:=FALSE;
+	 LoadComplete:=FALSE;
    END_IF
  
 2: (* Write *)

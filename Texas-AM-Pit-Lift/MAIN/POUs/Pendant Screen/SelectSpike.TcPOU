@@ -26,7 +26,7 @@ END_VAR
       <ST><![CDATA[IF GV_MODBUS.btnData = GV_MODBUS.btnUp THEN
 	cursorIndex:= cursorIndex - 1;
 	selectedCursorIndex := 0;
-	GV_LIFT.MTS_ALLOWED := FALSE;
+	GV_LIFT.MTP_ALLOWED := FALSE;
 	GV_LIFT.JUST_RAN := FALSE;
 	Execute_Write_Screen();
 END_IF
@@ -34,7 +34,7 @@ END_IF
 IF GV_MODBUS.btnData = GV_MODBUS.btnDwn THEN
 	cursorIndex:= cursorIndex + 1;	
 	selectedCursorIndex := 0;
-	GV_LIFT.MTS_ALLOWED := FALSE;
+	GV_LIFT.MTP_ALLOWED := FALSE;
 	GV_LIFT.JUST_RAN := FALSE;
 	Execute_Write_Screen();	
 END_IF
@@ -56,7 +56,7 @@ IF GV_MODBUS.btnData = GV_MODBUS.btnEnter THEN
 	END_IF
 	
 	IF tempTarget >=  XML.savedvalues.DownSoftLim AND tempTarget <=  XML.savedvalues.UpSoftLim THEN
-		GV_LIFT.MTS_ALLOWED := TRUE;
+		GV_LIFT.MTP_ALLOWED := TRUE;
 		GV_LIFT.TARGET_POSITION := tempTarget;
 	END_IF	
 	
@@ -124,9 +124,9 @@ IF firstSpikeIndex > 0 THEN
 		
 		IF cursorIndex = 1 AND NOT (selectedCursorIndex = 1) THEN
 			row := Spike_To_Row_Array(GV_MODBUS.selectedASCII, XML.savedvalues.savedpos[firstSpikeIndex]);
-		ELSIF selectedCursorIndex = 1 AND GV_LIFT.MTS_ALLOWED THEN
+		ELSIF selectedCursorIndex = 1 AND GV_LIFT.MTP_ALLOWED THEN
 			row := Spike_To_Row_Array(GV_MODBUS.loadedASCII, XML.savedvalues.savedpos[firstSpikeIndex]);
-		ELSIF selectedCursorIndex = 1 AND NOT GV_LIFT.MTS_ALLOWED THEN			
+		ELSIF selectedCursorIndex = 1 AND NOT GV_LIFT.MTP_ALLOWED THEN			
 			row := Spike_To_Row_Array(GV_MODBUS.outOfBoundsASCII, XML.savedvalues.savedpos[firstSpikeIndex]);
 		ELSE
 			row := Spike_To_Row_Array(GV_MODBUS.spaceASCII, XML.savedvalues.savedpos[firstSpikeIndex]);
@@ -142,9 +142,9 @@ IF secondSpikeIndex > 0 THEN
 		
 		IF cursorIndex = 2 AND NOT (selectedCursorIndex = 2) THEN
 			row := Spike_To_Row_Array(GV_MODBUS.selectedASCII, XML.savedvalues.savedpos[secondSpikeIndex]);		
-		ELSIF selectedCursorIndex = 2  AND GV_LIFT.MTS_ALLOWED THEN
+		ELSIF selectedCursorIndex = 2  AND GV_LIFT.MTP_ALLOWED THEN
 			row := Spike_To_Row_Array(GV_MODBUS.loadedASCII, XML.savedvalues.savedpos[secondSpikeIndex]);	
-		ELSIF selectedCursorIndex = 2 AND NOT GV_LIFT.MTS_ALLOWED THEN
+		ELSIF selectedCursorIndex = 2 AND NOT GV_LIFT.MTP_ALLOWED THEN
 			row := Spike_To_Row_Array(GV_MODBUS.outOfBoundsASCII, XML.savedvalues.savedpos[secondSpikeIndex]);				
 		ELSE
 			row := Spike_To_Row_Array(GV_MODBUS.spaceASCII, XML.savedvalues.savedpos[secondSpikeIndex]);
@@ -158,9 +158,9 @@ IF thirdSpikeIndex > 0 THEN
 	IF XML.savedvalues.savedpos[thirdSpikeIndex].target < GV_MODBUS.filterTarget THEN
 		IF cursorIndex = 3 AND NOT (selectedCursorIndex = 3) THEN
 			row := Spike_To_Row_Array(GV_MODBUS.selectedASCII, XML.savedvalues.savedpos[thirdSpikeIndex]); 				
-		ELSIF selectedCursorIndex = 3 AND GV_LIFT.MTS_ALLOWED THEN
+		ELSIF selectedCursorIndex = 3 AND GV_LIFT.MTP_ALLOWED THEN
 			row := Spike_To_Row_Array(GV_MODBUS.loadedASCII, XML.savedvalues.savedpos[thirdSpikeIndex]);
-		ELSIF selectedCursorIndex = 3 AND NOT GV_LIFT.MTS_ALLOWED THEN
+		ELSIF selectedCursorIndex = 3 AND NOT GV_LIFT.MTP_ALLOWED THEN
 			row := Spike_To_Row_Array(GV_MODBUS.outOfBoundsASCII, XML.savedvalues.savedpos[thirdSpikeIndex]);			
 		ELSE
 			row := Spike_To_Row_Array(GV_MODBUS.spaceASCII, XML.savedvalues.savedpos[thirdSpikeIndex]); 

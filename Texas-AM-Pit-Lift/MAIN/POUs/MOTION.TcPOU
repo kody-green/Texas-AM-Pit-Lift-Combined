@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="MOTION" Id="{56c13076-a9dd-4c45-b27c-b090b1590a60}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MOTION
+VAR CONSTANT
+	UP_OFFSET : REAL :=-1.1;
+	DOWN_OFFSET : REAL := 0.675;
+	POSITION_SCALE : REAL := 12700;
+	
+END_VAR
+VAR
+	currentRawPosition AT %I* : UDINT;
+	rStagePosition : REAL;
+	rCurrentPosition : REAL;
+	
+	bRecalculatePosition : BOOL;
+	WritePosCase : INT := 0;
+	
+	softUpLimClear : BOOL;
+	softDownLimClear : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Soft Up Limit Indicator
+	IF (GV_LIFT.CURRENT_POSITION > XML.savedvalues.UpSoftLim) AND NOT GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN THEN
+		softUpLimClear := FALSE;
+	ELSE softUpLimClear := TRUE;
+	END_IF
+	
+//Soft Down Limit Indicator
+	IF (GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim) AND NOT GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN THEN
+		softDownLimClear := FALSE;
+	ELSE softDownLimClear := TRUE;
+	END_IF
+
+rCurrentPosition := UDINT_TO_REAL(currentRawPosition);
+CASE WritePosCase OF
+0:	IF XML.LoadComplete THEN
+		IF rStagePosition <> XML.savedvalues.rStagePosition THEN
+			rStagePosition := XML.savedvalues.rStagePosition;
+		END_IF
+		WritePosCase := 1;
+	END_IF
+1:
+	IF(bRecalculatePosition) THEN
+		rStagePosition := rCurrentPosition - (POSITION_SCALE * GV_HMI.updatedPos);
+			GV_LIFT.STAGE_POSITION := rStagePosition;
+		bRecalculatePosition := FALSE;
+	END_IF
+	
+	GV_LIFT.CURRENT_POSITION := (rCurrentPosition-rStagePosition)/ POSITION_SCALE;
+	
+	IF (GV_LIFT.RUN_BUTTON_OUT) AND GV_LIFT.MTP_ALLOWED	THEN
+		IF(GV_LIFT.CURRENT_POSITION > (GV_LIFT.TARGET_POSITION + DOWN_OFFSET) AND MOTION.softDownLimClear) THEN
+			GV_LIFT.DOWN_BUTTON_OUT := TRUE;
+			GV_LIFT.JUST_RAN := TRUE;
+		ELSIF(GV_LIFT.CURRENT_POSITION < (GV_LIFT.TARGET_POSITION + UP_OFFSET) AND MOTION.softUpLimClear) THEN
+			GV_LIFT.UP_BUTTON_OUT := TRUE;
+			GV_LIFT.JUST_RAN := TRUE;
+		ELSE
+			GV_LIFT.UP_BUTTON_OUT := FALSE;
+			GV_LIFT.DOWN_BUTTON_OUT := FALSE;
+			GV_LIFT.MTP_ALLOWED := FALSE;
+			GV_LIFT.JUST_RAN:= FALSE;
+		END_IF
+	ELSIF GV_LIFT.JUST_RAN THEN
+			GV_LIFT.MTP_ALLOWED := FALSE;
+	END_IF
+
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="MOTION">
+      <LineId Id="171" Count="9" />
+      <LineId Id="169" Count="1" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="132" Count="1" />
+      <LineId Id="149" Count="0" />
+      <LineId Id="148" Count="0" />
+      <LineId Id="141" Count="0" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="122" Count="0" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="125" Count="0" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="55" Count="1" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="112" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="142" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

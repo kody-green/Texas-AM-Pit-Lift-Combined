@@ -6,89 +6,15 @@ VAR
 
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF GV_LIFT.DOOR_1_INDICATOR_LATCH_IN THEN
-	GV_LIFT.DOOR_1_INDICATOR_LATCH_OUT := TRUE;
-ELSE
-	GV_LIFT.DOOR_1_INDICATOR_LATCH_OUT := FALSE;	
-END_IF
-
-IF GV_LIFT.PIT_ESTOP_INDICATOR_IN THEN
-	GV_LIFT.PIT_ESTOP_INDICATOR_OUT := TRUE;
-ELSE
-	GV_LIFT.PIT_ESTOP_INDICATOR_OUT := FALSE;	
-END_IF
-
-IF GV_LIFT.DOWNSTAGE_ESTOP_INDICATOR_IN THEN
-	GV_LIFT.DOWNSTAGE_ESTOP_INDICATOR_OUT := TRUE;
-ELSE
-	GV_LIFT.DOWNSTAGE_ESTOP_INDICATOR_OUT := FALSE;	
-END_IF
-
-IF GV_LIFT.ESTOP_INDICATOR_IN THEN
-	GV_LIFT.ESTOP_INDICATOR_OUT := TRUE;
-ELSE
-	GV_LIFT.ESTOP_INDICATOR_OUT := FALSE;	
-END_IF
-
-IF GV_LIFT.FAULT_INDICATOR_IN THEN
-	GV_LIFT.FAULT_INDICATOR_OUT := TRUE;
-ELSE
-	GV_LIFT.FAULT_INDICATOR_OUT := FALSE;	
-END_IF
-
-IF GV_LIFT.UP_BUTTON_IN THEN
-	GV_LIFT.UP_BUTTON_OUT := TRUE;
-ELSE
-	GV_LIFT.UP_BUTTON_OUT := FALSE;
-END_IF
-
-IF GV_LIFT.DOWN_BUTTON_IN THEN
-	GV_LIFT.DOWN_BUTTON_OUT := TRUE;
-ELSE
-	GV_LIFT.DOWN_BUTTON_OUT := FALSE;
-END_IF
-
-IF GV_LIFT.RUN_BUTTON_IN THEN
-	GV_LIFT.RUN_BUTTON_OUT := TRUE;
-ELSE
-	GV_LIFT.RUN_BUTTON_OUT := FALSE;
-END_IF
-
-XML(); 
-//HMI();
+      <ST><![CDATA[XML(); 
 IO_SWITCHBOARD();
 SYSTEM_RESET();
-MOVE_TO_POSITION();
 HMI();
 SwitchScreens();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="425" Count="1" />
-      <LineId Id="428" Count="0" />
-      <LineId Id="430" Count="0" />
-      <LineId Id="427" Count="0" />
-      <LineId Id="432" Count="4" />
-      <LineId Id="431" Count="0" />
-      <LineId Id="438" Count="4" />
-      <LineId Id="437" Count="0" />
-      <LineId Id="448" Count="0" />
-      <LineId Id="447" Count="0" />
-      <LineId Id="449" Count="2" />
-      <LineId Id="424" Count="0" />
-      <LineId Id="752" Count="5" />
-      <LineId Id="790" Count="0" />
-      <LineId Id="750" Count="0" />
-      <LineId Id="791" Count="0" />
-      <LineId Id="793" Count="1" />
-      <LineId Id="792" Count="0" />
-      <LineId Id="796" Count="4" />
-      <LineId Id="795" Count="0" />
-      <LineId Id="802" Count="4" />
-      <LineId Id="801" Count="0" />
-      <LineId Id="849" Count="1" />
-      <LineId Id="576" Count="0" />
+      <LineId Id="850" Count="0" />
       <LineId Id="854" Count="1" />
-      <LineId Id="857" Count="0" />
       <LineId Id="992" Count="0" />
       <LineId Id="988" Count="0" />
     </LineIds>

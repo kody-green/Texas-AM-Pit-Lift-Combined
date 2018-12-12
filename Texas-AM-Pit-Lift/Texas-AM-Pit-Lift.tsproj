@@ -158,11 +158,14 @@
 				</Target>
 			</Licenses>
 			<Tasks>
-				<Task Id="1" Priority="20" CycleTime="150000" AmsPort="350">
+				<Task Id="1" Priority="20" CycleTime="200000" AmsPort="350">
 					<Name>PlcTask</Name>
 				</Task>
-				<Task Id="4" Priority="30" CycleTime="200000" AmsPort="351" AdtTasks="true">
+				<Task Id="4" Priority="30" CycleTime="300000" AmsPort="351" AdtTasks="true">
 					<Name>VISU_TASK</Name>
+				</Task>
+				<Task Id="5" Priority="1" CycleTime="100000" AmsPort="352" AdtTasks="true">
+					<Name>MOTION_TASK</Name>
 				</Task>
 			</Tasks>
 		</System>
@@ -171,6 +174,41 @@
 				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="MAIN\MAIN.tmc">
 					<Name>MAIN Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>MOTION_TASK Inputs</Name>
+						<Var>
+							<Name>MOTION.currentRawPosition</Name>
+							<Type>UDINT</Type>
+						</Var>
+						<Var>
+							<Name>GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN</Name>
+							<Type>BOOL</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2">
+						<Name>MOTION_TASK Outputs</Name>
+						<Var>
+							<Name>GV_LIFT.UP_BUTTON_OUT</Name>
+							<Comment>
+								<![CDATA[UP_BUTTON_IN AT %I* : BOOL;]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GV_LIFT.DOWN_BUTTON_OUT</Name>
+							<Comment>
+								<![CDATA[DOWN_BUTTON_IN AT %I* : BOOL;]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GV_LIFT.RUN_BUTTON_OUT</Name>
+							<Comment>
+								<![CDATA[RUN_BUTTON_IN AT %I* : BOOL;]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+					</Vars>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
@@ -186,6 +224,10 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>IO_SWITCHBOARD.CONSOLE_RESET_BUTTON_IN</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>IO_SWITCHBOARD.REMOTE_DOWN_BUTTON_IN</Name>
 							<Type>BOOL</Type>
 						</Var>
@@ -198,19 +240,7 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MOVE_TO_POSITION.currentRawPosition</Name>
-							<Type>UDINT</Type>
-						</Var>
-						<Var>
-							<Name>IO_SWITCHBOARD.CONSOLE_RESET_BUTTON_IN</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>IO_SWITCHBOARD.REMOTE_RESET_BUTTON_IN</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -222,23 +252,11 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GV_LIFT.UP_BUTTON_IN</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GV_LIFT.UP_INDICATOR_IN</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GV_LIFT.DOWN_BUTTON_IN</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GV_LIFT.DOWN_INDICATOR_IN</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GV_LIFT.RUN_BUTTON_IN</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -357,23 +375,11 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GV_LIFT.UP_BUTTON_OUT</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GV_LIFT.UP_INDICATOR_OUT</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GV_LIFT.DOWN_BUTTON_OUT</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GV_LIFT.DOWN_INDICATOR_OUT</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GV_LIFT.RUN_BUTTON_OUT</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -470,8 +476,9 @@
 						</Var>
 					</Vars>
 					<TaskPouOids>
-						<TaskPouOid Prio="30" OTCID="#x08502002"/>
-						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+						<TaskPouOid Prio="30" OTCID="#x08502003"/>
+						<TaskPouOid Prio="1" OTCID="#x08502001"/>
+						<TaskPouOid Prio="20" OTCID="#x08502002"/>
 					</TaskPouOids>
 				</Instance>
 			</Project>
@@ -508,6 +515,9 @@
 				</AddressInfo>
 				<Image Id="1" AddrType="9" ImageType="3">
 					<Name>Image</Name>
+				</Image>
+				<Image Id="3" AddrType="10" ImageType="3">
+					<Name>Image-2</Name>
 				</Image>
 				<Box BoxType="9099" Id="1">
 					<Name>Term 1 (EK1200)</Name>
@@ -2355,8 +2365,11 @@
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{03040010-0010-0304-1000-040310000403}" Id="#x02030010" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{03040030-0030-0304-3000-040330000403}" Id="#x02030040" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{08502002-0010-0304-0020-500810000403}" Id="#x02030030" Watchdog="00000000000000000000000000000000"/>
+		<MappingInfo Identifier="{03040010-0030-0304-1000-040330000403}" Id="#x02030010" Watchdog="08000000040000000400000004000000"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030020"/>
+		<MappingInfo Identifier="{00000000-2002-0850-0120-500831000403}" Id="#x02030050"/>
 		<OwnerA Name="TIID^Device 1 (EtherCAT)">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 2 (EL1904)">
 				<Link VarA="Term 8 (EK1100)^ConnectionOutputs^Message_86 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
@@ -2399,10 +2412,10 @@
 		</OwnerA>
 		<OwnerA Name="TIPC^MAIN^MAIN Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 14 (SICK AFS60A ST, 18-Bit)">
-				<Link VarA="PlcTask Inputs^MOVE_TO_POSITION.currentRawPosition" VarB="TxPDO-1^Position Value"/>
+				<Link VarA="MOTION_TASK Inputs^MOTION.currentRawPosition" VarB="TxPDO-1^Position Value"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 3 (EL1859)">
-				<Link VarA="PlcTask Inputs^GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN" VarB="Channel 1^Input"/>
+				<Link VarA="MOTION_TASK Inputs^GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN" VarB="Channel 1^Input"/>
 				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.CONSOLE_DOWN_BUTTON_IN" VarB="Channel 3^Input"/>
 				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.CONSOLE_RESET_BUTTON_IN" VarB="Channel 5^Input"/>
 				<Link VarA="PlcTask Inputs^IO_SWITCHBOARD.CONSOLE_RUN_BUTTON_IN" VarB="Channel 4^Input"/>
@@ -2463,6 +2476,8 @@
 				<Link VarA="PlcTask Outputs^GV_MODBUS.screen.OutData^D[9]" VarB="COM RxPDO-Map Outputs^Data Out 9"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 8 (EK1100)^Term 9 (EL6900)">
+				<Link VarA="MOTION_TASK Outputs^GV_LIFT.DOWN_BUTTON_OUT" VarB="StandardOutputs^Standard In Var 53"/>
+				<Link VarA="MOTION_TASK Outputs^GV_LIFT.UP_BUTTON_OUT" VarB="StandardOutputs^Standard In Var 52"/>
 				<Link VarA="PlcTask Inputs^GV_LIFT.CONSOLE_ESTOP_INDICATOR_IN" VarB="StandardInputs^Standard Out Var 68"/>
 				<Link VarA="PlcTask Inputs^GV_LIFT.CRUSH_PROTECTION_INDICATOR_IN" VarB="StandardInputs^Standard Out Var 60"/>
 				<Link VarA="PlcTask Inputs^GV_LIFT.DOOR_1_INDICATOR_IN" VarB="StandardInputs^Standard Out Var 56"/>
@@ -2488,8 +2503,6 @@
 				<Link VarA="PlcTask Inputs^GV_LIFT.UP_INDICATOR_IN" VarB="StandardInputs^Standard Out Var 54"/>
 				<Link VarA="PlcTask Inputs^GV_LIFT.UP_LIMIT_INDICATOR_IN" VarB="StandardInputs^Standard Out Var 64"/>
 				<Link VarA="PlcTask Inputs^GV_LIFT.UP_LIMIT_INDICATOR_LATCH_IN" VarB="StandardInputs^Standard Out Var 76"/>
-				<Link VarA="PlcTask Outputs^GV_LIFT.DOWN_BUTTON_OUT" VarB="StandardOutputs^Standard In Var 53"/>
-				<Link VarA="PlcTask Outputs^GV_LIFT.UP_BUTTON_OUT" VarB="StandardOutputs^Standard In Var 52"/>
 				<Link VarA="PlcTask Outputs^SYSTEM_RESET.ERROR_ACKNOWLEDGEMENT_BUTTON_OUT" VarB="StandardOutputs^Standard In Var 1"/>
 				<Link VarA="PlcTask Outputs^SYSTEM_RESET.ESTOP_RESTART_BUTTON_OUT" VarB="StandardOutputs^Standard In Var 10"/>
 			</OwnerB>

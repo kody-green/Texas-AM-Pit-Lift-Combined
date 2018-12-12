@@ -14,8 +14,7 @@ VAR
 	DisplayTgtPos	:	STRING:= '';	
 	
 //Indicator Flags	
-	bSoftUpLimFlag		: BOOL;
-	bSoftDownLimFlag	: BOOL;
+	
 	bSoftLimFlag		: BOOL;
 	bLimitHeaderFlag	: BOOL;
 	bSystemFlag			: BOOL:= FALSE;
@@ -70,31 +69,19 @@ END_VAR
 	END_IF
 	
 // Displaying Loaded Target
-	IF 	bTgtLoaded = FALSE OR bLoadOK = FALSE OR GV_LIFT.MTS_ALLOWED = FALSE THEN
+	IF 	bTgtLoaded = FALSE OR bLoadOK = FALSE OR GV_LIFT.MTP_ALLOWED = FALSE THEN
 		DisplayTgtPos:= '';
 	ELSE
 		DisplayTgtPos:= CONCAT(REAL_TO_STRING((GV_LIFT.TARGET_POSITION)),'"');
 	END_IF
 
 // Hiding load Button to Display Unload Button
-	IF bLoadOK = TRUE AND bTgtLoaded = TRUE AND GV_LIFT.MTS_ALLOWED THEN
+	IF bLoadOK = TRUE AND bTgtLoaded = TRUE AND GV_LIFT.MTP_ALLOWED THEN
 		bUnload := TRUE;
 	ELSE bUnload := FALSE;	
 	END_IF
 
 //System Indicator
-
-//Soft Up Limit Indicator
-	IF (GV_LIFT.CURRENT_POSITION > XML.savedvalues.UpSoftLim) AND NOT GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN THEN
-		bSoftUpLimFlag := FALSE;
-	ELSE bSoftUpLimFlag := TRUE;
-	END_IF
-	
-//Soft Down Limit Indicator
-	IF (GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim) AND NOT GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN THEN
-		bSoftDownLimFlag := FALSE;
-	ELSE bSoftDownLimFlag := TRUE;
-	END_IF
 		
 //Soft Limit System Indicator
 	IF (GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim) OR (GV_LIFT.CURRENT_POSITION < XML.savedvalues.UpSoftLim) OR GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN THEN
@@ -147,14 +134,6 @@ END_VAR
       <LineId Id="100" Count="0" />
       <LineId Id="143" Count="0" />
       <LineId Id="166" Count="0" />
-      <LineId Id="191" Count="0" />
-      <LineId Id="168" Count="0" />
-      <LineId Id="192" Count="1" />
-      <LineId Id="196" Count="0" />
-      <LineId Id="167" Count="0" />
-      <LineId Id="197" Count="0" />
-      <LineId Id="199" Count="3" />
-      <LineId Id="198" Count="0" />
       <LineId Id="203" Count="0" />
       <LineId Id="157" Count="2" />
       <LineId Id="172" Count="0" />

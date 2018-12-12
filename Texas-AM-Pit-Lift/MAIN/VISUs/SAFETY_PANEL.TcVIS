@@ -688,7 +688,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"HMI.bSoftUpLimFlag"</v>
+                      <v n="Value">"MOTION.softUpLimClear"</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -1156,7 +1156,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"HMI.bSoftDownLimFlag"</v>
+                      <v n="Value">"MOTION.softDownLimClear"</v>
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
@@ -7555,11 +7555,11 @@
                 <v n="VisualElementIdentifier">"GenElemInst_299"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String">
                   <v>OnDialogClosed</v>
                   <a cet="STSnippetInputAction">
                     <o>
-                      <v n="STSnippet">"MOVE_TO_POSITION.bRecalculatePosition := TRUE;"</v>
+                      <v n="STSnippet">"MOTION.bRecalculatePosition := TRUE;"</v>
                     </o>
                   </a>
                   <v>OnMouseDown</v>
@@ -9371,10 +9371,10 @@
               <d n="FbMethods" t="CaseInsensitiveHashtable" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>7bfc57bd-86e8-421c-a632-3d117fe1c9b8</v>
-                <v>FB_Exit</v>
-                <v>f54f920f-8360-49a4-b06b-a5280d54f680</v>
                 <v>FB_Reinit</v>
                 <v>4993a458-2520-4cba-851a-dcf8622ecfaf</v>
+                <v>FB_Exit</v>
+                <v>f54f920f-8360-49a4-b06b-a5280d54f680</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{db4b2d66-b86b-4214-9862-03332748a1aa}</v>
