@@ -226,6 +226,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"839"</v>
+              <v n="TextDefault">"Pump Room E-Stop"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"376"</v>
               <v n="TextDefault">"RUN"</v>
               <l n="LanguageTexts" t="ArrayList" />

@@ -43,6 +43,7 @@ Id;Default
 138;Pickle E-Stop
 137;Pit E-Stop
 736;Properties
+839;Pump Room E-Stop
 376;RUN
 746;Safety Status Panel
 144;Set Current Position

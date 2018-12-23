@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<safetyApplication Crc="4092508291" xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.1.0.0" Id="99bc231c-2d66-4745-80e1-5779468b963d" name="" mapState="false" mapDiag="false" groupOrderId="0" passificationAllowed="false" temporaryDeactivationAllowed="false" permamentDeactivationAllowed="false" xmlid="0" analogFBOutputReplacementValues="Zero" verifyAnalogFBInputsIfStart="false" xmlns="http://schemas.microsoft.com/dsltools/SafetyApplicationLanguage">
+<safetyApplication Crc="3893581359" xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.1.0.0" Id="99bc231c-2d66-4745-80e1-5779468b963d" name="" mapState="false" mapDiag="false" groupOrderId="0" passificationAllowed="false" temporaryDeactivationAllowed="false" permamentDeactivationAllowed="false" xmlid="0" analogFBOutputReplacementValues="Zero" verifyAnalogFBInputsIfStart="false" xmlns="http://schemas.microsoft.com/dsltools/SafetyApplicationLanguage">
   <networks>
     <safetyApplicationHasNetworks Id="a7186956-95dc-4cfe-9eb5-79b62c0f054c">
       <Network Id="03d0f976-5895-405c-b815-4958e744e120" name="Network1" networkName="Network1" intId="1" networkOrderId="0">
@@ -1785,10 +1785,10 @@
                   <inPort Id="c4093645-cffc-4f89-812a-10a96066b89b" name="MonIn1" portName="MonIn1" assignedVariable="BumperChannel1" portNum="4" objectIndex="8" varId="4" filter="2" portDataType="1" channelInterface="Single-Channel Both Activated" deactivate1="Break Contact (NC)" deactivate2="Break Contact (NC)" maxDeviation="0" resetTime="0">
                     <portMappings>
                       <functionBlockPortHasPortMappings Id="0624fb0c-bd77-479d-8cd8-9a5dafdfe86e">
-                        <portMapping Id="99eec9c5-52de-41d8-a906-54a70171b7db" name="FBMon1_MonIn1_mapping" direction="input" dataType="safeBool" assignedVariable="BumperChannel1" physicalPorts="91.InputChannel3">
+                        <portMapping Id="99eec9c5-52de-41d8-a906-54a70171b7db" name="FBMon1_MonIn1_mapping" direction="input" dataType="safeBool" assignedVariable="BumperChannel1" physicalPorts="Term 17 (EL1904) - Module 1 (FSOES).InputChannel1">
                           <aliasPorts>
-                            <portMappingHasAliasPorts Id="2b24ebb5-9641-44a9-975b-9224db73579d">
-                              <aliasPort Id="4e28efb9-7c28-415c-92e4-503d92468cfa" name="SdsId91.ChannelId3" sdsId="91" channelId="3" channelName="InputChannel3" functionId="1610679041" />
+                            <portMappingHasAliasPorts Id="43591940-3eb7-41a1-a3a5-412e7c05cdeb">
+                              <aliasPort Id="8b372fc7-692c-4834-963e-f3640286b9c7" name="SdsId95.ChannelId1" sdsId="95" channelId="1" channelName="InputChannel1" functionId="1610678529" />
                             </portMappingHasAliasPorts>
                           </aliasPorts>
                         </portMapping>
@@ -1800,10 +1800,10 @@
                   <inPort Id="8a75417f-7d4d-4a5f-ac0f-758f92274e63" name="MonIn2" portName="MonIn2" assignedVariable="BumperChannel2" portNum="5" objectIndex="9" varId="5" filter="2" portDataType="1" channelInterface="Both Deactivated" maxDeviation="0" resetTime="0">
                     <portMappings>
                       <functionBlockPortHasPortMappings Id="c12f37cc-3667-4901-96f6-3364cb26b341">
-                        <portMapping Id="eed53e09-8415-4963-945c-32f869e6104c" name="FBMon1_MonIn2_mapping" direction="input" dataType="safeBool" assignedVariable="BumperChannel2" physicalPorts="91.InputChannel4">
+                        <portMapping Id="eed53e09-8415-4963-945c-32f869e6104c" name="FBMon1_MonIn2_mapping" direction="input" dataType="safeBool" assignedVariable="BumperChannel2" physicalPorts="Term 17 (EL1904) - Module 1 (FSOES).InputChannel2">
                           <aliasPorts>
-                            <portMappingHasAliasPorts Id="39023437-83c6-4192-b2d0-648cd972b60c">
-                              <aliasPort Id="bd1e4e31-b557-44f3-b1cc-430f2f2e5a55" name="SdsId91.ChannelId4" sdsId="91" channelId="4" channelName="InputChannel4" functionId="1610679297" />
+                            <portMappingHasAliasPorts Id="ca3f38b1-d384-49e8-ad2b-1ede832c1cc0">
+                              <aliasPort Id="6346f4cd-66a7-408e-a30f-38cc367e5afd" name="SdsId95.ChannelId2" sdsId="95" channelId="2" channelName="InputChannel2" functionId="1610678785" />
                             </portMappingHasAliasPorts>
                           </aliasPorts>
                         </portMapping>

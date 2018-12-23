@@ -9,6 +9,8 @@ END_VAR
     <Implementation>
       <ST><![CDATA[IF NOT GV_LIFT.DOWN_LIMIT_INDICATOR_IN THEN 
 	dwDownArrow := GV_HMI.dwRed;
+ELSIF GV_Lift.ULTIMATE_LIMIT_INDICATOR_OUT THEN
+	dwDownArrow := GV_HMI.dwRed;
 ELSIF GV_LIFT.CURRENT_POSITION < XML.savedvalues.DownSoftLim THEN
 	dwDownArrow := GV_HMI.dwYellow;
 ELSIF GV_LIFT.DOWN_INDICATOR_IN THEN
@@ -18,7 +20,10 @@ ELSE
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="HMI_Down_Arrow_Indicator">
-      <LineId Id="6" Count="7" />
+      <LineId Id="6" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="8" Count="5" />
       <LineId Id="5" Count="0" />
     </LineIds>
   </POU>
