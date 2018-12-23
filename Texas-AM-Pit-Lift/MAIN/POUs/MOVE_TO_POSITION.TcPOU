@@ -14,7 +14,6 @@ VAR
 	rCurrentPosition : REAL;
 	bRecalculatePosition : BOOL;
 	WritePosCase : INT := 0;
-	LoadComplate : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -25,6 +24,7 @@ CASE WritePosCase OF
 			rStagePosition := XML.savedvalues.rStagePosition;
 		END_IF
 		WritePosCase := 1;
+	ELSE rStagePosition := 2663040;
 	END_IF
 1:
 	IF(bRecalculatePosition) THEN
@@ -61,6 +61,7 @@ END_CASE]]></ST>
       <LineId Id="145" Count="0" />
       <LineId Id="132" Count="1" />
       <LineId Id="149" Count="0" />
+      <LineId Id="166" Count="0" />
       <LineId Id="148" Count="0" />
       <LineId Id="141" Count="0" />
       <LineId Id="124" Count="0" />

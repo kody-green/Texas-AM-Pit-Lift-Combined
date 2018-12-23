@@ -73,9 +73,11 @@ CASE iState OF
       iState:= 100;
    END_IF
 
-	IF stMyTimestruct.wMinute = 0 OR stMyTimestruct.wMinute = 15 OR stMyTimeStruct.wMinute = 30 OR stMyTimeStruct.wMinute = 45 OR stMyTimeStruct.wMinute = 60 THEN
+	IF (stMyTimestruct.wMinute = 0 AND stMyTimeStruct.wSecond = 5) OR (stMyTimestruct.wMinute = 15 AND stMyTimeStruct.wSecond = 5) OR (stMyTimeStruct.wMinute = 30 AND stMyTimeStruct.wSecond = 5) OR (stMyTimeStruct.wMinute = 45 AND stMyTimeStruct.wSecond = 5) OR (stMyTimeStruct.wMinute = 60 AND stMyTimeStruct.wSecond = 5) THEN
 		bTwentySecOver:= TRUE;
-		savedvalues.rStagePosition := GV_LIFT.STAGE_POSITION;
+		IF	GV_LIFT.STAGE_POSITION <> 0 THEN
+			savedvalues.rStagePosition := GV_LIFT.STAGE_POSITION;
+		END_IF
 	ELSE
 		bTwentySecOver:= FALSE;
 	END_IF
@@ -125,6 +127,7 @@ END_CASE]]></ST>
       <LineId Id="544" Count="0" />
       <LineId Id="550" Count="0" />
       <LineId Id="577" Count="0" />
+      <LineId Id="601" Count="1" />
       <LineId Id="551" Count="0" />
       <LineId Id="548" Count="0" />
       <LineId Id="543" Count="0" />
