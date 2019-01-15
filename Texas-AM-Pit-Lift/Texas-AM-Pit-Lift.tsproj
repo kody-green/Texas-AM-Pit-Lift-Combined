@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4022.27">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4022.25">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{A6DACA51-6BEF-4744-9842-DFBA6F0B44D3}" Namespace="Tc2_ModbusRTU" AutoDeleteType="true">MB_KL6inData22B</Name>
@@ -174,12 +174,12 @@
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>IO_SWITCHBOARD.CONSOLE_DOWN_BUTTON_IN</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>MOVE_TO_POSITION.currentRawPosition</Name>
 							<Type>UDINT</Type>
+						</Var>
+						<Var>
+							<Name>IO_SWITCHBOARD.CONSOLE_DOWN_BUTTON_IN</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>IO_SWITCHBOARD.CONSOLE_RUN_BUTTON_IN</Name>
@@ -200,10 +200,6 @@
 						<Var>
 							<Name>IO_SWITCHBOARD.REMOTE_RUN_BUTTON_IN</Name>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GV_MODBUS.screen.InData</Name>
-							<Type GUID="{A6DACA51-6BEF-4744-9842-DFBA6F0B44D3}" Namespace="Tc2_ModbusRTU">MB_KL6inData22B</Type>
 						</Var>
 						<Var>
 							<Name>IO_SWITCHBOARD.REMOTE_UP_BUTTON_IN</Name>
@@ -333,13 +329,13 @@
 							<Name>GV_LIFT.LIMIT_OVERRIDE_BUTTON_IN</Name>
 							<Type>BOOL</Type>
 						</Var>
+						<Var>
+							<Name>GV_MODBUS.screen.InData</Name>
+							<Type GUID="{A6DACA51-6BEF-4744-9842-DFBA6F0B44D3}" Namespace="Tc2_ModbusRTU">MB_KL6inData22B</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
 						<Name>PlcTask Outputs</Name>
-						<Var>
-							<Name>GV_MODBUS.screen.OutData</Name>
-							<Type GUID="{F5093E02-3126-4DB1-90E8-DE305C8C9A8E}" Namespace="Tc2_ModbusRTU">MB_KL6outData22B</Type>
-						</Var>
 						<Var>
 							<Name>SYSTEM_RESET.ERROR_ACKNOWLEDGEMENT_BUTTON_OUT</Name>
 							<Type>BOOL</Type>
@@ -468,6 +464,10 @@
 							<Name>GV_LIFT.CONSOLE_ESTOP_INDICATOR_OUT</Name>
 							<Type>BOOL</Type>
 						</Var>
+						<Var>
+							<Name>GV_MODBUS.screen.OutData</Name>
+							<Type GUID="{F5093E02-3126-4DB1-90E8-DE305C8C9A8E}" Namespace="Tc2_ModbusRTU">MB_KL6outData22B</Type>
+						</Var>
 					</Vars>
 					<TaskPouOids>
 						<TaskPouOid Prio="30" OTCID="#x08502002"/>
@@ -477,7 +477,7 @@
 			</Project>
 		</Plc>
 		<Safety>
-			<Project Name="SAFETY" GeneralArchiveSettings="#x000f" TargetArchiveSettings="#x0007" FileArchiveSettings="#x000e">
+			<Project GUID="{EE5FA1F7-FF5A-4433-9100-A9945DE98FB2}" Name="SAFETY" PrjFilePath="SAFETY\SAFETY.splcproj" TmcFilePath="SAFETY\SAFETY.tmc" GeneralArchiveSettings="#x000f" TargetArchiveSettings="#x0007" FileArchiveSettings="#x000e">
 				<Instance Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>SAFETY Instance</Name>
 					<TmcDesc GUID="{72A6D5B8-E98C-4604-8B90-09D1F8AB38A9}">

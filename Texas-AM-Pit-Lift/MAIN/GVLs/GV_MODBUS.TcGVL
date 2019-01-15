@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
   <GVL Name="GV_MODBUS" Id="{3b492ee3-99d8-478e-b1c7-72a4fe91102d}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL CONSTANT
@@ -39,7 +39,8 @@ VAR_GLOBAL CONSTANT
 	filterTarget: REAL:= 999.99;
 END_VAR
 
-VAR_GLOBAL		
+VAR_GLOBAL	
+	
 	screen: ModbusRtuMasterV2_KL6x22B;
 	writeExecute: BOOL := TRUE;
 	readExecute: BOOL := FALSE;
@@ -61,8 +62,6 @@ VAR_GLOBAL
 	
 	wasMTS : BOOL := FALSE;
 	refreshInterval: INT := 50;
-	
-	limitAcknowledged : BOOL := FALSE;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

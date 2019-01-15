@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
   <POU Name="DownLimit" Id="{8dc1dc21-9c24-4b40-a3dc-389869464ead}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM DownLimit
 VAR	
@@ -13,10 +13,8 @@ VAR
 	soft_right : ARRAY [1..5] OF WORD := [16#4654, 16#204C, 16#494D, 16#4954, 16#2A2A];
 		
 
-	//message_left : ARRAY [1..5] OF WORD := [16#2020, 16#2050, 16#4C45, 16#4153, 16#4520];
-	//message_right : ARRAY [1..5] OF WORD := [16#4A4F, 16#4720, 16#5550, 16#2020, 16#2020];	
-	message_left : ARRAY [1..5] OF WORD := [16#2050, 16#5245, 16#5353, 16#2053, 16#454C];
-	message_right : ARRAY [1..5] OF WORD := [16#4543, 16#5420, 16#2F20, 16#4A4F, 16#4720];
+	message_left : ARRAY [1..5] OF WORD := [16#2020, 16#2050, 16#4C45, 16#4153, 16#4520];
+	message_right : ARRAY [1..5] OF WORD := [16#4A4F, 16#4720, 16#5550, 16#2020, 16#2020];
 	
 	current : ARRAY [1..5] OF WORD := [16#4375, 16#7272, 16#656E, 16#7420, 16#506F];
 	pos : ARRAY [1..5] OF WORD := [16#7320, 16#2020, 16#2020, 16#2020, 16#2020];
@@ -25,9 +23,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF GV_MODBUS.btnData = GV_MODBUS.btnEnter THEN
-	GV_MODBUS.limitAcknowledged := TRUE;
-END_IF
+      <ST><![CDATA[
 
 GV_MODBUS.twoLeft:= message_left;
 GV_MODBUS.twoRight:= message_right;
@@ -52,7 +48,7 @@ GV_MODBUS.fourRight:= GV_MODBUS.blank;
 GV_MODBUS.fourRight:= Position_To_Row_Array(pos, GV_LIFT.CURRENT_POSITION);     
 
 
-IF tick >= (GV_MODBUS.refreshInterval*2) THEN
+IF tick >= GV_MODBUS.refreshInterval THEN
 	Execute_Write_Screen();
 	tick := 0;
 END_IF
@@ -60,9 +56,8 @@ END_IF
 tick := tick + 1;]]></ST>
     </Implementation>
     <LineIds Name="DownLimit">
-      <LineId Id="92" Count="2" />
-      <LineId Id="91" Count="0" />
-      <LineId Id="51" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="50" Count="1" />
       <LineId Id="23" Count="0" />
       <LineId Id="52" Count="0" />
       <LineId Id="24" Count="1" />

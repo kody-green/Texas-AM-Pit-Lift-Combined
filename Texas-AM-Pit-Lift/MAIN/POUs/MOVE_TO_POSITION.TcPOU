@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
   <POU Name="MOVE_TO_POSITION" Id="{56c13076-a9dd-4c45-b27c-b090b1590a60}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MOVE_TO_POSITION
 VAR CONSTANT
-	UP_OFFSET : REAL :=-1.25;
-	DOWN_OFFSET : REAL := 1.375;
+	UP_OFFSET : REAL :=-1.1;
+	DOWN_OFFSET : REAL := 0.675;
 	POSITION_SCALE : REAL := 12700;
 	
 END_VAR
