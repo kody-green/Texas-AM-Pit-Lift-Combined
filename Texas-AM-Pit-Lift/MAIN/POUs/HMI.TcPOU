@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="HMI" Id="{64e13a00-698b-4f83-9fef-3d94ef99aec6}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM HMI
 VAR
@@ -51,7 +51,7 @@ END_VAR
 	displayvalues[displaycounter].description := (XML.savedvalues.SavedPos[displaycounter].description);	
 	
 //Determines if Target is inside Soft Limits
-	IF XML.savedvalues.savedpos[GV_HMI.RowSelect].target <= (XML.savedvalues.UpSoftLim) AND XML.savedvalues.savedpos[GV_HMI.RowSelect].target >= (XML.savedvalues.DownSoftLim) THEN
+	IF XML.savedvalues.savedpos[GV_HMI.RowSelect].target <= (1) AND XML.savedvalues.savedpos[GV_HMI.RowSelect].target >= (XML.savedvalues.DownSoftLim) THEN
 		insidelimits := TRUE;
 	ELSE
 		insidelimits := FALSE;
