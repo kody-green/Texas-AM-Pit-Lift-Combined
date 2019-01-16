@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="UpLimit" Id="{e6866071-58cb-426d-9411-09cfc3e0f235}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM UpLimit
 VAR	
@@ -12,8 +12,11 @@ VAR
 	soft_left : ARRAY [1..5] OF WORD := [16#2A2A, 16#2A2A, 16#5550, 16#2053, 16#4F46];
 	soft_right : ARRAY [1..5] OF WORD := [16#5420, 16#4C49, 16#4D49, 16#542A, 16#2A2A];	
 	
-	message_left : ARRAY [1..5] OF WORD := [16#2020, 16#504C, 16#4541, 16#5345, 16#204A];
-	message_right : ARRAY [1..5] OF WORD := [16#4F47, 16#2044, 16#4F57, 16#4E20, 16#2020];
+	crush_message_left : ARRAY [1..5] OF WORD := [16#2020, 16#504C, 16#4541, 16#5345, 16#204A];
+	crush_message_right : ARRAY [1..5] OF WORD := [16#4F47, 16#2044, 16#4F57, 16#4E20, 16#2020];
+	
+	message_left : ARRAY [1..5] OF WORD := [16#2050, 16#5245, 16#5353, 16#2053, 16#454C];
+	message_right : ARRAY [1..5] OF WORD := [16#4543, 16#5420, 16#2F20, 16#4A4F, 16#4720];
 	
 	current : ARRAY [1..5] OF WORD := [16#4375, 16#7272, 16#656E, 16#7420, 16#506F];
 	pos : ARRAY [1..5] OF WORD := [16#7320, 16#2020, 16#2020, 16#2020, 16#2020];
@@ -21,12 +24,19 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[GV_MODBUS.twoLeft:= message_left;
+      <ST><![CDATA[IF GV_MODBUS.btnData = GV_MODBUS.btnEnter THEN
+	GV_MODBUS.limitAcknowledged := TRUE;
+END_IF
+
+GV_MODBUS.twoLeft:= message_left;
 GV_MODBUS.twoRight:= message_right;
 
 IF GV_LIFT.CRUSH_PROTECTION_INDICATOR_OUT THEN
 	GV_MODBUS.oneLeft := crush_left;
 	GV_MODBUS.oneRight := crush_right;
+	
+	GV_MODBUS.twoLeft:= crush_message_left;
+	GV_MODBUS.twoRight:= crush_message_right;
 ELSIF GV_LIFT.UP_LIMIT_INDICATOR_OUT THEN
 	GV_MODBUS.oneLeft := hard_left;
 	GV_MODBUS.oneRight := hard_right;
@@ -44,7 +54,7 @@ GV_MODBUS.fourRight:= GV_MODBUS.blank;
 GV_MODBUS.fourRight:= Position_To_Row_Array(pos, GV_LIFT.CURRENT_POSITION);     
 
 
-IF tick >= GV_MODBUS.refreshInterval THEN
+IF tick >= (GV_MODBUS.refreshInterval*2) THEN
 	Execute_Write_Screen();
 	tick := 0;
 END_IF
@@ -53,12 +63,16 @@ tick := tick + 1;
 ]]></ST>
     </Implementation>
     <LineIds Name="UpLimit">
+      <LineId Id="103" Count="1" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="105" Count="0" />
       <LineId Id="63" Count="0" />
       <LineId Id="58" Count="0" />
       <LineId Id="31" Count="0" />
       <LineId Id="23" Count="0" />
       <LineId Id="30" Count="0" />
       <LineId Id="75" Count="0" />
+      <LineId Id="99" Count="2" />
       <LineId Id="25" Count="1" />
       <LineId Id="76" Count="0" />
       <LineId Id="28" Count="1" />

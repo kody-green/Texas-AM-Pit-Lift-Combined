@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="SelectSpike" Id="{3400e5d8-f531-4690-b110-580b0ceb5e1c}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM SelectSpike
 VAR
@@ -11,9 +11,9 @@ VAR
 	found: BOOL := FALSE;
 	
 	indexesIndex: INT := 1;
-	firstSpikeIndex: INT := 0;
-	secondSpikeIndex: INT := 0;
-	thirdSpikeIndex: INT := 0;	
+	firstSpikeIndex: INT := 1;
+	secondSpikeIndex: INT := 1;
+	thirdSpikeIndex: INT := 1;	
 	
 	selectedCursorIndex: INT := 0;	
 	cursorIndex: INT := 1;
@@ -70,11 +70,11 @@ IF GV_MODBUS.btnData = GV_MODBUS.btnEnter THEN
 		tempTarget := XML.savedvalues.savedpos[thirdSpikeIndex].target;
 	END_IF
 	
-	IF tempTarget >=  XML.savedvalues.DownSoftLim AND tempTarget <=  XML.savedvalues.UpSoftLim THEN
-		GV_LIFT.MTS_ALLOWED := TRUE;
-		GV_LIFT.JUST_RAN := FALSE;
-		GV_LIFT.TARGET_POSITION := tempTarget;
-	END_IF	
+	//IF tempTarget >=  XML.savedvalues.DownSoftLim AND tempTarget <=  XML.savedvalues.UpSoftLim THEN
+	GV_LIFT.MTS_ALLOWED := TRUE;
+	GV_LIFT.JUST_RAN := FALSE;
+	GV_LIFT.TARGET_POSITION := tempTarget;
+	//END_IF	
 	
 	Execute_Write_Screen();
 END_IF
