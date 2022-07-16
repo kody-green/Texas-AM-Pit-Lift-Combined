@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <POU Name="MAIN" Id="{f931fcee-5ac4-4068-9063-b3a0ff76f962}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR		
@@ -59,7 +59,6 @@ XML();
 IO_SWITCHBOARD();
 SYSTEM_RESET();
 MOVE_TO_POSITION();
-HMI();
 SwitchScreens();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
@@ -89,7 +88,6 @@ SwitchScreens();]]></ST>
       <LineId Id="576" Count="0" />
       <LineId Id="854" Count="1" />
       <LineId Id="857" Count="0" />
-      <LineId Id="992" Count="0" />
       <LineId Id="988" Count="0" />
     </LineIds>
   </POU>
